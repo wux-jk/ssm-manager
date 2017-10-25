@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
 
 
-    @Select( "select t_userID as \"userID\",t_userName as \"userName\",t_password as \"userPassword\" from t_user where" +
-            " t_userName = \"userName\" and  t_password = \"userPassword\" ")
+    @Select( "select userID as \"userID\",userName as \"userName\",userPassword as \"userPassword\" from users where" +
+            " userName = #{userName} ")
     User queryLogin(User user);
 }

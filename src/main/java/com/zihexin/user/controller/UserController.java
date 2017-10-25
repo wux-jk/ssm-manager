@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("LoginAuthentication.jhtml")
+    @RequestMapping("LoginAuthentication")
     @ResponseBody
     Map<String,Object> loginUser(User user,HttpServletRequest request){
        HttpSession session= request.getSession();
