@@ -5,6 +5,7 @@ import com.zihexin.user.entity.User;
 import com.zihexin.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,12 +23,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("LoginAuthentication.jhtml")
+
+    @RequestMapping("LoginAuthentication")
     @ResponseBody
     Map<String,Object> loginUser(User user,HttpServletRequest request){
        HttpSession session= request.getSession();
             //查询用户信息
-            Map<String,Object> map = userService.loginUser(user);
+         Map<String,Object> map = userService.loginUser(user);
             Object userInfo=map.get("userInfo");
         if (null!=userInfo){
             //把用户信息放到session中
@@ -39,6 +41,8 @@ public class UserController {
 
 
     }
+
+
 
 
 

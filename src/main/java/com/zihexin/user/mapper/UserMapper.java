@@ -10,6 +10,6 @@ public interface UserMapper {
 
 
     @Select( "select t_userID as \"userID\",t_userName as \"userName\",t_password as \"userPassword\" from t_user where" +
-            " t_userName = \"userName\" and  t_password = \"userPassword\" ")
+            " t_userName = #{userName} ")
     User queryLogin(User user);
 }

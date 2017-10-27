@@ -69,7 +69,7 @@ input{
 }   
 </style>
 </head>
-<body style="background:url('../img/1.jpg') repeat;">
+<body style="background:url('../img/3.jpg') repeat;">
 	<div id="login">   
 		<h1>登录</h1>   
 		<table>
@@ -80,7 +80,7 @@ input{
 			</tr>   
 			<tr>
 				<td>
-					<input type="password" id="password"  placeholder="密码" />
+					<input type="password" id="userPassword"  placeholder="密码" />
 				</td>
 
 		</table>   
@@ -88,10 +88,6 @@ input{
     </div>   
 </body>
 <script type="text/javascript">
-/*//刷新验证码
-	function updateImg(){
-		$("#updateImgCode").attr('src',"../AuthImage?"+Date.parse(new Date()));
-	}*/
 	//登录
 	function landing(){
 		var userName=$("#userName").val();
@@ -99,39 +95,34 @@ input{
 			alert("用户名不能为空")
 			return;
 		}
-		var password=$("#password").val();
-		if(password==""){
+		var userPassword=$("#userPassword").val();
+		if(userPassword==""){
 			alert("密码不能为空")
 			return;
 		}
-		/*var checkCode=$("#checkCode").val();
-		if(checkCode==""){
-			alert("验证码不能为空")
-			return;
-		}*/
+
 		$.ajax({
-			url:"../login/LoginAuthentication.jhtml",
+			url:"/login/LoginAuthentication.jhtml",
 			type:'post',
 			data:{
 				userName:userName,
-				password:password,
-
+				userPassword:userPassword,
 			},
 			datatype:'json',
 			success:function(data){
 				if(data.falg==1){
 					alert("登录成功")
-					location.href="../index/toIndex.do";
+					location.href="tree.jsp";
 				}
 				else if(data.falg==2){
 					alert("用户不存在")
-
 				}else{
-					alert("用户名或密码错误");
+					alert("密码错误");
 				}
-
 			}
 		})
+
+
 	}
 	//回车登录
 	$(document).keypress(function(e) {
