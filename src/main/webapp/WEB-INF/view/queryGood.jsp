@@ -28,7 +28,7 @@
     <tr>
       <td>商家:</td>
       <td>
-        <select class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodName">
+        <select class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
           <option value="0">--请选择--</option>
           <option value="1">京东</option>
           <option value="2">麦德龙</option>
@@ -40,14 +40,38 @@
 
 
     </tr>
+
   </table>
 </div>
 
+
+<!--数据表格的工具栏  -->
+<div id="tb">
+  <%--<a href="javascript:void(0);"   class="easyui-linkbutton" iconCls="icon-add" plain="true"  onclick="dialog('<%=request.getContextPath()%>/product!dialogProduct.html')">添加</a>--%>
+
+   <table>
+
+      <tr>
+        <td><button onclick="updateGood();" class="easyui-linkbutton" iconCls="icon-edit" plain="true" >编辑</button></td>
+        <td><button onclick="deleteProducts();" class="easyui-linkbutton" iconCls="icon-remove" plain="true"  >删除</button></td>
+        <td><button onclick="refresh();" class="easyui-linkbutton" iconCls="icon-remove" plain="true"  >刷新</button></td>
+      </tr>
+    </table>
+
+</div>
+
+ <!--table  表格 -->
 <div><table id="goodTable"></table></div>
+
+
+<!--  对话框  -->
+<div id="divGood"></div>
+
 
 <script type="text/javascript">
   function searchGood(){
-      var goodName=$("[name='goodName']").val();
+      var goodType=$("[name='goodType']").val();
+
       var goodNumber=$("[name='goodNumber']").val();
 
     $('#goodTable').datagrid({
@@ -55,17 +79,17 @@
       fitColumns: true,
       pagination: true,
       queryParams: {
-        goodName: goodName,
+        goodType: goodType,
         goodNumber: goodNumber,
       },
       columns:[[
         {field:'ckecked',checkbox:true},
-        {field:'goodID',title:'ID',width:100,align:'center'},
-        {field:'goodName',title:'商品名称',width:100,align:'center'},
-        {field:'goodNumber',title:'商品编号',width:100,align:'center'},
-        {field:'goodPrice',title:'商品价格',width:100,align:'center'},
-        {field:'goodStock',title:'商品库存',width:100,align:'center'},
-        {field:'goodType',title:'商家',width:100,align:'center',
+        {field:'goodID',title:'ID',width:30,align:'center'},
+        {field:'goodName',title:'商品名称',width:50,align:'center'},
+        {field:'goodNumber',title:'商品编号',width:30,align:'center'},
+        {field:'goodPrice',title:'商品价格',width:35,align:'center'},
+        {field:'goodStock',title:'商品库存',width:30,align:'center'},
+        {field:'goodType',title:'商家',width:20,align:'center',
           formatter: function(value,row,index){
             if(row.goodType == 1){
               return '京东';
@@ -75,12 +99,56 @@
           }
         },
 
+
       ]]
 
 
 
 
     })
+  }
+
+
+
+  //---------------------------------------------------------------------------------
+  //编辑
+  function updateGood(id){
+
+    var ids = id;
+    $('#divGood').dialog({
+      title: '修改',
+      width: 1000,
+      height:500,
+      closed: false,
+      cache: false,
+      href:'/good/findGoodByid.jhtml?goodID='+ids,
+      modal: true,
+      buttons:[{
+        text:'保存',
+        iconCls:"icon-ok",
+        handler:function(){
+          $.ajax({
+            type:"post",
+            url:'/good/updateGood.jhtml',
+            data:$("#upGoodForm").serialize(),
+            success:function (msg){
+              $.messager.alert('我的消息','修改成功！','info');
+              $("#divGood").dialog("close");
+              searchGood();
+            }
+          });
+        }
+      },{
+        text:'关闭',
+        iconCls:"icon-no",
+        handler:function(){
+          $('#divGood').dialog('close');
+        }
+      }]
+
+    });
+    $("#goodTable").datagrid('reload');
+
   }
 </script>
 

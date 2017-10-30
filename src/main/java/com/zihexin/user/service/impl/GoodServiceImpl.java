@@ -17,9 +17,8 @@ public class GoodServiceImpl implements GoodService{
     @Autowired
     private GoodMapper goodMapper;
 
-
     @Override
-    public List<Good> queryGoiodList() {
-        return goodMapper.queryGoiodList();
+    public List<Good> queryGoiodList(Good good) {
+        return goodMapper.queryGoiodList(good);
     }
 }

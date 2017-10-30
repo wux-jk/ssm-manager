@@ -14,10 +14,10 @@ targetCompatibility = 1.8
 
 
 //仓库的配置
-repositories {
+/*repositories {
     //maven中央仓库
     mavenCentral()
-}
+}*/
 
 allprojects {
     repositories {
@@ -103,6 +103,13 @@ dependencies {
 
     //json
     compile "com.google.code.gson:gson:2.2.4"
+
+    //json-lib
+    compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4',classifier:'jdk15'
+
+    //fastjson
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.31'
+
 
     //log4j
     compile "log4j:log4j:1.2.17"

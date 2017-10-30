@@ -64,6 +64,10 @@
           <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.5" />
           <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.9" />
           <element id="library" level="project" name="Gradle: com.oracle:ojdbc6:11.2.0.4.0-atlassian-hosted" />
+          <element id="library" level="project" name="Gradle: commons-collections:commons-collections:3.2.1" />
+          <element id="library" level="project" name="Gradle: net.sf.ezmorph:ezmorph:1.0.6" />
+          <element id="library" level="project" name="Gradle: net.sf.json-lib:json-lib:2.4:jdk15" />
+          <element id="library" level="project" name="Gradle: com.alibaba:fastjson:1.2.31" />
         </element>
       </element>
       <element id="directory" name="META-INF">
