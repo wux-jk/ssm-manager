@@ -2,10 +2,12 @@
   <library name="Gradle: com.github.pagehelper:pagehelper:4.0.3">
     <CLASSES>
       <root url="jar://D:/gradle-repo/caches/modules-2/files-2.1/com.github.pagehelper/pagehelper/4.0.3/f7e7b8b6c819ae567ae4f871eff4918dcb8ec6f1/pagehelper-4.0.3.jar!/" />
+      <root url="jar://D:/gradle/gradle_repo/caches/modules-2/files-2.1/com.github.pagehelper/pagehelper/4.0.3/f7e7b8b6c819ae567ae4f871eff4918dcb8ec6f1/pagehelper-4.0.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://D:/gradle-repo/caches/modules-2/files-2.1/com.github.pagehelper/pagehelper/4.0.3/ecd1f199f04ba0e836757afa8fd426fe1d27a757/pagehelper-4.0.3-sources.jar!/" />
+      <root url="jar://D:/gradle/gradle_repo/caches/modules-2/files-2.1/com.github.pagehelper/pagehelper/4.0.3/ecd1f199f04ba0e836757afa8fd426fe1d27a757/pagehelper-4.0.3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
