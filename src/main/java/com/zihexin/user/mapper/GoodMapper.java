@@ -1,6 +1,7 @@
 package com.zihexin.user.mapper;
 
 import com.zihexin.user.entity.Good;
+import com.zihexin.user.entity.User;
 
 import java.util.List;
 
@@ -11,4 +12,10 @@ public interface GoodMapper {
 
 
     List<Good> queryGoiodList(Good good);
+
+    /*List<Good> findGoodByid(Good good);*/
+
+  Good findGoodByid(Good good);
+
+
 }

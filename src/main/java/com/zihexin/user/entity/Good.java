@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Good implements Serializable{
 
-    private Integer goodID;
+    private String goodID;
 
     private String goodName;
 
@@ -17,13 +17,23 @@ public class Good implements Serializable{
 
     private Integer goodStock;
 
+    private String goodDesc;
+
     private Integer goodType;
 
-    public Integer getGoodID() {
+    public String getGoodDesc() {
+        return goodDesc;
+    }
+
+    public void setGoodDesc(String goodDesc) {
+        this.goodDesc = goodDesc;
+    }
+
+    public String getGoodID() {
         return goodID;
     }
 
-    public void setGoodID(Integer goodID) {
+    public void setGoodID(String goodID) {
         this.goodID = goodID;
     }
 

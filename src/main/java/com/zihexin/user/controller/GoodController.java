@@ -2,12 +2,16 @@ package com.zihexin.user.controller;
 
 import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
+import com.zihexin.user.entity.User;
 import com.zihexin.user.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,9 +45,27 @@ public class GoodController extends BaseController {
 
     }
 
-    public void findGoodByid(){
+  /* @RequestMapping("findGoodByid")
+    public String findGoodByid(Good good,HttpServletRequest request)throws Exception{
+            List<Good> us=goodService.findGoodByid(good);
+       System.out.println(us);
+            request.setAttribute("us",us);
+            return "upGood";
 
-    }
+    }*/
+   //回显
+   @RequestMapping("findGoodByid")
+   public ModelAndView findGoodByid(Good good,HttpServletResponse response){
+       ModelAndView mav=new ModelAndView();
+       Good updList=goodService.findGoodByid(good);
+       mav.addObject("us",updList);
+       mav.setViewName("upGood");
+       return mav;
+   }
+
+
+
+
 
 
 }
