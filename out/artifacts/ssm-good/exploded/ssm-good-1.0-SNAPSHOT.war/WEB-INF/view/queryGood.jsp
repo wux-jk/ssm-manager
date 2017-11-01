@@ -97,6 +97,7 @@
         {field:'goodPrice',title:'商品价格',width:35,align:'center'},
         {field:'goodStock',title:'商品库存',width:30,align:'center'},
         {field:'goodDesc',title:'商品描述',width:50,align:'center'},
+        {field:'goodStatus',title:'状态',width:20,align:'center', },
         {field:'goodType',title:'商家',width:20,align:'center',
           formatter: function(value,row,index){
             if(row.goodType == 1){

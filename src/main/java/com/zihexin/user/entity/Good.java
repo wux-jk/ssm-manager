@@ -19,7 +19,18 @@ public class Good implements Serializable{
 
     private String goodDesc;
 
+    private String goodStatus;
+
     private Integer goodType;
+
+
+    public String getGoodStatus() {
+        return goodStatus;
+    }
+
+    public void setGoodStatus(String goodStatus) {
+        this.goodStatus = goodStatus;
+    }
 
     public String getGoodDesc() {
         return goodDesc;

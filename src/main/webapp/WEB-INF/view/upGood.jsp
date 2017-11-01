@@ -6,20 +6,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
     <title></title>
-  <link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+
 </head>
 <body>
-<div style="padding:10px 10px 10px 10px">
+
+
+<div style="padding:10px 10px 10px 10px" id="editor" >
 <form id="itemeEditForm" class="itemForm" method="post">
   <table >
       <input type="hidden"  name="goodID"/><br/>
-
 
       <tr>
           <td>商品名称:</td>
@@ -44,32 +45,30 @@
           <td>库存数量:</td>
           <td><input class="easyui-numberbox" type="text" name="goodStock" value="${us.goodStock}" data-options="min:1,max:99999999,precision:0,required:true" /></td>
       </tr>
-
       <tr>
-          <td>商品描述:</td>
+          <td>商品图片:</td>
           <td>
-              <textarea style="width:800px;height:300px;visibility:hidden;" name="goodDesc" value="${us.goodDesc}" ></textarea>
+              <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
+              <input type="hidden" name="image"/>
           </td>
       </tr>
 
+     <%-- <tr>
+          <td>商品描述:</td>
+          <td>
+              <textarea style="width:800px;height:300px;visibility:hidden;"  id="myEditor" name="goodDesc" >123</textarea>
+          </td>
+      </tr>--%>
+      <script type="text/plain" id="myEditor" name="myEditor"></script>
 
-
-
+      <script type="text/javascript">
+          var ue = UE.getEditor('myEditor');
+      </script>
   </table>
 </form>
 </div>
 </body>
 
-<script type="text/javascript">
 
-    var itemAddEditor ;
-    //页面初始化完毕后执行此方法
-    $(function(){
-        //创建富文本编辑器
-        itemAddEditor = E3.createEditor("#itemAddForm [name=goodDesc]");
-        //初始化类目选择和图片上传器
 
-    });
-
-</script>
 </html>

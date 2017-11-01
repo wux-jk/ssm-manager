@@ -11,6 +11,7 @@
         <result column="goodStock" property="goodStock" />
         <result column="goodDesc" property="goodDesc" />
         <result column="goodType" property="goodType" />
+        <result column="goodStatus" property="goodStatus" />
     </resultMap>
 
     <select id="queryGoiodList" parameterType="com.zihexin.user.entity.Good" resultMap="GoodID">
@@ -28,7 +29,7 @@
     </select>
     
     <select id="findGoodByid" parameterType="com.zihexin.user.entity.Good" resultMap="GoodID">
-        SELECT goodName as goodName,goodNumber as goodNumber,goodPrice as goodPrice,goodStock as goodStock ,goodDesc as goodDesc,goodType as goodType FROM GOOD
+        SELECT goodName as goodName,goodNumber as goodNumber,goodPrice as goodPrice,goodStock as goodStock ,goodDesc as goodDesc,goodStatus as goodStatus FROM GOOD
       WHERE goodID=${goodID}
 
     </select>

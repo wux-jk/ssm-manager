@@ -39,6 +39,12 @@
         <property name="contentType" value="text/html;charset=UTF-8"/>
         <property name="order" value="1"/>
     </bean>-->
+    <!--静态资源拦截问题  -->
+    <!-- 配置资源映射 -->
+    <mvc:resources location="/img/" mapping="/img/**" />
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
+
 
     <!--上文件上传解析-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
