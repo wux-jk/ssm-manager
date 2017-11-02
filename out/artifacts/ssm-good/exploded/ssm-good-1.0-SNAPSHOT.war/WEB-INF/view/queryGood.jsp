@@ -14,8 +14,8 @@
   <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/icon.css" />
   <script type="text/javascript" src="js/jquery-easyui.jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<%--  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>--%>
 
 </head>
 <body>
@@ -112,8 +112,6 @@
       ]]
 
 
-
-
     })
   }
 
@@ -129,15 +127,18 @@
       return;
     }
     var id = selectedRows[0].goodID;
+
     alert(id)
+    /*location.href="<%=request.getContextPath()%>/good/findGoodByid.jhtml?goodID='+id,*/
     //  调用  dialog
-   $('#divGood').dialog({
+ $('#divGood').dialog({
      title: '修改',
      width: 1000,
-     height:500,
+   height:500,
      closed: false,
      cache: false,
      href:'/good/findGoodByid.jhtml?goodID='+id,
+
      modal: true,
      buttons:[{
      text:'保存',
@@ -145,7 +146,7 @@
      handler:function(){
      $.ajax({
      type:"post",
-     url:'/good/updateGood.jhtml',
+      url:'<%=request.getContextPath()%>/good/updateGood.jhtml',
      data:$("#upGoodForm").serialize(),
      success:function (msg){
      $.messager.alert('我的消息','修改成功！','info');

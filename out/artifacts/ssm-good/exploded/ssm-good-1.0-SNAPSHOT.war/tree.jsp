@@ -11,14 +11,6 @@
 <script type="text/javascript" src="js/jquery-easyui/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-
-	<!-- ueditro-->
-<script type="text/javascript" charset="utf-8" src="/js/utf8-asp/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="js/utf8-asp/ueditor.config.js"></script>
-<script type="text/javascript" src="js/utf8-asp/ueditor.all.js"></script>
-
-
 
 
 	<style type="text/css">

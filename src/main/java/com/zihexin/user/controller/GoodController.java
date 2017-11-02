@@ -1,9 +1,11 @@
 package com.zihexin.user.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
 import com.zihexin.user.entity.User;
 import com.zihexin.user.service.GoodService;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ import java.util.Map;
 @RequestMapping("/good")
 public class GoodController extends BaseController {
 
-    private Good good = new Good();
+
 
     @Autowired
     private GoodService goodService;
@@ -63,6 +65,28 @@ public class GoodController extends BaseController {
        return mav;
    }
 
+
+
+    @RequestMapping("/updateGood")
+     public void updateGood(Good good,HttpServletResponse response)throws Exception{
+        goodService.updateGood(good);
+        System.out.println("输出----------------------------------"+ good);
+        System.out.println(good);
+
+    }
+
+   /* @RequestMapping("imageUpload")
+    @ResponseBody
+    public JSONObject imageUpload(HttpServletRequest request,HttpServletResponse response){
+        HashMap<String, String> extMap = new HashMap<String, String>();
+             //支持的文件类型
+             extMap.put("image", "jpg,jpeg,png,bmp");
+            //最大文件大小
+             long maxSize = 32505856;
+
+             //是否选择文件
+
+    }*/
 
 
 

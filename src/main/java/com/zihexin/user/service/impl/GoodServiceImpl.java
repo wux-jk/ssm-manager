@@ -32,8 +32,13 @@ public class GoodServiceImpl implements GoodService{
 
   @Override
     public Good findGoodByid(Good good) {
-        return goodMapper.findGoodByid(good);
+
+      return goodMapper.findGoodByid(good);
     }
 
 
+    @Override
+    public void updateGood(Good good) {
+        goodMapper.updateGood(good);
+    }
 }

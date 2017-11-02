@@ -16,5 +16,5 @@ public interface GoodService {
     Good findGoodByid(Good good);
 
 
-
+    void updateGood(Good good);
 }

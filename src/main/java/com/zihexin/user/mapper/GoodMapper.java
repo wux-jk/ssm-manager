@@ -15,7 +15,9 @@ public interface GoodMapper {
 
     /*List<Good> findGoodByid(Good good);*/
 
-  Good findGoodByid(Good good);
+
+    Good findGoodByid(Good good);
 
 
+    void updateGood(Good good);
 }

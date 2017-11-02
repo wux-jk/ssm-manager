@@ -33,4 +33,11 @@
       WHERE goodID=${goodID}
 
     </select>
+
+
+    <update id="updateGood" parameterType="com.zihexin.user.entity.Good">
+
+        UPDATE GOOD SET goodName=#{goodName},goodNumber=#{goodNumber},goodPrice=#{goodPrice},goodStock=#{goodStock} WHERE goodID=#{goodID}
+
+    </update>
 </mapper>   
