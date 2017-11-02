@@ -39,6 +39,6 @@ public class GoodServiceImpl implements GoodService{
 
     @Override
     public void updateGood(Good good) {
-        goodMapper.updateGood(good);
+        int a=goodMapper.updateGood(good);
     }
 }

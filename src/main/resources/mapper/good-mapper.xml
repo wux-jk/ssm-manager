@@ -29,13 +29,13 @@
     </select>
     
     <select id="findGoodByid" parameterType="com.zihexin.user.entity.Good" resultMap="GoodID">
-        SELECT goodName as goodName,goodNumber as goodNumber,goodPrice as goodPrice,goodStock as goodStock ,goodDesc as goodDesc,goodStatus as goodStatus FROM GOOD
+        SELECT goodID as goodID, goodName as goodName,goodNumber as goodNumber,goodPrice as goodPrice,goodStock as goodStock ,goodDesc as goodDesc,goodStatus as goodStatus FROM GOOD
       WHERE goodID=${goodID}
 
     </select>
 
 
-    <update id="updateGood" parameterType="com.zihexin.user.entity.Good">
+    <update id="updateGood" parameterType="com.zihexin.user.entity.Good" >
 
         UPDATE GOOD SET goodName=#{goodName},goodNumber=#{goodNumber},goodPrice=#{goodPrice},goodStock=#{goodStock} WHERE goodID=#{goodID}
 

@@ -127,9 +127,8 @@
       return;
     }
     var id = selectedRows[0].goodID;
+   alert(id)
 
-    alert(id)
-    /*location.href="<%=request.getContextPath()%>/good/findGoodByid.jhtml?goodID='+id,*/
     //  调用  dialog
  $('#divGood').dialog({
      title: '修改',

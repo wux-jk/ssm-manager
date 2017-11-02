@@ -19,5 +19,5 @@ public interface GoodMapper {
     Good findGoodByid(Good good);
 
 
-    void updateGood(Good good);
+    int updateGood(Good good);
 }

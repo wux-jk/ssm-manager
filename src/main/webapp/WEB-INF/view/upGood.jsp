@@ -22,8 +22,8 @@
 
 <div style="padding:10px 10px 10px 10px">
 <form id="upGoodForm">
+    <input type="hidden"  name="goodID" value="${us.goodID}"/><br/>
   <table >
-      <input type="hidden"  name="goodID"/><br/>
 
       <tr>
           <td>商品名称:</td>
