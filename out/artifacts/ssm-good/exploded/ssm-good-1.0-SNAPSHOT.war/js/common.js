@@ -25,9 +25,10 @@ var E3 = {
 		//指定上传文件参数名称
 		filePostName  : "uploadFile",
 		//指定上传文件请求的url。
-		uploadJson : '/pic/upload',
+		uploadJson : '/good/pic/upload.jhtml',
 		//上传类型，分别为image、flash、media、file
-		dir : "image"
+		dir : "image",
+		afterBlur: function(){this.sync();}
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){
@@ -73,6 +74,8 @@ var E3 = {
         		</div>');
     		// 回显图片
         	if(data && data.pics){
+				console.log(data);
+				console.log(data.pics);
         		var imgs = data.pics.split(",");
         		for(var i in imgs){
         			if($.trim(imgs[i]).length > 0){

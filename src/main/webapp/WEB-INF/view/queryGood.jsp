@@ -143,6 +143,8 @@
      text:'保存',
      iconCls:"icon-ok",
      handler:function(){
+       alert($("#dddd_22").val());
+       alert($("#dddd_22").html());
      $.ajax({
      type:"post",
       url:'<%=request.getContextPath()%>/good/updateGood.jhtml',

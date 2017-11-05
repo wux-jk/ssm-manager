@@ -6,22 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<!DOCTYPE html>--%>
-<html>
-<head>
-    <title></title>
-    <script type="text/javascript" src="js/common.js"></script>
 
-    <link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 
-</head>
-<body>
+<link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 
 
 <div style="padding:10px 10px 10px 10px">
-<form id="upGoodForm">
+<form id="upGoodForm" class="itemForm" method="post">
     <input type="hidden"  name="goodID" value="${us.goodID}"/><br/>
   <table >
 
@@ -48,23 +42,30 @@
           <td>库存数量:</td>
           <td><input class="easyui-numberbox" type="text" name="goodStock" value="${us.goodStock}" /></td>
       </tr>
-     <%-- <tr>
+     <%--<tr>
           <td>商品图片:</td>
           <td>
               <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
               <input type="hidden" name="image"/>
           </td>
       </tr>--%>
-<%--
+
      <tr>
           <td>商品描述:</td>
           <td>
-              <textarea style="width:800px;height:300px;visibility:hidden;"  id="goodDesc" name="goodDesc" ></textarea>
+              <textarea style="width:800px;height:300px;visibility:hidden;" id="dddd_22" name="goodDesc">${us.goodDesc}</textarea>
           </td>
-      </tr>--%>
+      </tr>
 
   </table>
 </form>
 </div>
-</body>
-</html>
+
+<script>
+var itemEditEditor ;
+$(function(){
+//实例化编辑器
+itemEditEditor = E3.createEditor("#upGoodForm [name=goodDesc]");
+});
+</script>
+

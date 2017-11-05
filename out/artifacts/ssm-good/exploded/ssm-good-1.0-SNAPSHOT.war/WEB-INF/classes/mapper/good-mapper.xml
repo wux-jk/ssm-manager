@@ -37,7 +37,7 @@
 
     <update id="updateGood" parameterType="com.zihexin.user.entity.Good" >
 
-        UPDATE GOOD SET goodName=#{goodName},goodNumber=#{goodNumber},goodPrice=#{goodPrice},goodStock=#{goodStock} WHERE goodID=#{goodID}
+        UPDATE GOOD SET goodName=#{goodName},goodNumber=#{goodNumber},goodPrice=#{goodPrice},goodStock=#{goodStock},goodDesc=#{goodDesc} WHERE goodID=#{goodID}
 
     </update>
 </mapper>   
