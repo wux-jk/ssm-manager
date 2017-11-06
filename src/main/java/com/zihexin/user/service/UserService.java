@@ -2,6 +2,7 @@ package com.zihexin.user.service;
 
 import com.zihexin.user.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -10,5 +11,5 @@ import java.util.Map;
 public interface UserService {
 
 
-    Map<String,Object> loginUser(User user);
+    Map<String,Object> loginUser(User user,HttpServletRequest request);
 }

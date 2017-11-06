@@ -13,6 +13,15 @@ public class User implements Serializable{
 
     private String userPassword;
 
+    private String rolesName;
+
+    public String getRolesName() {
+        return rolesName;
+    }
+
+    public void setRolesName(String rolesName) {
+        this.rolesName = rolesName;
+    }
 
     public Integer getUserID() {
         return userID;

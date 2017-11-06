@@ -97,7 +97,7 @@ public class GoodController extends BaseController {
           //得到一个图片的地址和文件
             String url = fastDFSClient.uploadFile(uploadFile.getBytes(), extName);
             //补充完整的URL
-            url = "http://192.168.25.133/" + url;
+            url = IMAGE_SERVER_URL + url;
             //封装到map中返回
             Map result = new HashMap<>();
             result.put("error", 0);

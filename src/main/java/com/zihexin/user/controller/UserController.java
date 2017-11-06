@@ -27,16 +27,10 @@ public class UserController {
     @RequestMapping("LoginAuthentication")
     @ResponseBody
     Map<String,Object> loginUser(User user,HttpServletRequest request){
-       HttpSession session= request.getSession();
-            //查询用户信息
-         Map<String,Object> map = userService.loginUser(user);
-            Object userInfo=map.get("userInfo");
-        if (null!=userInfo){
-            //把用户信息放到session中
-            User user1=(User)userInfo;
-            session.setAttribute("userInfo",userInfo);
 
-        }
+            //查询用户信息
+         Map<String,Object> map = userService.loginUser(user,request);
+
         return  map;
 
 

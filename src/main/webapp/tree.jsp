@@ -35,10 +35,11 @@
     <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
     	<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
          	<li>
-         		<span>商品管理</span>
+         		<span>商品管理${userInfo.rolesName}</span>
          		<ul>
 					<li data-options="attributes:{'url':'edit.jhtml'}">商品查询</li>
-					<c:if test="${userInfo.rolID} == '管理员' ">
+
+					<c:if test="${userInfo.rolesName=='超级管理员'}">
 						<li data-options="attributes:{'url':'item-add'}">新增商品</li>
 					</c:if>
 		      	</ul>
