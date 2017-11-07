@@ -17,4 +17,6 @@ public interface GoodService {
 
 
     void updateGood(Good good);
+
+    Good findKinderitor(Good good);
 }

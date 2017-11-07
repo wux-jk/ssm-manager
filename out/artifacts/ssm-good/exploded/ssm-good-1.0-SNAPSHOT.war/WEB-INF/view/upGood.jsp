@@ -42,18 +42,12 @@
           <td>库存数量:</td>
           <td><input class="easyui-numberbox" type="text" name="goodStock" value="${us.goodStock}" /></td>
       </tr>
-     <%--<tr>
-          <td>商品图片:</td>
-          <td>
-              <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
-              <input type="hidden" name="image"/>
-          </td>
-      </tr>--%>
+
 
      <tr>
           <td>商品描述:</td>
           <td>
-              <textarea style="width:800px;height:300px;visibility:hidden;" id="dddd_22" name="goodDesc">${us.goodDesc}</textarea>
+              <textarea style="width:100px;height:600px;visibility:hidden;" id="dddd_22" name="goodDesc">${us.goodDesc}</textarea>
           </td>
       </tr>
 

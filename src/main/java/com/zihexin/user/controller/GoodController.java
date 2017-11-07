@@ -70,6 +70,16 @@ public class GoodController extends BaseController {
        return mav;
    }
 
+    @RequestMapping("findKinderitor")
+    public ModelAndView findKinderitor(Good good,HttpServletRequest request){
+        ModelAndView mv=new ModelAndView();
+       Good goodDesc=goodService.findKinderitor(good);
+       /* request.setAttribute("goodDesc",goodDesc);*/
+       /* return "vive/queryGoodDesc";*/
+        mv.addObject("us",goodDesc);
+        mv.setViewName("queryGoodDesc");
+        return mv;
+    }
 
     /**
      * 修改

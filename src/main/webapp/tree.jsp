@@ -35,14 +35,26 @@
     <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
     	<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
          	<li>
-         		<span>商品管理${userInfo.rolesName}</span>
+         		<span>商品管理</span>
          		<ul>
 					<li data-options="attributes:{'url':'edit.jhtml'}">商品查询</li>
-
 					<c:if test="${userInfo.rolesName=='超级管理员'}">
 						<li data-options="attributes:{'url':'item-add'}">新增商品</li>
 					</c:if>
 		      	</ul>
+			</li>
+			<li>
+				<span>用户管理</span>
+				<ul>
+					<li data-options="attributes:{'url':'edit.jhtml'}">用户操作</li>
+				</ul>
+			</li>
+			<li>
+				<span>内容管理</span>
+				<ul>
+					<li data-options="attributes:{'url':'edit.jhtml'}">内容管理</li>
+					<li data-options="attributes:{'url':'edit.jhtml'}">内容分类管理</li>
+				</ul>
 			</li>
          </ul>
     </div>

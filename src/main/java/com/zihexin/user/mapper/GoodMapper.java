@@ -20,4 +20,6 @@ public interface GoodMapper {
 
 
     int updateGood(Good good);
+
+    Good findKinderitor(Good good);
 }

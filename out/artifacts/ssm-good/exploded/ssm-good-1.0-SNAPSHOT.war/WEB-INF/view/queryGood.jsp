@@ -9,14 +9,17 @@
 <html>
 <head>
   <title></title>
-  <link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet"/>
+<%--  <link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">--%>
   <link rel="stylesheet" type="text/css" href="css/default.css" />
   <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/icon.css" />
   <script type="text/javascript" src="js/jquery-easyui.jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 <%--  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>--%>
-
+  <%--<script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+--%>
 </head>
 <body>
 <div id="p" class="easyui-panel" title="搜索"
@@ -69,7 +72,7 @@
  <!--table  表格 -->
 <div><table id="goodTable"></table></div>
 
-
+<div id="goodDesc"></div>
 <!--  对话框  -->
 <div id="divGood"></div>
 
@@ -96,7 +99,6 @@
         {field:'goodNumber',title:'商品编号',width:30,align:'center'},
         {field:'goodPrice',title:'商品价格',width:35,align:'center'},
         {field:'goodStock',title:'商品库存',width:30,align:'center'},
-        {field:'goodDesc',title:'商品描述',width:50,align:'center'},
         {field:'goodStatus',title:'状态',width:20,align:'center', },
         {field:'goodType',title:'商家',width:20,align:'center',
           formatter: function(value,row,index){
@@ -106,7 +108,13 @@
               return '麦德龙';
             }
           }
-        },
+        },{field:'crud',title:'操作',width:70,
+          formatter: function (value,row,index){
+            /*var str='<a href="javascript:void(0)" onclick="findGoodDesc(\''+row.goodID'\') ">查看</a>'*/
+            return "<a href='javascript:findKinderitor("+row.goodID+")'>预览商品</a>";
+
+          }
+        }
 
 
       ]]
@@ -144,7 +152,7 @@
      iconCls:"icon-ok",
      handler:function(){
        alert($("#dddd_22").val());
-       alert($("#dddd_22").html());
+
      $.ajax({
      type:"post",
       url:'<%=request.getContextPath()%>/good/updateGood.jhtml',
@@ -166,6 +174,30 @@
 
      });
      $("#goodTable").datagrid('reload');
+
+  }
+  //----------------------------------
+
+  //   查看   介绍
+  function findKinderitor(goodID){
+
+    $('#goodDesc').dialog({
+      title: '预览商品',
+      width: 400,
+      height: 600,
+      href: '<%=request.getContextPath()%>/good/findKinderitor.jhtml?goodID='+goodID,
+      modal: true,
+    /*  onLoad:function (){
+        editor.readonly(true);   // 设置  kindeditor  只读
+      },*/
+      buttons:[{
+        text:"退出",
+        iconCls:"icon-no",
+        handler:function(){
+          $('#goodDesc').dialog("close");
+        }
+      }]
+    });
 
   }
 </script>
