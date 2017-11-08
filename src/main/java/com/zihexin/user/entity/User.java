@@ -13,15 +13,17 @@ public class User implements Serializable{
 
     private String userPassword;
 
-    private String rolesName;
 
-    public String getRolesName() {
-        return rolesName;
+    private Integer rolesID;
+
+    public Integer getRolesID() {
+        return rolesID;
     }
 
-    public void setRolesName(String rolesName) {
-        this.rolesName = rolesName;
+    public void setRolesID(Integer rolesID) {
+        this.rolesID = rolesID;
     }
+
 
     public Integer getUserID() {
         return userID;

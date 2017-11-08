@@ -47,7 +47,7 @@
      <tr>
           <td>商品描述:</td>
           <td>
-              <textarea style="width:100px;height:600px;visibility:hidden;" id="dddd_22" name="goodDesc">${us.goodDesc}</textarea>
+              <textarea style="width:100px;height:600px;visibility:hidden;" id="desc" name="goodDesc">${us.goodDesc}</textarea>
           </td>
       </tr>
 

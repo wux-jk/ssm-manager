@@ -39,6 +39,12 @@ public class GoodController extends BaseController {
     @Value("${IMAGE_SERVER_URL}")
     private String IMAGE_SERVER_URL;
 
+
+    /**
+     * 查询商品
+     * @param good
+     * @param response
+     */
     @RequestMapping("/queryGoodList")
     @ResponseBody
     public void queryGoodList(Good good,HttpServletResponse response) {
@@ -52,14 +58,7 @@ public class GoodController extends BaseController {
 
     }
 
-  /* @RequestMapping("findGoodByid")
-    public String findGoodByid(Good good,HttpServletRequest request)throws Exception{
-            List<Good> us=goodService.findGoodByid(good);
-       System.out.println(us);
-            request.setAttribute("us",us);
-            return "upGood";
 
-    }*/
    //回显
    @RequestMapping("findGoodByid")
    public ModelAndView findGoodByid(Good good,HttpServletResponse response){
@@ -70,6 +69,12 @@ public class GoodController extends BaseController {
        return mav;
    }
 
+    /**
+     * 预览商品
+     * @param good
+     * @param request
+     * @return
+     */
     @RequestMapping("findKinderitor")
     public ModelAndView findKinderitor(Good good,HttpServletRequest request){
         ModelAndView mv=new ModelAndView();
@@ -82,7 +87,7 @@ public class GoodController extends BaseController {
     }
 
     /**
-     * 修改
+     * 修改商品
      * @param good
      * @param response
      * @throws Exception
@@ -94,6 +99,11 @@ public class GoodController extends BaseController {
 
     }
 
+    /**
+     * 图片上传
+     * @param uploadFile
+     * @return
+     */
     @RequestMapping("/pic/upload")
     @ResponseBody
     public Map uploadFile(MultipartFile uploadFile ) {

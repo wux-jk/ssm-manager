@@ -14,12 +14,12 @@
   <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/icon.css" />
   <script type="text/javascript" src="js/jquery-easyui.jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-<%--  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>--%>
-  <%--<script type="text/javascript" src="js/common.js"></script>
+
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
---%>
+  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>--%>
+  <script type="text/javascript" src="js/common.js"></script>
+
+
 </head>
 <body>
 <div id="p" class="easyui-panel" title="搜索"
@@ -47,33 +47,19 @@
   </table>
 </div>
 
-
-<!--数据表格的工具栏  -->
-<%--<div id="tb">
-  &lt;%&ndash;<a href="javascript:void(0);"   class="easyui-linkbutton" iconCls="icon-add" plain="true"  onclick="dialog('<%=request.getContextPath()%>/product!dialogProduct.html')">添加</a>&ndash;%&gt;
-
-   <table>
-
-      <tr>
-        <td><button onclick="updateGood();" class="easyui-linkbutton" iconCls="icon-edit" plain="true" >编辑</button></td>
-        <td><button onclick="deleteProducts();" class="easyui-linkbutton" iconCls="icon-remove" plain="true"  >删除</button></td>
-        <td><button onclick="refresh();" class="easyui-linkbutton" iconCls="icon-remove" plain="true"  >刷新</button></td>
-      </tr>
-    </table>
-
-</div>--%>
 <div id="tb">
 <%--  <a href="javascript:void(0);"   class="easyui-linkbutton" iconCls="icon-add" plain="true"  onclick="dialog('<%=request.getContextPath()%>/product!dialogProduct.html')">添加</a>--%>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true"  onclick="updateGood();">编辑</a>
-  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true"   onclick="deleteProducts();">批量删除</a>
+<%--  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true"   onclick="deleteProducts();">批量删除</a>--%>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refresh();" >刷新</a>
 </div>
 
  <!--table  表格 -->
 <div><table id="goodTable"></table></div>
 
+<!-- 预览商品弹框-->
 <div id="goodDesc"></div>
-<!--  对话框  -->
+<!--  修改页面对话框  -->
 <div id="divGood"></div>
 
 
@@ -108,10 +94,11 @@
               return '麦德龙';
             }
           }
-        },{field:'crud',title:'操作',width:70,
+        }, {field:'crud',title:'操作',width:20,align:'center',
           formatter: function (value,row,index){
-            /*var str='<a href="javascript:void(0)" onclick="findGoodDesc(\''+row.goodID'\') ">查看</a>'*/
-            return "<a href='javascript:findKinderitor("+row.goodID+")'>预览商品</a>";
+            var str = '<input type="button" value="预览商品" class="btn btn-info" onclick="findGoodDesc(\''+row.goodID+'\')"/>';
+            return str;
+
 
           }
         }
@@ -135,24 +122,20 @@
       return;
     }
     var id = selectedRows[0].goodID;
-   alert(id)
-
     //  调用  dialog
  $('#divGood').dialog({
-     title: '修改',
-     width: 1000,
-   height:500,
-     closed: false,
-     cache: false,
+    title: '修改',
+    width: 1000,
+    height:500,
+    closed: false,
+    cache: false,
      href:'/good/findGoodByid.jhtml?goodID='+id,
-
      modal: true,
      buttons:[{
      text:'保存',
      iconCls:"icon-ok",
      handler:function(){
-       alert($("#dddd_22").val());
-
+      ($("#desc").val());  //获取富文本编辑器内容 这个desc是修改商品页面的id属性
      $.ajax({
      type:"post",
       url:'<%=request.getContextPath()%>/good/updateGood.jhtml',
@@ -179,7 +162,7 @@
   //----------------------------------
 
   //   查看   介绍
-  function findKinderitor(goodID){
+  function findGoodDesc(goodID){
 
     $('#goodDesc').dialog({
       title: '预览商品',
@@ -200,6 +183,12 @@
     });
 
   }
+  //------------------------------
+  //  刷新
+  function refresh(){
+    $('#goodTable').datagrid("load");
+  }
+
 </script>
 
 </body>
