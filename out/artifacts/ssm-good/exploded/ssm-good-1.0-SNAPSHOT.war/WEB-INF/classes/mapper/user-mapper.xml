@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 <mapper namespace="com.zihexin.user.mapper.UserMapper">
+    <resultMap id="resultUser" type="com.zihexin.user.entity.User" >
+        <!--<id column="goodID" property="goodID" />-->
+        <result column="userID" property="userID" />
+        <result column="userName" property="userName" />
+        <result column="userPassword" property="userPassword" />
 
+    </resultMap>
 
+    <select id="selectUserRoleListJson" parameterType="com.zihexin.user.entity.User" resultMap="resultUser">
+
+        select r.role_ID as rolesID,role_Name as rolesName,nvl2(m1.rolesID,1,0 )as checked
+	from t_roles r left join
+	(select ur.rolesID from t_u_r_center ur where ur.userID = #{userID})m1
+	on r.role_ID = m1.rolesID
+		order by r.role_ID
+  </select>
 </mapper>   

@@ -23,4 +23,17 @@ public class PageController {
         modelAndView.setViewName("queryGood");
         return modelAndView;
     }
+
+    /**
+     * 跳转到用户展示列表
+     * @return
+     */
+    @RequestMapping("toUserList.jhtml")
+       public ModelAndView toUserList(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("userList");
+        return modelAndView;
+    }
+
+
 }

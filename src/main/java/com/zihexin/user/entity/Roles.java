@@ -10,6 +10,16 @@ public class Roles implements Serializable{
 
     private String rolesName;
 
+    private Integer userID;
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
     public Integer getRolesID() {
         return rolesID;
     }
