@@ -2,5 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 <mapper namespace="com.zihexin.user.mapper.UserMapper">
 
+   <resultMap id="resultUser" type="com.zihexin.user.entity.User" >
+        <result column="t_userID" property="userID" />
+        <result column="t_userName" property="userName" />
+        <result column="t_password" property="userPassword" />
+    </resultMap>
+
+
+    <insert id="insertUserInfo" parameterType="com.zihexin.user.entity.User">
+        insert into t_user
+		(t_userID,t_userName,t_password)
+		values
+		(t_user_seq.nextval,#{userName},#{userPassword})
+	</insert>
 
 </mapper>   

@@ -22,7 +22,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
 
     /**
@@ -61,11 +61,23 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * 用户附角色 查询用户角色 ztree
+     * 查用户id  做回显
+     * @param user
      * @return
      */
     @Override
-    public List<Roles> selectUserRoleListJson(Roles roles) {
-        return userMapper.selectUserRoleListJson(roles);
+    public User findUserByid(User user) {
+        return userMapper.findUserByid(user);
+    }
+
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateUser(user);
+    }
+
+    @Override
+    public void insertUserInfo(User user) {
+        userMapper.insertUserInfo(user);
     }
 }

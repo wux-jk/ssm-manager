@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,17 +80,52 @@ public class UserController extends BaseController {
         return "/userRole";
     }
 
-    /**
-     * 用户附角色 查询用户角色 ztree
-     * @return
-     */
-    @RequestMapping("selectUserRoleListJson")
-    @ResponseBody
-    public List<Roles> selectUserRoleListJson(Roles roles){
-        List<Roles> rolesList=userService.selectUserRoleListJson(roles);
-        return rolesList;
+    //回显
+    @RequestMapping("findUserByid")
+    public ModelAndView findUserByid(User user,HttpServletResponse response){
+        ModelAndView mv=new ModelAndView();
+        User usList=userService.findUserByid(user);
+        mv.addObject("user",usList);
+        mv.setViewName("updateUser");
+        return mv;
     }
 
+
+    /**
+     * 修改用户
+     * @param user
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping("/updateUser")
+    public void updateUser(User user,HttpServletResponse response)throws Exception{
+        userService.updateUser(user);
+
+
+    }
+
+
+
+    //跳转到新增用户
+    @RequestMapping("toUserPage")
+    public ModelAndView toUserPage(User user){
+        ModelAndView ma=new ModelAndView();
+        ma.setViewName("insertUser");
+        return ma;
+    }
+
+    /**
+     * <pre>insertUser(新增用户信息)
+     * @param
+     * @return</pre>
+     */
+    @RequestMapping("insertUserInfo")
+    @ResponseBody
+    public String insertUserInfo(User user) {
+        userService.insertUserInfo(user);
+        //重定向
+        return "{}";
+    }
 
 
 }

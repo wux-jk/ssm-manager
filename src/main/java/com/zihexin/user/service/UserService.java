@@ -18,5 +18,10 @@ public interface UserService {
 
     List<User> queryUserList(User user);
 
-    List<Roles> selectUserRoleListJson(Roles roles);
+
+    User findUserByid(User user);
+
+    void updateUser(User user);
+
+    void insertUserInfo(User user);
 }

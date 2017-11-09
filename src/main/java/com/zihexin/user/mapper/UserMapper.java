@@ -2,7 +2,9 @@ package com.zihexin.user.mapper;
 
 import com.zihexin.user.entity.Roles;
 import com.zihexin.user.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,6 +21,13 @@ public interface UserMapper {
     @Select("select t_userID as \"userID\",t_userName as \"userName\" from t_user ")
     List<User> queryUserList(User user);
 
-    @Select("select ")
-    List<Roles> selectUserRoleListJson(Roles roles);
+
+    @Select("select t_userID as \"userID\",t_userName as \"userName\"，t_password as \"userPassword\" from t_user where t_userID=#{userID} ")
+    User findUserByid(User user);
+
+    @Update(" update t_user SET t_userName=#{userName},t_password=#{userPassword} WHERE t_userID=#{userID}")
+    void updateUser(User user);
+
+
+    void insertUserInfo(User user);
 }

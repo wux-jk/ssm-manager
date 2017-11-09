@@ -16,7 +16,7 @@
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>--%>
+  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
   <script type="text/javascript" src="js/common.js"></script>
 
 
@@ -29,7 +29,7 @@
 
   <table cellpadding="5px">
     <tr>
-      <td>商家:</td>
+      <td>供应商:</td>
       <td>
         <select class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
           <option value="0">--请选择--</option>
