@@ -2,5 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 <mapper namespace="com.zihexin.user.mapper.UserMapper">
 
+   <resultMap id="resultUser" type="com.zihexin.user.entity.User" >
+        <result column="t_userID" property="userID" />
+        <result column="t_userName" property="userName" />
+        <result column="t_password" property="userPassword" />
+    </resultMap>
+
+
+    <insert id="insertUserInfo" parameterType="com.zihexin.user.entity.User">
+        insert into t_user
+		(t_userID,t_userName,t_password)
+		values
+		(t_user_seq.nextval,#{userName},#{userPassword})
+	</insert>
+
+
+   <select id="selectUserRoleListJson" parameterType="com.zihexin.user.entity.User" resultMap="resultUser">
+            select r.rolesID as id,rolesName as name,nvl2(m1.rolesID,1,0 ) as checked
+ 	        from t_roles r left join
+	        (select ur.rolesID from t_u_r_center ur where ur.t_userID = #{userID})m1
+	        on r.rolesID = m1.rolesID
+		    order by r.rolesID
+
+
+    </select>
+
 
 </mapper>   

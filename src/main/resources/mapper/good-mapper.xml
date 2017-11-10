@@ -45,4 +45,10 @@
       SELECT goodID as goodID, goodName as goodName,goodNumber as goodNumber,goodPrice as goodPrice,goodStock as goodStock ,goodDesc as goodDesc,goodStatus as goodStatus FROM GOOD
       WHERE goodID=#{goodID}
     </select>
+
+
+    <update id="updateGoodStatus" parameterType="com.zihexin.user.entity.Good">
+
+        UPDATE GOOD SET goodStatus=#{goodStatus} WHERE goodID=#{goodID}
+    </update>
 </mapper>   

@@ -16,7 +16,7 @@
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>--%>
+  <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
   <script type="text/javascript" src="js/common.js"></script>
 
 
@@ -29,7 +29,7 @@
 
   <table cellpadding="5px">
     <tr>
-      <td>商家:</td>
+      <td>供应商:</td>
       <td>
         <select class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
           <option value="0">--请选择--</option>
@@ -50,7 +50,8 @@
 <div id="tb">
 <%--  <a href="javascript:void(0);"   class="easyui-linkbutton" iconCls="icon-add" plain="true"  onclick="dialog('<%=request.getContextPath()%>/product!dialogProduct.html')">添加</a>--%>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true"  onclick="updateGood();">编辑</a>
-<%--  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true"   onclick="deleteProducts();">批量删除</a>--%>
+  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="putawayGood();">上架</a>
+    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="putawayGood();">下架</a>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refresh();" >刷新</a>
 </div>
 
@@ -85,7 +86,15 @@
         {field:'goodNumber',title:'商品编号',width:30,align:'center'},
         {field:'goodPrice',title:'商品价格',width:35,align:'center'},
         {field:'goodStock',title:'商品库存',width:30,align:'center'},
-        {field:'goodStatus',title:'状态',width:20,align:'center', },
+        {field:'goodStatus',title:'状态',width:20,align:'center',
+            formatter: function(value,row,index){
+                if(row.goodStatus == 1){
+                    return '正常';
+                }else if(row.goodStatus == 2){
+                    return '已下架';
+                }
+            }
+        },
         {field:'goodType',title:'商家',width:20,align:'center',
           formatter: function(value,row,index){
             if(row.goodType == 1){
@@ -160,6 +169,58 @@
 
   }
   //----------------------------------
+
+  //商品上架/下架
+  /*function putawayGood(goodID,goodStatus){
+      var selectedRow = $("#goodTable").datagrid("getSelections");
+      if (selectedRow.length != 1) {
+          $.messager.alert("系统提示", "请选择一条要操作的数据！");
+          return;
+      }
+      var goodID = selectedRow[0].goodID;
+      alert(goodID);
+
+      if(goodStatus == 1){
+          goodStatus = 2;
+      }else{
+          goodStatus = 1;
+      }
+      $.ajax({
+          url:"/good/updateGoodStatus.jhtml",
+          data:{"goodID":goodID,"goodStatus":goodStatus},
+          type:"post",
+          success:function(msg){
+              $.messager.alert('我的消息','操作成功！','info');
+               searchGood();
+          }
+      })
+
+  }
+*/
+
+
+
+
+
+  //批量修改状态
+  function putawayGood(){
+      var updarr = $('#goodTable').datagrid("getSelections");
+      var str = "";
+      for (var i = 0; i < updarr.length; i++) {
+          str += "," + updarr[i].goodID;
+      }
+      ids = str.substr(1);
+      $.ajax({
+          url:'/good/updateStatus.jhtml',
+          type:'post',
+          data:{"ids":ids},
+          success:function(){
+              $.messager.alert('我的消息','操作成功！','info');
+              searchGood();
+          }
+      })
+  }
+  //-----------------------------------------
 
   //   查看   介绍
   function findGoodDesc(goodID){

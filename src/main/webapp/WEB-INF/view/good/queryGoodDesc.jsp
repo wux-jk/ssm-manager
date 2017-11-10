@@ -17,10 +17,10 @@
 
 </head>
 <body>
-<form id="GoodForm" class="itemForm" method="post">
-  <input type="hidden"  name="goodID" value="${us.goodID}"/>
+
+
 <textarea style="width:400px;height:600px;"  name="goodDesc" >${us.goodDesc}</textarea>
-</form>
+
 </body>
 
 </html>

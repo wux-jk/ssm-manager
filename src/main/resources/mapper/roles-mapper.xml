@@ -2,21 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 <mapper namespace="com.zihexin.user.mapper.RolesMapper">
 
-    <resultMap id="resultRoles" type="com.zihexin.user.entity.Roles" >
+  <!-- <resultMap id="resultRoles" type="com.zihexin.user.entity.Roles" >
         <result column="rolesID" property="rolesID" />
         <result column="rolesName" property="rolesName" />
-       <!-- <result column="goodNumber" property="goodNumber" />
-        <result column="goodPrice" property="goodPrice" />
-        <result column="goodStock" property="goodStock" />
-        <result column="goodDesc" property="goodDesc" />
-        <result column="goodType" property="goodType" />
-        <result column="goodStatus" property="goodStatus" />-->
+
     </resultMap>
-
-    <select id="selectUserRoleListJson" parameterType="int" resultMap="resultRoles">
-
-        select ur.userID as userID,ur.rolesID as rolesID from t_u_r_center ur where ur.t_userID= #{userID}
+-->
 
 
-    </select>
 </mapper>

@@ -16,4 +16,16 @@
 		(t_user_seq.nextval,#{userName},#{userPassword})
 	</insert>
 
+
+   <select id="selectUserRoleListJson" parameterType="com.zihexin.user.entity.User" resultMap="resultUser">
+            select r.rolesID as id,rolesName as name,nvl2(m1.rolesID,1,0 ) as checked
+ 	        from t_roles r left join
+	        (select ur.rolesID from t_u_r_center ur where ur.t_userID = #{userID})m1
+	        on r.rolesID = m1.rolesID
+		    order by r.rolesID
+
+
+    </select>
+
+
 </mapper>   

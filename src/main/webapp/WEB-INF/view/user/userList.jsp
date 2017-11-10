@@ -42,11 +42,11 @@
       heigth:30,
       columns:[[
         {field:'ckecked',checkbox:true},
-        {field:'userID',title:'ID',width:30,align:'center'},
-        {field:'userName',title:'商品名称',width:50,align:'center'},
+        {field:'userID',title:'用户ID',width:30,align:'center'},
+        {field:'userName',title:'用户名',width:50,align:'center'},
         {field:'crud',title:'操作',width:30,align:'center',
           formatter: function (value,row,index){
-            var str = '<input type="button" value="角色操作" class="btn btn-info" onclick="end_user(\''+row.userID+'\')"/>';
+           var str = '<input type="button" value="角色操作" class="btn btn-info" onclick="end_user(\''+row.userID+'\')"/>';
             return str;
           }
         }

@@ -5,29 +5,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
+
 <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/gray/easyui.css" />
 <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="css/e3.css" />
 <link rel="stylesheet" type="text/css" href="css/default.css" />
+
 	<!-- ztree样式 -->
-<link rel="stylesheet" href="js/ztree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="js/ztree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css"/>
 	<!-- treegrid -->
-<link rel="stylesheet" href="<%=request.getContextPath() %>/js/jquery-treegrid/css/jquery.treegrid.css">
-<link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="js/jquery-treegrid/css/jquery.treegrid.css"/>
+<link href="js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet"/>
 
 <script type="text/javascript" src="js/jquery-easyui/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-
+	<!-- 加载ajax重定向设置文件 -->
+<%--<script type="text/javascript" src="js/ajaxSetup.js"></script>--%>
 <!-- ztree插件 -->
 <script type="text/javascript" src="js/ztree_v3/js/jquery.ztree.all.min.js"></script>
 
 <script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 	<!-- treegrid -->
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.min.js"></script>
-<script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+
 <script type="text/javascript" src="js/jquery-treegrid/extension/jquery.treegrid.extension.js"></script>
 
 	<style type="text/css">

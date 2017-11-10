@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 <mapper namespace="com.zihexin.user.mapper.GoodMapper">
 
-    <resultMap id="GoodID" type="com.zihexin.user.entity.Good" >
+    <resultMap id="resultGood" type="com.zihexin.user.entity.Good" >
         <!--<id column="goodID" property="goodID" />-->
       <result column="goodID" property="goodID" />
         <result column="goodName" property="goodName" />
@@ -14,7 +14,7 @@
         <result column="goodStatus" property="goodStatus" />
     </resultMap>
 
-    <select id="queryGoiodList" parameterType="com.zihexin.user.entity.Good" resultMap="GoodID">
+    <select id="queryGoiodList" parameterType="com.zihexin.user.entity.Good" resultMap="resultGood">
         SELECT * FROM GOOD
         WHERE 1=1
 
@@ -28,7 +28,7 @@
 
     </select>
     
-    <select id="findGoodByid" parameterType="com.zihexin.user.entity.Good" resultMap="GoodID">
+    <select id="findGoodByid" parameterType="com.zihexin.user.entity.Good" resultMap="resultGood">
         SELECT goodID as goodID, goodName as goodName,goodNumber as goodNumber,goodPrice as goodPrice,goodStock as goodStock ,goodDesc as goodDesc,goodStatus as goodStatus FROM GOOD
       WHERE goodID=${goodID}
 
@@ -39,5 +39,16 @@
 
         UPDATE GOOD SET goodName=#{goodName},goodNumber=#{goodNumber},goodPrice=#{goodPrice},goodStock=#{goodStock},goodDesc=#{goodDesc} WHERE goodID=#{goodID}
 
+    </update>
+
+    <select id="findKinderitor" parameterType="com.zihexin.user.entity.Good" resultMap="resultGood">
+      SELECT goodID as goodID, goodName as goodName,goodNumber as goodNumber,goodPrice as goodPrice,goodStock as goodStock ,goodDesc as goodDesc,goodStatus as goodStatus FROM GOOD
+      WHERE goodID=#{goodID}
+    </select>
+
+
+    <update id="updateGoodStatus" parameterType="com.zihexin.user.entity.Good">
+
+        UPDATE GOOD SET goodStatus=#{goodStatus} WHERE goodID=#{goodID}
     </update>
 </mapper>   
