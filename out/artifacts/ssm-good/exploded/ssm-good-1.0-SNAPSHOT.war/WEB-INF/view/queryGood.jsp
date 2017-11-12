@@ -65,7 +65,8 @@
 <div id="tb">
 <%--  <a href="javascript:void(0);"   class="easyui-linkbutton" iconCls="icon-add" plain="true"  onclick="dialog('<%=request.getContextPath()%>/product!dialogProduct.html')">添加</a>--%>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true"  onclick="updateGood();">编辑</a>
-  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true"   onclick="deleteProducts();">批量删除</a>
+  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true"   onclick="putawayGood();">上架</a>
+  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true"   onclick="deleteProducts();">下架</a>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refresh();" >刷新</a>
 </div>
 
@@ -99,7 +100,15 @@
         {field:'goodNumber',title:'商品编号',width:30,align:'center'},
         {field:'goodPrice',title:'商品价格',width:35,align:'center'},
         {field:'goodStock',title:'商品库存',width:30,align:'center'},
-        {field:'goodStatus',title:'状态',width:20,align:'center', },
+        {field:'goodStatus',title:'状态',width:20,align:'center',
+          formatter: function(value,row,index){
+            if(row.goodStatus == 1){
+              return '正常';
+            }else if(row.goodStatus == 2){
+              return '下架';
+            }
+          }
+        },
         {field:'goodType',title:'商家',width:20,align:'center',
           formatter: function(value,row,index){
             if(row.goodType == 1){
@@ -200,6 +209,41 @@
     });
 
   }
+
+
+  //-----------------------
+  //商品上架/下架
+    function putawayGood(goodID,goodStatus){
+        var selectedRows = $("#goodTable").datagrid("getSelections");
+        if (selectedRows.length != 1) {
+            $.messager.alert("系统提示", "请选择一条要操作的数据！");
+            return;
+        } else{
+          $.messager.alert("系统提示", "你确定要上架该商品吗！");
+          }
+      var goodID = selectedRows[0].goodID;
+         /*alert(goodID);*/
+
+         if(goodStatus == 1){
+            goodStatus = 2;
+        }else{
+             goodStatus = 1;
+         }
+
+        $.ajax({
+
+            url:"/good/updateGoodStatus.jhtml",
+             data:{"goodID":goodID,"goodStatus":goodStatus},
+              type:"post",
+              success:function(msg){
+                 $.messager.alert('我的消息','操作成功！','info');
+                  searchGood();
+              }
+          })
+
+     }
+
+
 </script>
 
 </body>

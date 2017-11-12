@@ -19,16 +19,16 @@ public class Good implements Serializable{
 
     private String goodDesc;
 
-    private String goodStatus;
+    private Integer goodStatus;
 
     private Integer goodType;
 
 
-    public String getGoodStatus() {
+    public Integer getGoodStatus() {
         return goodStatus;
     }
 
-    public void setGoodStatus(String goodStatus) {
+    public void setGoodStatus(Integer goodStatus) {
         this.goodStatus = goodStatus;
     }
 
