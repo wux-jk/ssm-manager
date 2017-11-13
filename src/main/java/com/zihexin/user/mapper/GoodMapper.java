@@ -22,4 +22,10 @@ public interface GoodMapper {
     int updateGood(Good good);
 
     Good findKinderitor(Good good);
+
+    void updateGoodStatus(Good good);
+
+    Good selectStatus(Good good, String s);
+
+    void updateStatus(Good good);
 }

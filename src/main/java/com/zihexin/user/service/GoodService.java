@@ -19,4 +19,10 @@ public interface GoodService {
     void updateGood(Good good);
 
     Good findKinderitor(Good good);
+
+    void updateGoodStatus(Good good);
+
+    Good selectStatus(Good good, String s);
+
+    void updateStatus(Good good);
 }

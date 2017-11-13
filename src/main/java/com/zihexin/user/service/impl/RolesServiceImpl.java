@@ -18,7 +18,8 @@ public class RolesServiceImpl implements RolesService {
     private RolesMapper rolesMapper;
 
     /**
-     * 用户附角色 查询用户角色 ztree
+     * 加载用户角色树
+     * @param
      * @return
      */
     @Override
@@ -26,4 +27,6 @@ public class RolesServiceImpl implements RolesService {
 
         return rolesMapper.selectUserRoleListJson(roles);
     }
+
+
 }

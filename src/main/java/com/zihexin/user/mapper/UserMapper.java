@@ -1,5 +1,6 @@
 package com.zihexin.user.mapper;
 
+
 import com.zihexin.user.entity.Roles;
 import com.zihexin.user.entity.User;
 import org.apache.ibatis.annotations.Insert;
@@ -29,5 +30,11 @@ public interface UserMapper {
     void updateUser(User user);
 
 
+
     void insertUserInfo(User user);
+
+
+    void deleteAllRolesByUserID(Roles roles);
+
+    void insertUserRolesList(List<Roles> roleRequestList);
 }

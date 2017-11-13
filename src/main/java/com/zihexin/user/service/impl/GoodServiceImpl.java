@@ -25,12 +25,25 @@ public class GoodServiceImpl implements GoodService{
         return goodMapper.queryGoiodList(good);
     }
 
+    @Override
+    public void updateGoodStatus(Good good) {
+        goodMapper.updateGoodStatus(good);
+    }
 
-
-  @Override
+    @Override
     public Good findGoodByid(Good good) {
 
       return goodMapper.findGoodByid(good);
+    }
+
+    @Override
+    public Good selectStatus(Good good, String s) {
+        return goodMapper.selectStatus(good,s);
+    }
+
+    @Override
+    public void updateStatus(Good good) {
+        goodMapper.updateStatus(good);
     }
 
     @Override

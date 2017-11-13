@@ -58,11 +58,10 @@
 
   //给用户修改角色
   function end_user(uid) {
-    alert(uid);
-    $('#show_roles').dialog({
+     $('#show_roles').dialog({
       title: '用户附角色',
-      width: 500,
-      height: 500,
+      width: 300,
+      height: 300,
       closed: false,
       cache: false,
       href: '/login/toUserRoles.jhtml?userID=' + uid,
@@ -75,12 +74,14 @@
           $.ajax({
             type: "post",
             url: '/login/updateUserRole.jhtml',
-            data: $("#upGoodForm").serialize(),
-            success: function (msg) {
+            dataType:"json",
+            data:JSON.stringify(role_json_array),
+             success: function (msg) {
               $.messager.alert('我的消息', '操作成功！', 'info');
               $("#show_roles").dialog("close");
 
-            }
+            },
+            contentType:"application/json"
           });
         }
       }, {

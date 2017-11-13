@@ -2,6 +2,7 @@ package com.zihexin.user.controller;
 
 import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
+
 import com.zihexin.user.entity.Roles;
 import com.zihexin.user.entity.User;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +52,19 @@ public class UserController extends BaseController {
 
     }
 
+
+    /**
+     * 修改用户角色   把之前的角色删掉  在重新添加一个
+     * @param roleRequestList
+     * @return
+     */
+    @RequestMapping("updateUserRole")
+    @ResponseBody
+    String updateUserRole(@RequestBody List<Roles> roleRequestList) {
+        userService.updateUserRole(roleRequestList);
+        return "{}";
+    }
+
     /**
      *查询用户列表
      * @param user
@@ -68,6 +83,13 @@ public class UserController extends BaseController {
 
     }
 
+
+
+
+
+
+
+
     /**
      * 角色操作跳转页面
      * @param ma
@@ -77,16 +99,16 @@ public class UserController extends BaseController {
     @RequestMapping("toUserRoles")
     public String toUserRoles(ModelMap ma,User user){
         ma.addAttribute("userID",user.getUserID());
-        return "/userRole";
+        return "user/userRole";
     }
 
-    //回显
+    //修改用户回显
     @RequestMapping("findUserByid")
     public ModelAndView findUserByid(User user,HttpServletResponse response){
         ModelAndView mv=new ModelAndView();
         User usList=userService.findUserByid(user);
         mv.addObject("user",usList);
-        mv.setViewName("updateUser");
+        mv.setViewName("user/updateUser");
         return mv;
     }
 
@@ -110,7 +132,7 @@ public class UserController extends BaseController {
     @RequestMapping("toUserPage")
     public ModelAndView toUserPage(User user){
         ModelAndView ma=new ModelAndView();
-        ma.setViewName("insertUser");
+        ma.setViewName("user/insertUser");
         return ma;
     }
 

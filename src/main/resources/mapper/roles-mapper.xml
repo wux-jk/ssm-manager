@@ -2,12 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 <mapper namespace="com.zihexin.user.mapper.RolesMapper">
 
-  <!-- <resultMap id="resultRoles" type="com.zihexin.user.entity.Roles" >
+  <resultMap id="resultRoles" type="com.zihexin.user.entity.Roles" >
         <result column="rolesID" property="rolesID" />
         <result column="rolesName" property="rolesName" />
 
     </resultMap>
--->
+
+
+    <!-- 用户角色操作  查询用户当前角色-->
+    <select id="selectUserRoleListJson" parameterType="com.zihexin.user.entity.Roles" resultMap="resultRoles">
+        select r.rolesID as id,rolesName as name,nvl2(m1.rolesID,1,0 ) as checked
+        from t_roles r left join
+        (select ur.rolesID from t_u_r_center ur where ur.t_userID = #{userID})m1
+        on r.rolesID = m1.rolesID
+        order by r.rolesID
+
+
+    </select>
 
 
 </mapper>

@@ -53,7 +53,7 @@
   $(function() {
     //ajax请求从后台获取树
     $.ajax({
-      url:"/login/selectUserRoleListJson.jhtml",
+      url:"/roles/selectUserRoleListJson.jhtml",
       data:{userID:"${userID }"},
       dataType:"json",
       type:"post",

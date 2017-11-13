@@ -51,7 +51,7 @@
 <%--  <a href="javascript:void(0);"   class="easyui-linkbutton" iconCls="icon-add" plain="true"  onclick="dialog('<%=request.getContextPath()%>/product!dialogProduct.html')">添加</a>--%>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true"  onclick="updateGood();">编辑</a>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="putawayGood();">上架</a>
-    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="putawayGood();">下架</a>
+    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="soldGood();">下架</a>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refresh();" >刷新</a>
 </div>
 
@@ -170,15 +170,27 @@
   }
   //----------------------------------
 
-  //商品上架/下架
-  /*function putawayGood(goodID,goodStatus){
+  //商品上架
+  function putawayGood(goodID,goodStatus){
       var selectedRow = $("#goodTable").datagrid("getSelections");
-      if (selectedRow.length != 1) {
-          $.messager.alert("系统提示", "请选择一条要操作的数据！");
+     /* if(selectedRow.length>0){
+          $.messager.alert("系统提示", "你确定上架改商品吗？");
           return;
-      }
+      }*/
+     if (selectedRow.length != 1) {
+          $.messager.alert("系统提示", "请选择一条要操作的数据！");
+         return;
+
+      }/* else{
+        /!* $.messager.alert('警告','警告消息');*!/
+         $.messager.confirm('确认','您确认想要删除记录吗？',function(r){
+             if (r){
+                 $.messager.alert('确认删除');
+             }
+         });
+     }*/
       var goodID = selectedRow[0].goodID;
-      alert(goodID);
+        /*alert(goodID);*/
 
       if(goodStatus == 1){
           goodStatus = 2;
@@ -196,14 +208,54 @@
       })
 
   }
-*/
+
+
+//=================================
+  //下架
+  function soldGood(goodID,goodStatus){
+      var selectedRow = $("#goodTable").datagrid("getSelections");
+      /* if(selectedRow.length>0){
+       $.messager.alert("系统提示", "你确定上架改商品吗？");
+       return;
+       }*/
+      if (selectedRow.length != 1) {
+          $.messager.alert("系统提示", "请选择一条要操作的数据！");
+          return;
+
+      }/* else{
+       /!* $.messager.alert('警告','警告消息');*!/
+       $.messager.confirm('确认','您确认想要删除记录吗？',function(r){
+       if (r){
+       $.messager.alert('确认删除');
+       }
+       });
+       }*/
+      var goodID = selectedRow[0].goodID;
+      /*alert(goodID);*/
+
+      if(goodStatus == 2){
+          goodStatus = 1;
+      }else{
+          goodStatus = 2;
+      }
+      $.ajax({
+          url:"/good/updateGoodStatus.jhtml",
+          data:{"goodID":goodID,"goodStatus":goodStatus},
+          type:"post",
+          success:function(msg){
+              $.messager.alert('我的消息','操作成功！','info');
+              searchGood();
+          }
+      })
+
+  }
 
 
 
 
 
   //批量修改状态
-  function putawayGood(){
+ /* function putawayGood(){
       var updarr = $('#goodTable').datagrid("getSelections");
       var str = "";
       for (var i = 0; i < updarr.length; i++) {
@@ -219,7 +271,7 @@
               searchGood();
           }
       })
-  }
+  }*/
   //-----------------------------------------
 
   //   查看   介绍

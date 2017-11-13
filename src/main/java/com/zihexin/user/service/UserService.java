@@ -1,6 +1,7 @@
 package com.zihexin.user.service;
 
 import com.zihexin.user.entity.Good;
+
 import com.zihexin.user.entity.Roles;
 import com.zihexin.user.entity.User;
 
@@ -18,10 +19,12 @@ public interface UserService {
 
     List<User> queryUserList(User user);
 
-
-    User findUserByid(User user);
+      User findUserByid(User user);
 
     void updateUser(User user);
 
     void insertUserInfo(User user);
+
+
+    void updateUserRole(List<Roles> roleRequestList);
 }

@@ -2,6 +2,7 @@ package com.zihexin.user.service.impl;
 
 import com.zihexin.user.constant.Constanr;
 import com.zihexin.user.entity.Good;
+
 import com.zihexin.user.entity.Roles;
 import com.zihexin.user.entity.User;
 import com.zihexin.user.mapper.UserMapper;
@@ -60,6 +61,20 @@ public class UserServiceImpl implements UserService{
         return userMapper.queryUserList(user);
     }
 
+
+    /**
+     * 角色操作  修改用户角色
+     * @param roleRequestList
+     */
+    @Override
+    public void updateUserRole(List<Roles> roleRequestList) {
+        //删除用户之前的而所有角色
+        userMapper.deleteAllRolesByUserID(roleRequestList.get(0));
+
+        //在添加用户勾选的所有角色
+        userMapper.insertUserRolesList(roleRequestList);
+    }
+
     /**
      * 查用户id  做回显
      * @param user
@@ -71,11 +86,19 @@ public class UserServiceImpl implements UserService{
     }
 
 
+    /**
+     * 修改用户
+     * @param user
+     */
     @Override
     public void updateUser(User user) {
         userMapper.updateUser(user);
     }
 
+    /**
+     * 新增用户信息
+     * @param user
+     */
     @Override
     public void insertUserInfo(User user) {
         userMapper.insertUserInfo(user);

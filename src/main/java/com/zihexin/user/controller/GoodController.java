@@ -65,7 +65,7 @@ public class GoodController extends BaseController {
        ModelAndView mav=new ModelAndView();
        Good updList=goodService.findGoodByid(good);
        mav.addObject("us",updList);
-       mav.setViewName("upGood");
+       mav.setViewName("good/upGood");
        return mav;
    }
 
@@ -79,10 +79,8 @@ public class GoodController extends BaseController {
     public ModelAndView findKinderitor(Good good,HttpServletRequest request){
         ModelAndView mv=new ModelAndView();
        Good goodDesc=goodService.findKinderitor(good);
-       /* request.setAttribute("goodDesc",goodDesc);*/
-       /* return "vive/queryGoodDesc";*/
         mv.addObject("us",goodDesc);
-        mv.setViewName("queryGoodDesc");
+        mv.setViewName("good/queryGoodDesc");
         return mv;
     }
 
@@ -98,6 +96,38 @@ public class GoodController extends BaseController {
 
 
     }
+
+   //修改状态 /上架  下架
+    @RequestMapping("/updateGoodStatus")
+    @ResponseBody
+    public void updateGoodStatus(Good good) throws Exception{
+        goodService.updateGoodStatus(good);
+    }
+
+
+    //批量修改状态
+    /*@RequestMapping("/updateStatus")
+    @ResponseBody
+    public void updateStatus(String ids,HttpServletRequest  request,Good good) throws Exception{
+        String[] str = ids.split(",");
+        for (int i = 0; i < str.length; i++) {
+            Good id= goodService.selectStatus(good, str[i]);
+
+            if(id.getGoodStatus() == 1){
+                good.setGoodStatus(2);
+            }
+            if(id.getGoodStatus() == 2){
+                good.setGoodStatus(1);
+            }
+
+            good.setGoodID(Integer.valueOf(str[i]));
+            goodService.updateStatus(good);
+        }
+
+    }*/
+
+
+
 
     /**
      * 图片上传

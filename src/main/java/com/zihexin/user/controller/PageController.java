@@ -20,14 +20,14 @@ public class PageController {
     @RequestMapping(value = "edit.jhtml", method = RequestMethod.GET)
     public ModelAndView showPage(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("queryGood");
+        modelAndView.setViewName("good/queryGood");
         return modelAndView;
     }
 
     @RequestMapping("toUserList.jhtml")
     public ModelAndView toUserList(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("userList");
+        modelAndView.setViewName("user/userList");
         return modelAndView;
     }
 }
