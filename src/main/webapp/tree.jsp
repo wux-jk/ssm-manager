@@ -51,9 +51,9 @@
          	<li>
          		<span>商品管理</span>
          		<ul>
-					<li data-options="attributes:{'url':'edit.jhtml'}">商品查询</li>
+					<li data-options="attributes:{'url':'toquery.jhtml'}">商品查询</li>
 					<c:if test="${userInfo.rolesID==1}">
-						<li data-options="attributes:{'url':'item-add'}">新增商品</li>
+						<li data-options="attributes:{'url':'edit.jhtml'}">ZHX商品查询</li>
 					</c:if>
 		      	</ul>
 			</li>

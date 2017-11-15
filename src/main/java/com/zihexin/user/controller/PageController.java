@@ -24,6 +24,14 @@ public class PageController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "toquery.jhtml", method = RequestMethod.GET)
+    public ModelAndView toquery(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("enditGood");
+        return modelAndView;
+    }
+
+
     /**
      * 跳转到用户展示列表
      * @return
