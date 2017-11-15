@@ -45,16 +45,16 @@
     <!-- 头部标题 -->
 	<div data-options="region:'north',border:false" style="height:60px; padding:5px; background:#F3F3F3"> 
 		<center><span class="northTitle">商品后台管理系统</span></center>
-	    <span class="loginInfo">登录用户：admin&nbsp;&nbsp;角色：系统管理员</span>
+	    <span class="loginInfo">登录用户：${userInfo.userName}</span>
 	</div>
     <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
     	<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
          	<li>
          		<span>商品管理</span>
          		<ul>
-					<li data-options="attributes:{'url':'edit.jhtml'}">商品查询</li>
+					<li data-options="attributes:{'url':'toquery.jhtml'}">商品查询</li>
 					<c:if test="${userInfo.rolesID==1}">
-						<li data-options="attributes:{'url':'item-add'}">新增商品</li>
+						<li data-options="attributes:{'url':'edit.jhtml'}">ZHX商品查询</li>
 					</c:if>
 		      	</ul>
 			</li>
@@ -64,6 +64,7 @@
 					<li data-options="attributes:{'url':'toUserList.jhtml'}">用户操作</li>
 				</ul>
 			</li>
+			<c:if test="${userInfo.rolesID==1}">
 			<li>
 				<span>内容管理</span>
 				<ul>
@@ -71,6 +72,7 @@
 					<li data-options="attributes:{'url':'edit.jhtml'}">内容分类管理</li>
 				</ul>
 			</li>
+			</c:if>
          </ul>
     </div>
 

@@ -23,7 +23,7 @@
     </delete>
 
     <insert id="insertUserRolesList" parameterType="com.zihexin.user.entity.User">
-      INSERT INTO t_u_r_center (t_userID,rolesID) VALUES (t_u_r_seq.nextval,#{})
+      INSERT INTO t_u_r_center (t_userID,rolesID) VALUES (t_u_r_seq.nextval,#{t_userID},#{rolesID})
 
     </insert>
 

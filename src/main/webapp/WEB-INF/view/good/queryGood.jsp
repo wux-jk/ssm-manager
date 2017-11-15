@@ -58,6 +58,8 @@
  <!--table  表格 -->
 <div><table id="goodTable"></table></div>
 
+
+
 <!-- 预览商品弹框-->
 <div id="goodDesc"></div>
 <!--  修改页面对话框  -->
@@ -89,9 +91,11 @@
         {field:'goodStatus',title:'状态',width:20,align:'center',
             formatter: function(value,row,index){
                 if(row.goodStatus == 1){
-                    return '正常';
+                    return '草稿';
                 }else if(row.goodStatus == 2){
-                    return '已下架';
+                    return '上架';
+                }else{
+                    return '失效';
                 }
             }
         },
@@ -119,55 +123,118 @@
     })
   }
 
+//========================
 
+
+  function searchGood(){
+
+      //条查
+      var goodType=$("[name='goodType']").val();
+
+      var goodNumber=$("[name='goodNumber']").val();
+
+      $('#goodTable').datagrid({
+          url: "/good/queryGoodList.jhtml",
+          fitColumns: true,
+          pagination: true,
+          queryParams: {
+              goodType: goodType,
+              goodNumber: goodNumber,
+          },
+          columns:[[
+              {field:'ckecked',checkbox:true},
+              {field:'goodID',title:'ID',width:30,align:'center'},
+              {field:'goodName',title:'商品名称',width:50,align:'center'},
+              {field:'goodNumber',title:'商品编号',width:30,align:'center'},
+              {field:'goodPrice',title:'商品价格',width:35,align:'center'},
+              {field:'goodStock',title:'商品库存',width:30,align:'center'},
+              {field:'goodStatus',title:'状态',width:20,align:'center',
+                  formatter: function(value,row,index){
+                      if(row.goodStatus == 1){
+                          return '草稿';
+                      }else if(row.goodStatus == 2){
+                          return '上架';
+                      }else{
+                          return '失效';
+                      }
+                  }
+              },
+              {field:'goodType',title:'商家',width:20,align:'center',
+                  formatter: function(value,row,index){
+                      if(row.goodType == 1){
+                          return '京东';
+                      }else if(row.goodType == 2){
+                          return '麦德龙';
+                      }
+                  }
+              }, {field:'crud',title:'操作',width:20,align:'center',
+                  formatter: function (value,row,index){
+                      var str = '<input type="button" value="预览商品" class="btn btn-info" onclick="findGoodDesc(\''+row.goodID+'\')"/>';
+                      return str;
+
+
+                  }
+              }
+
+
+          ]]
+
+
+      })
+  }
+//---------------------------------
 
   //---------------------------------------------------------------------------------
   //编辑
+
+
+
   function updateGood(){
+      var selectedRows = $("#goodTable").datagrid("getSelections");
+      if (selectedRows.length != 1) {
+          $.messager.alert("系统提示", "请选择一条要编辑的数据！");
+          return;
+      }
+      var id = selectedRows[0].goodID;
 
-    var selectedRows = $("#goodTable").datagrid("getSelections");
-    if (selectedRows.length != 1) {
-      $.messager.alert("系统提示", "请选择一条要编辑的数据！");
-      return;
-    }
-    var id = selectedRows[0].goodID;
-    //  调用  dialog
- $('#divGood').dialog({
-    title: '修改',
-    width: 1000,
-    height:500,
-    closed: false,
-    cache: false,
-     href:'/good/findGoodByid.jhtml?goodID='+id,
-     modal: true,
-     buttons:[{
-     text:'保存',
-     iconCls:"icon-ok",
-     handler:function(){
-      ($("#desc").val());  //获取富文本编辑器内容 这个desc是修改商品页面的id属性
-     $.ajax({
-     type:"post",
-      url:'<%=request.getContextPath()%>/good/updateGood.jhtml',
-     data:$("#upGoodForm").serialize(),
-     success:function (msg){
-     $.messager.alert('我的消息','修改成功！','info');
-     $("#divGood").dialog("close");
-     searchGood();
-     }
-     });
-     }
-     },{
-     text:'关闭',
-     iconCls:"icon-no",
-     handler:function(){
-     $('#divGood').dialog('close');
-     }
-     }]
+      $('#divGood').dialog({
+          title: '修改',
+          width: 1000,
+          height:500,
+          closed: false,
+          cache: false,
+          href:'/good/findGoodByid.jhtml?goodID='+id,
+          modal: true,
+          buttons:[{
+              text:'保存',
+              iconCls:"icon-ok",
+              handler:function(){
+                  ($("#desc").val());
+                  $.ajax({
+                      type:"post",
+                      url:'<%=request.getContextPath()%>/good/updateGood.jhtml',
+                      data:$("#upGoodForm").serialize(),
+                      success:function (msg){
+                          $.messager.alert('我的消息','修改成功！','info');
+                          $("#divGood").dialog("close");
+                          searchGood();
+                      }
+                  });
+              }
+          },{
+              text:'关闭',
+              iconCls:"icon-no",
+              handler:function(){
+                  $('#divGood').dialog('close');
+              }
+          }]
 
-     });
-     $("#goodTable").datagrid('reload');
-
+      });
+      $("#goodTable").datagrid('reload');
   }
+
+
+
   //----------------------------------
 
   //商品上架
@@ -181,14 +248,7 @@
           $.messager.alert("系统提示", "请选择一条要操作的数据！");
          return;
 
-      }/* else{
-        /!* $.messager.alert('警告','警告消息');*!/
-         $.messager.confirm('确认','您确认想要删除记录吗？',function(r){
-             if (r){
-                 $.messager.alert('确认删除');
-             }
-         });
-     }*/
+      }
       var goodID = selectedRow[0].goodID;
         /*alert(goodID);*/
 
@@ -222,14 +282,7 @@
           $.messager.alert("系统提示", "请选择一条要操作的数据！");
           return;
 
-      }/* else{
-       /!* $.messager.alert('警告','警告消息');*!/
-       $.messager.confirm('确认','您确认想要删除记录吗？',function(r){
-       if (r){
-       $.messager.alert('确认删除');
-       }
-       });
-       }*/
+      }
       var goodID = selectedRow[0].goodID;
       /*alert(goodID);*/
 
@@ -254,24 +307,6 @@
 
 
 
-  //批量修改状态
- /* function putawayGood(){
-      var updarr = $('#goodTable').datagrid("getSelections");
-      var str = "";
-      for (var i = 0; i < updarr.length; i++) {
-          str += "," + updarr[i].goodID;
-      }
-      ids = str.substr(1);
-      $.ajax({
-          url:'/good/updateStatus.jhtml',
-          type:'post',
-          data:{"ids":ids},
-          success:function(){
-              $.messager.alert('我的消息','操作成功！','info');
-              searchGood();
-          }
-      })
-  }*/
   //-----------------------------------------
 
   //   查看   介绍
@@ -303,6 +338,8 @@
   }
 
 </script>
+
+
 
 </body>
 

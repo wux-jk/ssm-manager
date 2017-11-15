@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class PageController {
 
     /**
-     * 页面跳转 到搜索商品页面
+     * 页面跳转 到zhx搜索商品页面
      * @param
      * @return
      */
@@ -21,6 +21,13 @@ public class PageController {
     public ModelAndView showPage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("good/queryGood");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "toquery.jhtml", method = RequestMethod.GET)
+    public ModelAndView toquery(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("good/editGood");
         return modelAndView;
     }
 

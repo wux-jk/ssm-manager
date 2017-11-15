@@ -5,7 +5,9 @@ import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
 import com.zihexin.user.entity.User;
 import com.zihexin.user.service.GoodService;
+import com.zihexin.user.util.CacheProperties;
 import com.zihexin.user.util.FastDFSClient;
+import com.zihexin.user.util.StaticFileServerUtil;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/10/27 0027.
@@ -105,28 +105,6 @@ public class GoodController extends BaseController {
     }
 
 
-    //批量修改状态
-    /*@RequestMapping("/updateStatus")
-    @ResponseBody
-    public void updateStatus(String ids,HttpServletRequest  request,Good good) throws Exception{
-        String[] str = ids.split(",");
-        for (int i = 0; i < str.length; i++) {
-            Good id= goodService.selectStatus(good, str[i]);
-
-            if(id.getGoodStatus() == 1){
-                good.setGoodStatus(2);
-            }
-            if(id.getGoodStatus() == 2){
-                good.setGoodStatus(1);
-            }
-
-            good.setGoodID(Integer.valueOf(str[i]));
-            goodService.updateStatus(good);
-        }
-
-    }*/
-
-
 
 
     /**
@@ -137,16 +115,17 @@ public class GoodController extends BaseController {
     @RequestMapping("/pic/upload")
     @ResponseBody
     public Map uploadFile(MultipartFile uploadFile ) {
+
         try {
 
-            //b把图片上传到图片服务器
+            //把图片上传的图片服务器
             FastDFSClient fastDFSClient = new FastDFSClient("classpath:conf/client.conf");
-            //取扩展名
+            //取文件扩展名
             String originalFilename = uploadFile.getOriginalFilename();
             String extName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-          //得到一个图片的地址和文件
+            //得到一个图片的地址和文件名  执行上传
             String url = fastDFSClient.uploadFile(uploadFile.getBytes(), extName);
-            //补充完整的URL
+            //补充为完整的url
             url = IMAGE_SERVER_URL + url;
             //封装到map中返回
             Map result = new HashMap<>();
