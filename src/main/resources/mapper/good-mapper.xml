@@ -34,6 +34,14 @@
 
     </select>
 
+    <!-- 上架-->
+    <select id="toPutawayGood" parameterType="com.zihexin.user.entity.Good" resultMap="resultGood">
+
+        SELECT goodID as goodID,goodStock as goodStock ,goodStatus as goodStatus FROM GOOD
+       WHERE goodID=${goodID}
+
+    </select>
+
 
     <update id="updateGood" parameterType="com.zihexin.user.entity.Good" >
 
@@ -47,8 +55,20 @@
     </select>
 
 
+    <!-- 修改状态  下架-->
     <update id="updateGoodStatus" parameterType="com.zihexin.user.entity.Good">
 
         UPDATE GOOD SET goodStatus=#{goodStatus} WHERE goodID=#{goodID}
+    </update>
+
+    <!-- 修改状态  上架-->
+    <!--<update id="updateGoodStock" parameterType="com.zihexin.user.entity.Good">
+
+        UPDATE GOOD SET goodStatus=#{goodStatus} WHERE goodID=#{goodID}
+    </update>-->
+
+    <update id="updateGoodStock" parameterType="com.zihexin.user.entity.Good">
+
+        UPDATE GOOD SET goodStatus=#{goodStatus},goodStock=#{goodStock} WHERE  goodID=#{goodID}
     </update>
 </mapper>   

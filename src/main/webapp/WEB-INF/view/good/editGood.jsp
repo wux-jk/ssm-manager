@@ -54,7 +54,7 @@
 </div>
 
 
-<div id="divGood">
+<div id="divGood" style="display: none">
 
   <div id="gengduo" class="div-inline fl" style="float: left; margin: 20px 0 0 20px;" >
       <form>
@@ -107,7 +107,7 @@
        <table border="1">
          <tr>
            <td>ZHXSKU:</td>
-           <td><input class="easyui-textbox" type="text" name="goodName" value="${us.goodName}"  style="width: 150px;"/></td>
+           <td><input class="easyui-textbox" type="text" id="ssssssss_11" name="goodName" value="${us.goodName}"  style="width: 150px;"/></td>
          </tr>
          <tr>
            <td>商品名称:</td>
@@ -156,37 +156,24 @@
 
 <script type="text/javascript">
 
-
-  //页面加载
-$(function(){
-
-
-
-  })
-
-
-
-
-var m=0;
-  //查询按钮的方法
-  function searchGoodType(){
-    $("#divGood").hide();
-    if(m==0){
+  function searchGoodType() {
+    //d当触发查询按钮事件  显示表格
       $("#divGood").show();
-      m=1;
-    }
-  }
-  ///* 显示设置 */
- /* var m=0;
-  function  showset(){
-    if(m==0){
-      $("#showsetid").hide();
-      m=1;
-    }else if(m==1){
-      $("#showsetid").show();
-      m=0;
-    }
-  }*/
+       var goodType=$("[name='goodType']").val();
+       var goodNumber=$("[name='goodNumber']").val();
+      $.ajax({
+          url:"/good/queryGoodList.jhtml",
+         data:{"goodType":goodType,"goodNumber":goodNumber},
+         type:"post",
+        success:function(msg){
+             $("#ssssssss_11").textbox('setText', "啦啦啦啦啦");
+
+           }
+       })
+
+   }
+
+
 
 
 

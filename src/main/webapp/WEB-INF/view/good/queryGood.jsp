@@ -82,7 +82,7 @@
         goodNumber: goodNumber,
       },
       columns:[[
-        {field:'ckecked',checkbox:true},
+        {field:'ckecked',checkbox:true,name:'check'},
         {field:'goodID',title:'ID',width:30,align:'center'},
         {field:'goodName',title:'商品名称',width:50,align:'center'},
         {field:'goodNumber',title:'商品编号',width:30,align:'center'},
@@ -126,62 +126,7 @@
 //========================
 
 
-  function searchGood(){
 
-      //条查
-      var goodType=$("[name='goodType']").val();
-
-      var goodNumber=$("[name='goodNumber']").val();
-
-      $('#goodTable').datagrid({
-          url: "/good/queryGoodList.jhtml",
-          fitColumns: true,
-          pagination: true,
-          queryParams: {
-              goodType: goodType,
-              goodNumber: goodNumber,
-          },
-          columns:[[
-              {field:'ckecked',checkbox:true},
-              {field:'goodID',title:'ID',width:30,align:'center'},
-              {field:'goodName',title:'商品名称',width:50,align:'center'},
-              {field:'goodNumber',title:'商品编号',width:30,align:'center'},
-              {field:'goodPrice',title:'商品价格',width:35,align:'center'},
-              {field:'goodStock',title:'商品库存',width:30,align:'center'},
-              {field:'goodStatus',title:'状态',width:20,align:'center',
-                  formatter: function(value,row,index){
-                      if(row.goodStatus == 1){
-                          return '草稿';
-                      }else if(row.goodStatus == 2){
-                          return '上架';
-                      }else{
-                          return '失效';
-                      }
-                  }
-              },
-              {field:'goodType',title:'商家',width:20,align:'center',
-                  formatter: function(value,row,index){
-                      if(row.goodType == 1){
-                          return '京东';
-                      }else if(row.goodType == 2){
-                          return '麦德龙';
-                      }
-                  }
-              }, {field:'crud',title:'操作',width:20,align:'center',
-                  formatter: function (value,row,index){
-                      var str = '<input type="button" value="预览商品" class="btn btn-info" onclick="findGoodDesc(\''+row.goodID+'\')"/>';
-                      return str;
-
-
-                  }
-              }
-
-
-          ]]
-
-
-      })
-  }
 //---------------------------------
 
   //---------------------------------------------------------------------------------
@@ -196,7 +141,6 @@
           return;
       }
       var id = selectedRows[0].goodID;
-
       $('#divGood').dialog({
           title: '修改',
           width: 1000,
@@ -209,7 +153,7 @@
               text:'保存',
               iconCls:"icon-ok",
               handler:function(){
-                  ($("#desc").val());
+                  ($("#desc").val()); //获取修改页面的desc的id选择器
                   $.ajax({
                       type:"post",
                       url:'<%=request.getContextPath()%>/good/updateGood.jhtml',
@@ -238,68 +182,98 @@
   //----------------------------------
 
   //商品上架
-  function putawayGood(goodID,goodStatus){
+  function putawayGood(){
+
       var selectedRow = $("#goodTable").datagrid("getSelections");
-     /* if(selectedRow.length>0){
-          $.messager.alert("系统提示", "你确定上架改商品吗？");
-          return;
-      }*/
      if (selectedRow.length != 1) {
           $.messager.alert("系统提示", "请选择一条要操作的数据！");
          return;
-
       }
       var goodID = selectedRow[0].goodID;
-        /*alert(goodID);*/
+      var goodStatus = selectedRow[0].goodStatus;
+      alert(goodStatus)
+      if(goodStatus != 2) {
+          $('#divGood').dialog({
+              title: '上架',
+              width: 300,
+              height: 300,
+              closed: false,
+              cache: false,
+              href: '/good/toPutawayGood.jhtml',
+              modal: true,
+              buttons: [{
+                  text: '确定上架',
+                  iconCls: "icon-ok",
+                  handler: function () {
+                      $.ajax({
+                          type: "post",
+                          url: '/good/upGoodStock.jhtml',
+                          data: {"goodStatus":goodStatus,},
+                          success: function (msg) {
 
-      if(goodStatus == 1){
-          goodStatus = 2;
+                              $.messager.alert('我的消息', '上架成功！', 'info');
+                              $("#divGood").dialog("close");
+                              searchGood();
+                          }
+                      });
+                  }
+              }, {
+                  text: '关闭',
+                  iconCls: "icon-no",
+                  handler: function () {
+                      $('#divGood').dialog('close');
+                  }
+              }]
+
+          });
       }else{
-          goodStatus = 1;
-      }
-      $.ajax({
-          url:"/good/updateGoodStatus.jhtml",
-          data:{"goodID":goodID,"goodStatus":goodStatus},
-          type:"post",
-          success:function(msg){
-              $.messager.alert('我的消息','操作成功！','info');
-               searchGood();
-          }
-      })
 
+          $.messager.alert("系统提示","该商品已上架","warning");
+
+      }
   }
 
 
 //=================================
   //下架
-  function soldGood(goodID,goodStatus){
+  function soldGood(){
+
+
       var selectedRow = $("#goodTable").datagrid("getSelections");
-      /* if(selectedRow.length>0){
-       $.messager.alert("系统提示", "你确定上架改商品吗？");
-       return;
-       }*/
+      var goodID = selectedRow[0].goodID;
       if (selectedRow.length != 1) {
           $.messager.alert("系统提示", "请选择一条要操作的数据！");
           return;
-
       }
-      var goodID = selectedRow[0].goodID;
-      /*alert(goodID);*/
+        if(selectedRow[0].goodStatus == 2){
+            $.messager.confirm("系统提示","确认下架吗？",function(s){
+                if(s){
+                    $.ajax({
+                        url:"/good/updateGoodStatus.jhtml",
+                        data:{"goodID":goodID,"goodStatus":3},
+                        type:"post",
+                        success:function(msg){
+                            $.messager.alert('我的消息','操作成功！','info');
+                            searchGood();
+                        }
+                    })
+                }
+            });
+        }else{
+            $.messager.alert('系统消息','该商品不可操作！','info');
+        }
 
-      if(goodStatus == 2){
-          goodStatus = 1;
-      }else{
-          goodStatus = 2;
-      }
-      $.ajax({
-          url:"/good/updateGoodStatus.jhtml",
-          data:{"goodID":goodID,"goodStatus":goodStatus},
-          type:"post",
-          success:function(msg){
-              $.messager.alert('我的消息','操作成功！','info');
-              searchGood();
-          }
-      })
+
+
+
+
+
+
+
+
+
+
+
 
   }
 

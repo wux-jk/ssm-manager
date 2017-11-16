@@ -73,7 +73,7 @@
           var role_json_array = get_selection_tree_nodes();//获取被选中的树节点的方法
           $.ajax({
             type: "post",
-            url: '/login/updateUserRole.jhtml',
+            url: '/roles/updateUserRole.jhtml',
             dataType:"json",
             data:JSON.stringify(role_json_array),
              success: function (msg) {
