@@ -116,6 +116,8 @@ public class HttpClientUtil {
 		// String url = "http://10.7.13.109:8080/itunes/communication/message";//10.7.13.109:8080
 //		String url = "http://10.6.16.12:8089/csp/communication/message";//10.7.13.109:8080
 		 String url = "http://10.6.16.233:443/GiftCardServer/services/giftCard";//10.7.13.109:8080
+		//String url = "http://10.6.5.114:8080/WelfareMall-management";
+
 //		 String url = "http://10.6.16.29:443/GiftCardServer/services/giftCard";
 //		 String url = "http://10.3.0.65:8080/GiftCardServer/services/giftCard";
 

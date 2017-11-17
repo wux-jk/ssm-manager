@@ -26,5 +26,5 @@ public interface UserService {
     void insertUserInfo(User user);
 
 
-    void updateUserRole(List<Roles> roleRequestList);
+
 }

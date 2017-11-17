@@ -27,9 +27,11 @@ public class PageController {
     @RequestMapping(value = "toquery.jhtml", method = RequestMethod.GET)
     public ModelAndView toquery(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("good/editGood");
+        modelAndView.setViewName("good/itemGood");
         return modelAndView;
     }
+
+
 
     @RequestMapping("toUserList.jhtml")
     public ModelAndView toUserList(){

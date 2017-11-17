@@ -25,7 +25,10 @@ public interface GoodMapper {
 
     void updateGoodStatus(Good good);
 
-    Good selectStatus(Good good, String s);
 
-    void updateStatus(Good good);
+    //上架的方法
+    void upGoodStatus(Good good);
+
+    //修改库存的方法
+    void upGoodStock(Good good);
 }

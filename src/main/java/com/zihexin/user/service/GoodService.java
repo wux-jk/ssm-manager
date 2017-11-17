@@ -22,7 +22,6 @@ public interface GoodService {
 
     void updateGoodStatus(Good good);
 
-    Good selectStatus(Good good, String s);
-
-    void updateStatus(Good good);
+        //修改状态  新增库存数量
+    void upGoodOnStatusStock(Good good);
 }

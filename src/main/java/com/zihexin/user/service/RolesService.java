@@ -12,5 +12,5 @@ public interface RolesService {
     List<Roles> selectUserRoleListJson(Roles roles);
 
 
-
+    void updateUserRole(List<Roles> roleRequestList);
 }

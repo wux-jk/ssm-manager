@@ -11,19 +11,20 @@
     <title></title>
 </head>
 <body>
-
-
+<form id="stokForm">
   <table >
 
     <tr>
       <td>库存数量:</td>
-      <td><input class="easyui-numberbox" type="text" id="goodStock" /></td>
+      <td><input class="easyui-numberbox" type="text"  name="goodStock" />
+          <input type="hidden"  value="${goodID}" name="goodID">
+      </td>
     </tr>
 
 
 
 
   </table>
-
+</form>
 </body>
 </html>

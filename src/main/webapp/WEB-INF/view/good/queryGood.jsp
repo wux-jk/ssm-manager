@@ -66,6 +66,35 @@
 <div id="divGood"></div>
 
 
+
+
+
+
+
+
+
+
+<%--<div id="dlg" class="easyui-dialog" closed="true" title="添加库存数量界面" style="width:900px;height:450px;padding:10px"
+     data-options="
+						iconCls: 'icon-save',
+						<!-- closable: false, 右上角按钮-->
+						buttons: [{
+							text:'保存',
+							iconCls:'icon-ok',
+							handler:function(){
+                            $('#goodStock').val();
+
+						},{
+							text:'取消',
+							iconCls:'icon-undo',
+							handler:function(){
+								$('#dlg').dialog('close');
+							}
+						}]
+					">
+    <input class="easyui-numberbox" type="text" id="goodStock" /></td>
+</div>--%>
+
 <script type="text/javascript">
   function searchGood(){
     //条查
@@ -126,9 +155,6 @@
 //========================
 
 
-
-//---------------------------------
-
   //---------------------------------------------------------------------------------
   //编辑
 
@@ -182,59 +208,57 @@
   //----------------------------------
 
   //商品上架
-  function putawayGood(){
+     function putawayGood(){
 
-      var selectedRow = $("#goodTable").datagrid("getSelections");
-     if (selectedRow.length != 1) {
-          $.messager.alert("系统提示", "请选择一条要操作的数据！");
-         return;
-      }
-      var goodID = selectedRow[0].goodID;
-      var goodStatus = selectedRow[0].goodStatus;
-      alert(goodStatus)
-      if(goodStatus != 2) {
-          $('#divGood').dialog({
-              title: '上架',
-              width: 300,
-              height: 300,
-              closed: false,
-              cache: false,
-              href: '/good/toPutawayGood.jhtml',
-              modal: true,
-              buttons: [{
-                  text: '确定上架',
-                  iconCls: "icon-ok",
-                  handler: function () {
-                      $.ajax({
-                          type: "post",
-                          url: '/good/upGoodStock.jhtml',
-                          data: {"goodStatus":goodStatus,},
-                          success: function (msg) {
+         var selectedRow = $("#goodTable").datagrid("getSelections");
+        if (selectedRow.length != 1) {
+               $.messager.alert("系统提示", "请选择一条要操作的数据！");
+                return;
+             }
+         var goodID = selectedRow[0].goodID;
+         var goodStatus = selectedRow[0].goodStatus;
+         alert(goodStatus)
+         if(goodStatus != 2) {
+             $('#divGood').dialog({
+             title: '上架',
+             width: 300,
+             height: 300,
+             closed: false,
+             cache: false,
+             href: '/good/toPutawayGood.jhtml?goodID='+goodID,
+             modal: true,
+             buttons: [{
+             text: '确定上架',
+             iconCls: "icon-ok",
+             handler: function () {
+                 $.ajax({
+                     type: "post",
+                     url: '/good/upGoodOnStatusStock.jhtml',
+                     data: $("#stokForm").serialize(),
+                     success: function (msg) {
+                           $.messager.alert('我的消息', '上架成功！', 'info');
+                           $("#divGood").dialog("close");
+                            searchGood();
+                         }
+                 });
+             }
+             }, {
+                 text: '关闭',
+                         iconCls: "icon-no",
+                         handler: function () {
+                         $('#divGood').dialog('close');
+                     }
+             }]
 
-                              $.messager.alert('我的消息', '上架成功！', 'info');
-                              $("#divGood").dialog("close");
-                              searchGood();
-                          }
-                      });
-                  }
-              }, {
-                  text: '关闭',
-                  iconCls: "icon-no",
-                  handler: function () {
-                      $('#divGood').dialog('close');
-                  }
-              }]
-
-          });
-      }else{
-
-          $.messager.alert("系统提示","该商品已上架","warning");
-
-      }
-  }
+             });
+         }else{
+               $.messager.alert("系统提示","该商品已上架","warning");
+         }
+     }
 
 
-//=================================
+
+  //=================================
   //下架
   function soldGood(){
 

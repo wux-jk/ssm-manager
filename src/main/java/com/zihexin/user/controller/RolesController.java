@@ -4,6 +4,7 @@ import com.zihexin.user.entity.Roles;
 import com.zihexin.user.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,7 +31,17 @@ public class RolesController {
         return rolesList;
     }
 
-
+    /**
+     * 修改用户角色   把之前的角色删掉  在重新添加一个
+     * @param roleRequestList
+     * @return
+     */
+    @RequestMapping("updateUserRole")
+    @ResponseBody
+    String updateUserRole(@RequestBody List<Roles> roleRequestList) {
+        rolesService.updateUserRole(roleRequestList);
+        return "{}";
+    }
 
 
 }

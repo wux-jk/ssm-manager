@@ -34,7 +34,6 @@ public interface UserMapper {
     void insertUserInfo(User user);
 
 
-    void deleteAllRolesByUserID(Roles roles);
 
-    void insertUserRolesList(List<Roles> roleRequestList);
+
 }

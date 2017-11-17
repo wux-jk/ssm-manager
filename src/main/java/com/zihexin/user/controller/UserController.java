@@ -53,17 +53,7 @@ public class UserController extends BaseController {
     }
 
 
-    /**
-     * 修改用户角色   把之前的角色删掉  在重新添加一个
-     * @param roleRequestList
-     * @return
-     */
-    @RequestMapping("updateUserRole")
-    @ResponseBody
-    String updateUserRole(@RequestBody List<Roles> roleRequestList) {
-        userService.updateUserRole(roleRequestList);
-        return "{}";
-    }
+
 
     /**
      *查询用户列表
@@ -105,6 +95,8 @@ public class UserController extends BaseController {
     //修改用户回显
     @RequestMapping("findUserByid")
     public ModelAndView findUserByid(User user,HttpServletResponse response){
+
+
         ModelAndView mv=new ModelAndView();
         User usList=userService.findUserByid(user);
         mv.addObject("user",usList);

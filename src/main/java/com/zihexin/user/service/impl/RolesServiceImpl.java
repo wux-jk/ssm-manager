@@ -28,5 +28,18 @@ public class RolesServiceImpl implements RolesService {
         return rolesMapper.selectUserRoleListJson(roles);
     }
 
+    /**
+     * 角色操作  修改用户角色
+     * @param roleRequestList
+     */
+    @Override
+    public void updateUserRole(List<Roles> roleRequestList) {
+        //删除用户之前的而所有角色
+        rolesMapper.deleteAllRolesByUserID(roleRequestList.get(0));
+
+        //在添加用户勾选的所有角色
+        rolesMapper.insertUserRolesList(roleRequestList);
+    }
+
 
 }

@@ -62,13 +62,15 @@
     </update>
 
     <!-- 修改状态  上架-->
-    <!--<update id="updateGoodStock" parameterType="com.zihexin.user.entity.Good">
+    <update id="upGoodStatus" parameterType="com.zihexin.user.entity.Good">
 
         UPDATE GOOD SET goodStatus=#{goodStatus} WHERE goodID=#{goodID}
-    </update>-->
-
-    <update id="updateGoodStock" parameterType="com.zihexin.user.entity.Good">
-
-        UPDATE GOOD SET goodStatus=#{goodStatus},goodStock=#{goodStock} WHERE  goodID=#{goodID}
     </update>
+
+
+    <update id="upGoodStock" parameterType="com.zihexin.user.entity.Good">
+         UPDATE GOOD SET goodStock=#{goodStock} WHERE goodID=#{goodID}
+    </update>
+
+
 </mapper>   

@@ -59,15 +59,15 @@ public class GoodController extends BaseController {
     }
 
 
-   //回显
-   @RequestMapping("findGoodByid")
-   public ModelAndView findGoodByid(Good good,HttpServletResponse response){
-       ModelAndView mav=new ModelAndView();
-       Good updList=goodService.findGoodByid(good);
-       mav.addObject("us",updList);
-       mav.setViewName("good/upGood");
-       return mav;
-   }
+    //回显
+    @RequestMapping("findGoodByid")
+    public ModelAndView findGoodByid(Good good,HttpServletResponse response){
+        ModelAndView mav=new ModelAndView();
+        Good updList=goodService.findGoodByid(good);
+        mav.addObject("us",updList);
+        mav.setViewName("good/upGood");
+        return mav;
+    }
 
     /**
      * 预览商品
@@ -85,6 +85,18 @@ public class GoodController extends BaseController {
     }
 
     /**
+     * 跳转到商品上架 商品库存页面
+     * @return
+     */
+    @RequestMapping(value="/toPutawayGood", method = RequestMethod.GET)
+    public ModelAndView toPutawayGood(String goodID,HttpServletRequest request){
+        Map<String, String> model = new HashMap<String, String>();
+        model.put("goodID",goodID);
+        ModelAndView mav = new ModelAndView("good/goodRepetroy",model);
+        return mav;
+    }
+
+    /**
      * 修改商品
      * @param good
      * @param response
@@ -97,14 +109,20 @@ public class GoodController extends BaseController {
 
     }
 
-   //修改状态 /上架  下架
+   //修改状态  下架
     @RequestMapping("/updateGoodStatus")
     @ResponseBody
     public void updateGoodStatus(Good good) throws Exception{
+        System.out.println(good.getGoodStatus());
         goodService.updateGoodStatus(good);
     }
 
-
+    //修改状态  上架
+    @RequestMapping("/upGoodOnStatusStock")
+    @ResponseBody
+    public void upGoodOnStatusStock(Good good,HttpServletResponse response) throws Exception{
+        goodService.upGoodOnStatusStock(good);
+    }
 
 
     /**
