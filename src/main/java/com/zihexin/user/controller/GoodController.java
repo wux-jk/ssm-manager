@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
 import com.zihexin.user.entity.User;
+import com.zihexin.user.entity.mallProductType.MallProductType;
 import com.zihexin.user.service.GoodService;
 import com.zihexin.user.util.CacheProperties;
 import com.zihexin.user.util.FastDFSClient;
@@ -57,6 +58,9 @@ public class GoodController extends BaseController {
         writeJson(goodList,response);
 
     }
+
+
+
 
 
     //回显

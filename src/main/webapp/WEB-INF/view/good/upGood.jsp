@@ -61,5 +61,8 @@ $(function(){
 //实例化编辑器
 itemEditEditor = E3.createEditor("#upGoodForm [name=goodDesc]");
 });
+
+
+
 </script>
 

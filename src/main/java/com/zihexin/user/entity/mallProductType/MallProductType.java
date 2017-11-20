@@ -5,6 +5,8 @@ package com.zihexin.user.entity.mallProductType;
  */
 public class MallProductType {
 
+
+    //资和信商品类别表
     private String type_ID;//商品类别ID
     private String type_Name;//商品类别名称
     private String parent_ID;//商品类别父ID：最高级别0

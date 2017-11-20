@@ -2,8 +2,10 @@ package com.zihexin.user.mapper;
 
 import com.zihexin.user.entity.Good;
 import com.zihexin.user.entity.User;
+import com.zihexin.user.entity.mallProductType.MallProductType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/27 0027.
@@ -31,4 +33,6 @@ public interface GoodMapper {
 
     //修改库存的方法
     void upGoodStock(Good good);
+
+
 }

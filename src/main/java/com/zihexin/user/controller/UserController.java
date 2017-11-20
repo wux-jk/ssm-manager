@@ -113,6 +113,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping("/updateUser")
     public void updateUser(User user,HttpServletResponse response)throws Exception{
+
         userService.updateUser(user);
 
 

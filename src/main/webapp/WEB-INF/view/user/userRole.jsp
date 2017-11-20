@@ -72,7 +72,6 @@
     var nodes = zTreeObj.getCheckedNodes(true);
     for (var i = 0; i < nodes.length; i++) {
       var role_obj = {userID: "${userID}", rolesID:nodes[i].id};
-      alert(nodes[i].id)
       role_json_array.push(role_obj);
       //alert(nodes[i].name + ">>" + nodes[i].id);
     }

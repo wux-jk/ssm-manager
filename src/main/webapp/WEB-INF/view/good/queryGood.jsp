@@ -15,6 +15,8 @@
   <script type="text/javascript" src="js/jquery-easyui.jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 
+    <script type="text/javascript" src="js/json/json-minified.js"></script>
+
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
   <script type="text/javascript" src="js/common.js"></script>
@@ -26,20 +28,30 @@
      style="width:750px;padding:10px;background:#fafafa;"
      data-options="iconCls:'icon-save',closable:true,collapsible:true,minimizable:true,maximizable:true">
 
-
   <table cellpadding="5px">
     <tr>
-      <td>供应商:</td>
-      <td>
-        <select class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
-          <option value="0">--请选择--</option>
-          <option value="1">京东</option>
-          <option value="2">麦德龙</option>
+        <th>一级</th>
+        <td>
+        <select class="easyui-combobox"  onchange="onSelectChange(this,'city');" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130" >
+          <%--<option value="0">--请选择--</option>--%>
         </select>
       </td>
-      <td>商品编号:</td>
-      <td><input class="easyui-textbox" name="goodNumber" name="product.pro_name" data-options="iconCls:'',prompt:'请输入编号'" style="width:100px"> </td>
-      <td width="100px"><button onclick="searchGood()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button></td>
+        <th>二级</th>
+           <td>
+               <select class="easyui-combobox"  name="city" id="city" onchange="onSelectChange(this,'district');" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
+                 <%-- <option value="0">--请选择--</option>--%>
+               </select>
+           </td>
+        <th>三级</th>
+           <td>
+               <select class="easyui-combobox" name="district" id="district" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
+                  <%-- <option value="0">--请选择--</option>--%>
+               </select>
+           </td>
+
+    <%--  <td>商品编号:</td>
+      <td><input class="easyui-textbox" name="goodNumber" name="product.pro_name" data-options="iconCls:'',prompt:'请输入编号'" style="width:100px"> </td>--%>
+      <td width="100px"><button onclick="searchGoodInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button></td>
 
 
     </tr>
@@ -58,45 +70,18 @@
  <!--table  表格 -->
 <div><table id="goodTable"></table></div>
 
-
-
 <!-- 预览商品弹框-->
 <div id="goodDesc"></div>
 <!--  修改页面对话框  -->
 <div id="divGood"></div>
 
 
-
-
-
-
-
-
-
-
-<%--<div id="dlg" class="easyui-dialog" closed="true" title="添加库存数量界面" style="width:900px;height:450px;padding:10px"
-     data-options="
-						iconCls: 'icon-save',
-						<!-- closable: false, 右上角按钮-->
-						buttons: [{
-							text:'保存',
-							iconCls:'icon-ok',
-							handler:function(){
-                            $('#goodStock').val();
-
-						},{
-							text:'取消',
-							iconCls:'icon-undo',
-							handler:function(){
-								$('#dlg').dialog('close');
-							}
-						}]
-					">
-    <input class="easyui-numberbox" type="text" id="goodStock" /></td>
-</div>--%>
-
 <script type="text/javascript">
-  function searchGood(){
+
+
+
+    //--------------------------------
+  function searchGoodInfo(){
     //条查
       var goodType=$("[name='goodType']").val();
 

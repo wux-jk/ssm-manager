@@ -5,7 +5,7 @@
   <resultMap id="resultRoles" type="com.zihexin.user.entity.Roles" >
         <result column="rolesID" property="rolesID" />
         <result column="rolesName" property="rolesName" />
-
+      <result column="userID" property="userID" />
     </resultMap>
 
 
@@ -20,8 +20,15 @@
 
     </select>
 
+    <!-- s删除之前的用户角色-->
+    <delete id="deleteAllRolesByUserID">
+        delete from t_u_r_center
+        where t_userID = #{userID}
+    </delete>
+
+    <!-- 用户角色操作  在新添加用户勾选的角色-->
     <insert id="insertUserRolesList" parameterType="com.zihexin.user.entity.Roles">
-        INSERT INTO t_u_r_center (t_userID,rolesID) VALUES (t_u_r_seq.nextval,#{t_userID},#{rolesID})
+        INSERT INTO t_u_r_center (t_ID,t_userID,rolesID) VALUES (t_u_r_seq.nextval,#{userID},#{rolesID})
 
     </insert>
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.zihexin.user.mapper.ProductMapper">
+
+    <resultMap id="resultProduct" type="com.zihexin.user.entity.mallProductType.MallProductType" >
+
+      <result column="type_ID" property="type_ID" />
+        <result column="type_Name" property="type_Name" />
+        <result column="parent_ID" property="parent_ID" />
+        <result column="channel_ID" property="channel_ID" />
+        <result column="level_ID" property="level_ID" />
+        <result column="status" property="status" />
+
+    </resultMap>
+
+
+
+    <select id="getDropdown" parameterType="com.zihexin.user.entity.mallProductType.MallProductType" resultMap="resultProduct">
+
+           select type_ID,type_Name from  MALL_PRODUCT_TYPE  where parent_ID =#{parent_ID}
+
+
+    </select>
+
+
+</mapper>   

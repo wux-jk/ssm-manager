@@ -38,7 +38,9 @@ public class RolesServiceImpl implements RolesService {
         rolesMapper.deleteAllRolesByUserID(roleRequestList.get(0));
 
         //在添加用户勾选的所有角色
-        rolesMapper.insertUserRolesList(roleRequestList);
+        for (int i = 0; i < roleRequestList.size(); i++) {
+            rolesMapper.insertUserRolesList(roleRequestList.get(i));
+        }
     }
 
 
