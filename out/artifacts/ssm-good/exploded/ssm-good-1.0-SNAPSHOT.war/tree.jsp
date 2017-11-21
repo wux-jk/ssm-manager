@@ -20,6 +20,8 @@
 <script type="text/javascript" src="js/jquery-easyui/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+
+	<script type="text/javascript" src="js/json/json-minified.js"></script>
 	<!-- 加载ajax重定向设置文件 -->
 <%--<script type="text/javascript" src="js/ajaxSetup.js"></script>--%>
 <!-- ztree插件 -->
@@ -53,9 +55,9 @@
          		<span>商品管理</span>
          		<ul>
 					<li data-options="attributes:{'url':'toquery.jhtml'}">商品查询</li>
-					<c:if test="${userInfo.rolesID==1}">
+
 						<li data-options="attributes:{'url':'edit.jhtml'}">ZHX商品查询</li>
-					</c:if>
+
 		      	</ul>
 			</li>
 			<li>

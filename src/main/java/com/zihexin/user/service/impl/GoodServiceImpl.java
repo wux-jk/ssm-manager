@@ -4,7 +4,7 @@ import com.zihexin.user.entity.Good;
 import com.zihexin.user.entity.User;
 import com.zihexin.user.entity.mallProductType.MallProductType;
 import com.zihexin.user.mapper.GoodMapper;
-import com.zihexin.user.mapper.ProductMapper;
+
 import com.zihexin.user.service.GoodService;
 import com.zihexin.user.util.JsonUtils;
 import com.zihexin.user.util.http.HttpClientUtil;
@@ -69,6 +69,8 @@ public class GoodServiceImpl implements GoodService{
         param.put("MainData","99999JJJ");
         param.put("MsgInfo","99999JJJ");
         param.put("ChannelID","99999JJJ");*/
+
+
        /* JSONObject json = JSONObject.fromObject(good);
         String str = json.toString();*/
 //		 String url = "https://202.85.211.63/itunes/communication/message";http://10.6.16.233:443/GiftCardServer

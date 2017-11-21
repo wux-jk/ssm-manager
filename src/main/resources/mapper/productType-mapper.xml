@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.zihexin.user.mapper.MallProductTypeMapper">
+
+    <resultMap id="resultProduct" type="com.zihexin.user.entity.mallProductType.MallProductType" >
+
+        <result column="TYPE_ID" property="type_ID" />
+        <result column="TYPE_NAME" property="type_Name" />
+        <result column="PARENT_ID" property="parent_ID" />
+        <result column="CHANNEL_ID" property="channel_ID" />
+        <result column="LEVEL_ID" property="level_ID" />
+        <result column="STATUS" property="status" />
+
+    </resultMap>
+
+    <select id="queyProductList" resultMap="resultProduct" parameterType="com.zihexin.user.entity.mallProductType.MallProductType">
+        SELECT type_id, type_name FROM mall_product_type WHERE parent_ID = #{parent_ID}
+    </select>
+
+    <select id="loadHierarchyName" resultMap="resultProduct" parameterType="com.zihexin.user.entity.mallProductType.MallProductType">
+         SELECT type_id, type_name,parent_ID FROM mall_product_type WHERE parent_ID = #{parent_ID}
+
+    </select>
+
+   <!-- <select id="loadThreeName"  resultMap="resultProduct" parameterType="com.zihexin.user.entity.mallProductType.MallProductType">
+         SELECT type_id, type_name,parent_ID FROM mall_product_type WHERE parent_ID = #{parent_ID}
+
+    </select>-->
+
+</mapper>   

@@ -9,7 +9,7 @@
 <html>
 <head>
   <title></title>
-<%--  <link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">--%>
+ <%--<link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">--%>
   <link rel="stylesheet" type="text/css" href="css/default.css" />
   <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/icon.css" />
   <script type="text/javascript" src="js/jquery-easyui.jquery.min.js"></script>
@@ -24,34 +24,42 @@
 
 </head>
 <body>
-<div id="p" class="easyui-panel" title="搜索"
-     style="width:750px;padding:10px;background:#fafafa;"
+<div id="p" class="easyui-panel" title="搜索"  style="width:1000px;padding:10px;background:#fafafa;"
      data-options="iconCls:'icon-save',closable:true,collapsible:true,minimizable:true,maximizable:true">
 
   <table cellpadding="5px">
     <tr>
-        <th>一级</th>
+        <td>一类:</td>
         <td>
-        <select class="easyui-combobox"  onchange="onSelectChange(this,'city');" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130" >
-          <%--<option value="0">--请选择--</option>--%>
-        </select>
-      </td>
-        <th>二级</th>
-           <td>
-               <select class="easyui-combobox"  name="city" id="city" onchange="onSelectChange(this,'district');" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
-                 <%-- <option value="0">--请选择--</option>--%>
-               </select>
-           </td>
-        <th>三级</th>
-           <td>
-               <select class="easyui-combobox" name="district" id="district" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="goodType">
-                  <%-- <option value="0">--请选择--</option>--%>
-               </select>
-           </td>
+            <select id="oneName" class="easyui-combobox" data-options="width:130" name="oneName">
+                <option>--请选择--</option>
+            </select>
+        </td>
 
-    <%--  <td>商品编号:</td>
-      <td><input class="easyui-textbox" name="goodNumber" name="product.pro_name" data-options="iconCls:'',prompt:'请输入编号'" style="width:100px"> </td>--%>
-      <td width="100px"><button onclick="searchGoodInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button></td>
+        <td>二类:</td>
+        <td>
+            <select id="twoName" class="easyui-combobox" data-options="width:130" name="twoName" >
+                <option>--请选择--</option>
+            </select>
+        </td>
+
+        <td>三类:</td>
+        <td>
+            <select id="threeName" class="easyui-combobox" data-options="width:130" name="threeName" >
+                <option>--请选择--</option>
+            </select>
+        </td>
+
+        <td>四类:</td>
+        <td>
+            <select id="fourName" class="easyui-combobox" data-options="width:130"  name="fourName">
+                <option >--请选择--</option>
+            </select>
+        </td>
+
+        <td width="100px">
+            <button onclick="searchGoodInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button>
+        </td>
 
 
     </tr>
@@ -60,10 +68,10 @@
 </div>
 
 <div id="tb">
-<%--  <a href="javascript:void(0);"   class="easyui-linkbutton" iconCls="icon-add" plain="true"  onclick="dialog('<%=request.getContextPath()%>/product!dialogProduct.html')">添加</a>--%>
+
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true"  onclick="updateGood();">编辑</a>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="putawayGood();">上架</a>
-    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="soldGood();">下架</a>
+  <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="soldGood();">下架</a>
   <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refresh();" >刷新</a>
 </div>
 
@@ -77,15 +85,112 @@
 
 
 <script type="text/javascript">
+//动态查询下拉列表框
+$(function() {
+    // 下拉框选择控件，下拉框的内容是动态查询数据库信息
+    $('#oneName').combobox({
+        url:'/product/loadOneName.jhtml',
+        editable:false, //不可编辑状态
+        cache: false,
+        panelHeight: '150',
+        valueField:'type_ID',
+        textField:'type_Name',
+        onHidePanel: function(){
+            $("#twoName").combobox("setValue",'');//清空二类列表框
+            var oneValue = $('#oneName').combobox('getValue');
+            //查出一类  加载二类
+            $.ajax({
+                type: "POST",
+                url: '/product/loadHierarchyName.jhtml?id=' + oneValue,
+                cache: false,
+                dataType : "json",
+                success: function(data){
+                    /*  alert(JSON.stringify(data));*/
+                    $("#twoName").combobox("loadData",data);//加载二类
+                }
+            });
+        }
+    });
 
+   $('#twoName').combobox({
+        //url:'itemManage!categorytbl',
+        editable:false, //不可编辑状态
+        cache: false,
+        panelHeight: '150',//自动高度适合
+        valueField:'type_ID',
+        textField:'type_Name',
+      });
+//------------------------------------------------------------------------------------------------
 
+    //通过二级查三级
+    $('#twoName').combobox({
+        onSelect: function(){
+            $("#threeName").combobox("setValue",'');//清空三类列表框
+            var twoValue = $('#twoName').combobox('getValue');
+            $.ajax({
+                type: "POST",
+                url: '/product/loadThreeName.jhtml?id=' + twoValue,
+                cache: false,
+                dataType : "json",
+                success: function(data){
+                    /*  alert(JSON.stringify(data));*/
+                    $("#threeName").combobox("loadData",data);//加载三类
+                }
+            });
+        }
+    });
 
-    //--------------------------------
+    $('#threeName').combobox({
+        //url:'itemManage!categorytbl',
+        editable:false, //不可编辑状态
+        cache: false,
+        panelHeight: '150',//自动高度适合
+        valueField:'type_ID',
+        textField:'type_Name',
+    });
+
+//---------------------------------------------------------------------------------
+    //通过三级查四级
+    $('#threeName').combobox({
+        onSelect: function(){
+            $("#fourName").combobox("setValue",'');//清空四类列表框
+            var fourValue = $('#threeName').combobox('getValue');
+            $.ajax({
+                type: "POST",
+                url: '/product/loadfourName.jhtml?id=' + fourValue,
+                cache: false,
+                dataType : "json",
+                success: function(data){
+                 $("#fourName").combobox("loadData",data);//加载四类
+                }
+            });
+        }
+    });
+
+    $('#fourName').combobox({
+        //url:'itemManage!categorytbl',
+        editable:false, //不可编辑状态
+        cache: false,
+        panelHeight: '150',//自动高度适合
+        valueField:'type_ID',
+        textField:'type_Name',
+    });
+
+});
+
+//----------------------------------------------------------------------------------------------------
+
+//查询触发
   function searchGoodInfo(){
     //条查
-      var goodType=$("[name='goodType']").val();
-
-      var goodNumber=$("[name='goodNumber']").val();
+      var oneName=$("[name='oneName']").val();
+      //alert(oneName);
+      var twoName=$("[name='twoName']").val();
+     // alert(twoName);
+      var threeName=$("[name='threeName']").val();
+     // alert(threeName);
+      var fourName=$("[name='fourName']").val();
+      //alert(fourName);
 
     $('#goodTable').datagrid({
       url: "/good/queryGoodList.jhtml",
@@ -137,7 +242,7 @@
     })
   }
 
-//========================
+
 
 
   //---------------------------------------------------------------------------------
@@ -271,16 +376,6 @@
         }else{
             $.messager.alert('系统消息','该商品不可操作！','info');
         }
-
-
-
-
-
-
-
-
-
-
 
 
 
