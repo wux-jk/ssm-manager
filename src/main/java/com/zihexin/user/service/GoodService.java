@@ -13,7 +13,7 @@ import java.util.Map;
 public interface GoodService {
     List<Good> queryGoiodList(Good good);
 
-   /* List<Good> findGoodByid(Good good);*/
+
 
     Good findGoodByid(Good good);
 

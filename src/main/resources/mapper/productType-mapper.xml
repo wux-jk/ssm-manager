@@ -14,7 +14,7 @@
     </resultMap>
 
     <select id="queyProductList" resultMap="resultProduct" parameterType="com.zihexin.user.entity.mallProductType.MallProductType">
-        SELECT type_id, type_name FROM mall_product_type WHERE parent_ID = #{parent_ID}
+        SELECT type_id, type_name,parent_ID FROM mall_product_type WHERE parent_ID = #{parent_ID}
     </select>
 
     <select id="loadHierarchyName" resultMap="resultProduct" parameterType="com.zihexin.user.entity.mallProductType.MallProductType">

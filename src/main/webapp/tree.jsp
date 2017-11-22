@@ -57,16 +57,25 @@
 					<li data-options="attributes:{'url':'toquery.jhtml'}">商品查询</li>
 
 						<li data-options="attributes:{'url':'edit.jhtml'}">ZHX商品查询</li>
-
 		      	</ul>
 			</li>
+			<c:if test="${userInfo.rolesID==2}">
 			<li>
 				<span>用户管理</span>
 				<ul>
 					<li data-options="attributes:{'url':'toUserList.jhtml'}">用户操作</li>
 				</ul>
 			</li>
+			</c:if>
 			<c:if test="${userInfo.rolesID==1}">
+				<li>
+					<span>用户管理</span>
+					<ul>
+						<li data-options="attributes:{'url':'toUserList.jhtml'}">用户操作</li>
+					</ul>
+				</li>
+			</c:if>
+
 			<li>
 				<span>内容管理</span>
 				<ul>
@@ -74,7 +83,7 @@
 					<li data-options="attributes:{'url':'edit.jhtml'}">内容分类管理</li>
 				</ul>
 			</li>
-			</c:if>
+
          </ul>
     </div>
 

@@ -73,6 +73,9 @@ public class GoodController extends BaseController {
         return mav;
     }
 
+
+
+
     /**
      * 预览商品
      * @param good
@@ -87,6 +90,14 @@ public class GoodController extends BaseController {
         mv.setViewName("good/queryGoodDesc");
         return mv;
     }
+
+    @RequestMapping("findGoodpro")
+    public ModelAndView findGoodpro(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user/ut");
+        return modelAndView;
+    }
+
 
     /**
      * 跳转到商品上架 商品库存页面

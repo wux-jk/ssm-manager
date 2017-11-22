@@ -1,11 +1,12 @@
 package com.zihexin.user.entity.mallItem;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2017/11/17 0017.
  */
-public class MallItem {
+public class MallItem implements Serializable {
 
     //供应商表
     private String id; //主键

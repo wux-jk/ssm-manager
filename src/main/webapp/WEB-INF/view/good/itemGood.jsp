@@ -91,13 +91,15 @@
                 <input type="hidden" name="sale_Price"/>
               </td>
             </tr>
-            <tr>
+            <%--<tr>
               <td>主图:</td>
               <td><input class="easyui-textbox" type="text" name="descRiption"  /></td>
-            </tr>
+            </tr>--%>
             <tr>
               <td>商品描述（详情）:</td>
-              <td><input class="easyui-textbox" type="text" name="descRiption"  /></td>
+              <td>
+                <input type="button" value="查看" class="btn btn-info" onclick="findGoodDesc()"/>
+              </td>
             </tr>
           </table>
       </form>
@@ -122,16 +124,13 @@
              <input class="easyui-textbox" type="text" name="goodNumber" value="${us.goodNumber}" />
            </td>
          </tr>
-         <tr>
+        <%-- <tr>
            <td>主图:</td>
            <td>
              <input class="easyui-textbox" type="text" name="goodNumber" value="${us.goodNumber}" />
            </td>
-         </tr>
-         <tr>
-           <td>商品详情:</td>
-           <td><input class="easyui-textbox" type="text" name="goodStock" value="${us.goodStock}" /></td>
-         </tr>
+         </tr>--%>
+
          <tr>
            <td>协议价:</td>
            <td>
@@ -153,6 +152,10 @@
              <input type="hidden" name="goodPrice"/>
            </td>
          </tr>
+         <tr>
+           <td>商品详情:</td>
+           <td> <input type="button" value="查看" class="btn btn-info" onclick="findGoodDesc()"/></td>
+         </tr>
          <tr align="center">
            <td colspan="2">
              <input  type="button" value="导入资和信商品库" onclick="sumitGood()" />
@@ -172,6 +175,7 @@
     //d当触发查询按钮事件  显示表格
       $("#divGood").show();
        var channel_ID=$("[name='channel_ID']").val();
+    alert(1111);
        var channel_SKU=$("[name='channel_SKU']").val();
       $.ajax({
           url:"/good/queryGoodList.jhtml",
@@ -184,9 +188,21 @@
        })
 
    }
+//---------------------------------------------
 
+function sumitGood(){
+  $.ajax({
+    type:"post",
+    url:'/good/findGoodpro.jhtml',
+   /* data:$("#userForm").serialize()||$("#userForm").serialize(),*/
+    success:function (msg){
+      /*$.messager.alert('我的消息','添加成功！','info');
+      $("#divUser").dialog("close");
+      $("#show-user").datagrid('reload');*/
 
-
+    }
+  });
+}
 
 
 </script>

@@ -16,4 +16,5 @@ public interface MallProductTypeService {
     List loadHierarchyName(String id);
 
 
+
 }

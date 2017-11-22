@@ -1,9 +1,11 @@
 package com.zihexin.user.entity.mallProductType;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/11/17 0017.
  */
-public class MallProductType {
+public class MallProductType implements Serializable {
 
 
     //资和信商品类别表

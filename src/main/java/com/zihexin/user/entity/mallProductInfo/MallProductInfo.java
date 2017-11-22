@@ -1,11 +1,12 @@
 package com.zihexin.user.entity.mallProductInfo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2017/11/17 0017.
  */
-public class MallProductInfo {
+public class MallProductInfo implements Serializable {
 
 
     //资和信商品明细表
@@ -25,6 +26,19 @@ public class MallProductInfo {
     private String product_Area;//区域
     private String unit;//单位
     private Date update_Time;//更新时间
+    private String top_Status;//热度状态0：有效    1：失效
+    private String gift_Status;//礼包状态   0：有效    1：失效
+    private Integer channel_Price;//渠道单价
+    private Integer agreement_Price;//协议单价
+    private Integer sale_Price;//售卖单价
+    private String product_SKU;//资和信SKU
+    private String img_URL;//首页图片URL
+    private String product_Type_ID_T;//商品分类ID 二级
+    private String product_ID_TH;//商品分类ID 三级
+    private String product_Type_ID_F;//商品分类ID 四级
+
+
+
 
     public String getProduct_ID() {
         return product_ID;
@@ -234,17 +248,7 @@ public class MallProductInfo {
         this.product_Type_ID_F = product_Type_ID_F;
     }
 
-    private String top_Status;//热度状态0：有效    1：失效
 
-    private String gift_Status;//礼包状态   0：有效    1：失效
-    private Integer channel_Price;//渠道单价
-    private Integer agreement_Price;//协议单价
-    private Integer sale_Price;//售卖单价
-    private String product_SKU;//资和信SKU
-    private String img_URL;//首页图片URL
-    private String product_Type_ID_T;//商品分类ID 二级
-    private String product_ID_TH;//商品分类ID 三级
-    private String product_Type_ID_F;//商品分类ID 四级
 
 
 

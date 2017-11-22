@@ -197,28 +197,22 @@ $(function() {
       fitColumns: true,
       pagination: true,
       queryParams: {
-        goodType: goodType,
-        goodNumber: goodNumber,
+        goodType: oneName,
+        goodNumber: twoName,
+        goodNumber: threeName,
+        goodNumber: fourName,
       },
       columns:[[
         {field:'ckecked',checkbox:true,name:'check'},
-        {field:'goodID',title:'ID',width:30,align:'center'},
-        {field:'goodName',title:'商品名称',width:50,align:'center'},
-        {field:'goodNumber',title:'商品编号',width:30,align:'center'},
-        {field:'goodPrice',title:'商品价格',width:35,align:'center'},
-        {field:'goodStock',title:'商品库存',width:30,align:'center'},
-        {field:'goodStatus',title:'状态',width:20,align:'center',
-            formatter: function(value,row,index){
-                if(row.goodStatus == 1){
-                    return '草稿';
-                }else if(row.goodStatus == 2){
-                    return '上架';
-                }else{
-                    return '失效';
-                }
-            }
-        },
-        {field:'goodType',title:'商家',width:20,align:'center',
+        {field:'product_ID',title:'ID',width:30,align:'center'},
+        {field:'product_SKU',title:'ZHXsku',width:30,align:'center'},
+        {field:'channel_SKU',title:'供应商的sku',width:30,align:'center'},
+        {field:'channel_ID',title:'供应商',width:35,align:'center'},
+        {field:'product_Name',title:'商品名称',width:50,align:'center'},
+        {field:'channel_Price',title:'供应商的协议单价',width:30,align:'center'},
+        {field:'agreement_Price',title:'供应商的售卖价',width:30,align:'center'},
+        {field:'sale_Price',title:'ZHX售卖价',width:30,align:'center'},
+        /*{field:'goodType',title:'商家',width:20,align:'center',
           formatter: function(value,row,index){
             if(row.goodType == 1){
               return '京东';
@@ -226,9 +220,9 @@ $(function() {
               return '麦德龙';
             }
           }
-        }, {field:'crud',title:'操作',width:20,align:'center',
+        },*/ {field:'crud',title:'操作',width:20,align:'center',
           formatter: function (value,row,index){
-            var str = '<input type="button" value="预览商品" class="btn btn-info" onclick="findGoodDesc(\''+row.goodID+'\')"/>';
+            var str = '<input type="button" value="预览商品" class="btn btn-info" onclick="findGoodDesc(\''+row.product_ID+'\')"/>';
             return str;
 
 
@@ -256,14 +250,14 @@ $(function() {
           $.messager.alert("系统提示", "请选择一条要编辑的数据！");
           return;
       }
-      var id = selectedRows[0].goodID;
+      var id = selectedRows[0].product_ID;
       $('#divGood').dialog({
           title: '修改',
           width: 1000,
           height:500,
           closed: false,
           cache: false,
-          href:'/good/findGoodByid.jhtml?goodID='+id,
+          href:'/good/findGoodByid.jhtml?product_ID='+id,
           modal: true,
           buttons:[{
               text:'保存',

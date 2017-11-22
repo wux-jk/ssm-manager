@@ -1,5 +1,6 @@
 package com.zihexin.user.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.zihexin.user.entity.Good;
 import com.zihexin.user.entity.User;
 import com.zihexin.user.entity.mallProductType.MallProductType;
@@ -12,6 +13,8 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +30,23 @@ public class GoodServiceImpl implements GoodService{
     private GoodMapper goodMapper;
 
 
-    //条查
+    //条查；列表
     @Override
     public List<Good> queryGoiodList(Good good) {
 
-        return goodMapper.queryGoiodList(good);
+        JSONObject json = JSONObject.fromObject(good);
+        String str = json.toString();
+        String url = "http://localhost:8080/WelfareMall-management/product/queryGoodInfo.cp";
+        String doPost = HttpClientUtil.doPostHttp(url, str);
+        try {
+            System.out.println(URLDecoder.decode(doPost, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        List<Good> goodInfo = JSONArray.parseArray(doPost, Good.class);
+        return goodInfo;
+
+        /*return goodMapper.queryGoiodList(good);*/
     }
 
 
