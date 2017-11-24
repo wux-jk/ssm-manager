@@ -56,13 +56,10 @@
 </div>
 
 <script>
-var itemEditEditor ;
-$(function(){
-//实例化编辑器
-itemEditEditor = E3.createEditor("#upGoodForm [name=goodDesc]");
-});
-
-
-
+    var itemEditEditor ;
+    $(function(){
+    //实例化编辑器
+    itemEditEditor = E3.createEditor("#upGoodForm [name=goodDesc]");
+    });
 </script>
 

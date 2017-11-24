@@ -3,7 +3,10 @@ package com.zihexin.user.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
+
 import com.zihexin.user.entity.User;
+import com.zihexin.user.entity.mallItem.MallItem;
+import com.zihexin.user.entity.mallProductInfo.MallProductInfo;
 import com.zihexin.user.entity.mallProductType.MallProductType;
 import com.zihexin.user.service.GoodService;
 import com.zihexin.user.util.CacheProperties;
@@ -60,7 +63,18 @@ public class GoodController extends BaseController {
     }
 
 
-
+    /**
+     * <pre>insertUser(新增商品信息)
+     * @param
+     * @return</pre>
+     */
+    @RequestMapping("insertGoodInfo")
+    @ResponseBody
+    public String insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo) {
+        goodService.insertGoodInfo(mallItem,mallProductInfo);
+        //重定向
+        return "{}";
+    }
 
 
     //回显
@@ -91,12 +105,7 @@ public class GoodController extends BaseController {
         return mv;
     }
 
-    @RequestMapping("findGoodpro")
-    public ModelAndView findGoodpro(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("user/ut");
-        return modelAndView;
-    }
+
 
 
     /**

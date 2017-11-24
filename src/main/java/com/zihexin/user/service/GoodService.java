@@ -1,7 +1,10 @@
 package com.zihexin.user.service;
 
 import com.zihexin.user.entity.Good;
+
 import com.zihexin.user.entity.User;
+import com.zihexin.user.entity.mallItem.MallItem;
+import com.zihexin.user.entity.mallProductInfo.MallProductInfo;
 import com.zihexin.user.entity.mallProductType.MallProductType;
 
 import java.util.List;
@@ -28,4 +31,5 @@ public interface GoodService {
     void upGoodOnStatusStock(Good good);
 
 
+    void insertGoodInfo(MallItem mallItem, MallProductInfo mallProductInfo);
 }

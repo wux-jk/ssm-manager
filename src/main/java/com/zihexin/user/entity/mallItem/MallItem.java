@@ -28,6 +28,15 @@ public class MallItem implements Serializable {
     private Integer channel_Price;//渠道单价
     private Integer agreement_Price;//协议单价
     private Integer sale_Price;//售卖单价
+    private String img_url;//主图
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
 
     public String getId() {
         return id;

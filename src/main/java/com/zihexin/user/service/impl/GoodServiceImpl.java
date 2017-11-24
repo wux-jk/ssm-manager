@@ -2,7 +2,10 @@ package com.zihexin.user.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.zihexin.user.entity.Good;
+
 import com.zihexin.user.entity.User;
+import com.zihexin.user.entity.mallItem.MallItem;
+import com.zihexin.user.entity.mallProductInfo.MallProductInfo;
 import com.zihexin.user.entity.mallProductType.MallProductType;
 import com.zihexin.user.mapper.GoodMapper;
 
@@ -33,7 +36,7 @@ public class GoodServiceImpl implements GoodService{
     //条查；列表
     @Override
     public List<Good> queryGoiodList(Good good) {
-
+/*
         JSONObject json = JSONObject.fromObject(good);
         String str = json.toString();
         String url = "http://localhost:8080/WelfareMall-management/product/queryGoodInfo.cp";
@@ -44,11 +47,39 @@ public class GoodServiceImpl implements GoodService{
             e.printStackTrace();
         }
         List<Good> goodInfo = JSONArray.parseArray(doPost, Good.class);
-        return goodInfo;
+        return goodInfo;*/
 
-        /*return goodMapper.queryGoiodList(good);*/
+        return goodMapper.queryGoiodList(good);
     }
 
+
+    /**
+     * 新增商品信息
+     * @param mallItem
+     * @param mallProductInfo
+     */
+    @Override
+    public void insertGoodInfo(MallItem mallItem, MallProductInfo mallProductInfo) {
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("mallItem",mallItem);
+        map.put("productInfo",mallProductInfo);
+
+        //把map转成json
+        JSONObject mjson = JSONObject.fromObject(map);
+        String strMap = mjson.toString();
+        String url = "http://localhost:8080/WelfareMall-management/product/insertGoodInfo.cp";
+        String doPost = HttpClientUtil.doPostHttp(url, strMap);
+        try {
+            System.out.println(URLDecoder.decode(doPost, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
 
     /**
      * 修改商品库存和上架状态
