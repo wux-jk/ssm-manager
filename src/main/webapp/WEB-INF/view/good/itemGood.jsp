@@ -20,6 +20,10 @@
   <script type="text/javascript" src="js/jquery-easyui.jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 
+   string =  jian + "22"
+    i$"
+
+
 </head>
 <body>
 
@@ -29,7 +33,7 @@
     <tr>
       <td>供应商:</td>
       <td>
-        <select class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  name="channel_ID">
+        <select class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'bid',textField:'brandName',width:130"  id="item_channelID" name="channel_ID">
           <option value="0">--请选择--</option>
           <option value="1001">京东</option>
           <option value="1002">麦德龙</option>
@@ -53,47 +57,49 @@
               <td>
                   <table>
                       <tr>
-                          <td>供应商的sku:</td>
-                          <td><input class="easyui-textbox" type="text" id="ssssssss_11" name="channel_SKU"   style="width: 150px;"/></td>
+                         <td>供应商的sku:</td>
+                          <td><input class="easyui-textbox"  readonly="readonly" type="text" id="item_sku" name="channel_SKU"   style="width: 150px;"/></td>
                       </tr>
                       <tr>
                           <td>商品名称:</td>
-                          <td><input class="easyui-textbox" type="text" name="name" style="width: 150px;"/></td>
+                          <td><input class="easyui-textbox" readonly="readonly" type="text"  id="item_Name" name="name" style="width: 150px;"/></td>
                       </tr>
                       <tr>
                           <td>商品品牌:</td>
                           <td>
-                              <input class="easyui-textbox" type="text" name="brand_Name"  />
+                              <input class="easyui-textbox" readonly="readonly" type="text" id="item_brand" name="brand_Name"  />
                           </td>
                       </tr>
                       <tr>
                           <td>重量:</td>
                           <td>
-                              <input class="easyui-numberbox" type="text" name="weight"  />
+                              <input class="easyui-numberbox" readonly="readonly" id="item_weight" type="text" name="weight"  />
                           </td>
                       </tr>
                       <tr>
                           <td>协议价:</td>
-                          <td><input class="easyui-numberbox" type="text" name="agreement_Price" />
+                          <td><input class="easyui-numberbox" type="text" readonly="readonly" id="item_agreement" name="agreement_Price" />
                               <input type="hidden" name="agreement_Price"/>
                           </td>
                       </tr>
                       <tr>
                           <td>供应商售卖价:</td>
-                          <td><input class="easyui-numberbox" type="text" name="sale_Price"  />
+                          <td><input class="easyui-numberbox" type="text" readonly="readonly" id="item_sale" name="sale_Price"  />
                               <input type="hidden" name="sale_Price"/>
                           </td>
                       </tr>
                       <tr>
                           <td>主图:</td>
                           <td>
-                              <input class="easyui-numberbox" type="text" name="img_url"  />
+                              <input class="easyui-numberbox" type="text" id="item_img" name="img_url"  />
+                              <input type="hidden" name="image"/>
                           </td>
                       </tr>
                   <tr>
                           <td>商品描述:</td>
                           <td>
-                              <textarea style="width:100px;height:600px;visibility:hidden;" id="descs" name="good">${us.goodDesc}</textarea>
+                              <input class="easyui-textbox" readonly="readonly" type="text" id="item_descs" name="descRiption"  />
+
                           </td>
                    </tr>
                   </table>
@@ -104,47 +110,48 @@
                   <table>
                       <tr>
                           <td>ZHXSKU:</td>
-                          <td><input class="easyui-textbox" type="text"  name="product_SKU" value="${product_SKU}"  style="width: 150px;"/></td>
+                          <td><input class="easyui-textbox" type="text" id="product_SKU" name="product_SKU" value="${product_SKU}"  style="width: 150px;"/></td>
                       </tr>
                       <tr>
                           <td>商品名称:</td>
-                          <td><input class="easyui-textbox" type="text" name="product_Name" value="${product_Name}"  style="width: 150px;"/></td>
+                          <td><input class="easyui-textbox" type="text" id="product_Name" name="product_Name" value="${product_Name}"  style="width: 150px;"/></td>
                       </tr>
                       <tr>
                           <td>品牌:</td>
                           <td>
-                              <input class="easyui-textbox" type="text" name="brand_Name" value="${brand_Name}" />
+                              <input class="easyui-textbox" type="text" id="product_brand" name="brand_Name" value="${brand_Name}" />
                           </td>
                       </tr>
                       <tr>
                           <td>协议价(这也是隐藏的):</td>
                           <td>
                               <input class="easyui-numberbox" type="text" name="agreement_Price" value="${agreement_Price}" />
-                              <input type="hidden" name="agreement_Price"/>
+                              <input type="hidden" id="product_agreement" name="agreement_Price"/>
                           </td>
                       </tr>
                       <tr>
                           <td>资和信售卖价:</td>
                           <td>
-                              <input class="easyui-numberbox" type="text" name="sale_Price"/>
+                              <input class="easyui-numberbox" id="product_sale" type="text" name="sale_Price"/>
                           </td>
                       </tr>
                       <tr>
                           <td>主图:</td>
                           <td>
-                              <input class="easyui-numberbox" type="text" name="img_url"  />
+                              <input class="easyui-numberbox" type="text" id="product_img" name="img_url"  />
+                              <input type="hidden" name="image"/>
                           </td>
                       </tr>
                       <tr>
                           <td>重量(是隐藏的):</td>
                           <td>
                               <input class="easyui-numberbox" type="text" name="weight"  />
-                              <input type="hidden" name="goodPrice"/>
+                              <input type="hidden" id="product_weight" name="weight"/>
                           </td>
                       <tr>
                           <td>商品描述:</td>
                           <td>
-                            <textarea style="width:100px;height:600px;visibility:hidden;" id="desc" name="goodDesc">${us.goodDesc}</textarea>
+                            <textarea style="width:100px;height:600px;visibility:hidden;" id="product_Desc" name="product_Desc">${us.goodDesc}</textarea>
                           </td>
                       </tr>
                       <tr align="center">
@@ -163,15 +170,24 @@
     //d当触发查询按钮事件  显示表格
       $("#divGood").show();
        var channel_ID=$("[name='channel_ID']").val();
-       alert(channel_ID)
+      alert(channel_ID);
        var channel_SKU=$("[name='channel_SKU']").val();
-
+      alert(channel_SKU);
       $.ajax({
-          url:"/good/queryGoodList.jhtml",
+          url:"/good/queryItemList.jhtml",
          data:{"channel_ID":channel_ID,"channel_SKU":channel_SKU},
          type:"post",
          success:function(msg){
-           $("#ssssssss_11").textbox('setText', "11111");
+         /*var  ss = goodInfo.ID; */   /**"对象"."字段名"; 查京东或京东接口  定义变量，给input框赋值*/
+
+           $("#item_sku").textbox('setText', goodInfo.ID);
+
+
+
+       /*   String ss =  $("#item_channelID").textbox("getValue"，xx);获取拼接京东或麦德龙字符串  给zihxsku赋值；
+          String s  =    $("#item_sku").val();
+           String  sss =   ss + s ;
+             String aa =  $("#product_SKU").("setValue",sss);*/
 
            }
        })
@@ -210,7 +226,7 @@ function sumitGood(){
     var itemEditEditor ;
     $(function(){
         //实例化编辑器
-        itemEditEditor = E3.createEditor("#inserInfo [name=good]");
+        itemEditEditor = E3.createEditor("#inserInfo [name=product_Desc]");
     });
 
 </script>

@@ -24,14 +24,16 @@
 
 </head>
 <body>
-<div id="p" class="easyui-panel" title="搜索"  style="width:1000px;padding:10px;background:#fafafa;"
+<div id="p" class="easyui-panel" title="搜索"  style="width:1100px;padding:10px;background:#fafafa;"
      data-options="iconCls:'icon-save',closable:true,collapsible:true,minimizable:true,maximizable:true">
+
+
 
   <table cellpadding="5px">
     <tr>
         <td>一类:</td>
         <td>
-            <select id="oneName" class="easyui-combobox" data-options="width:130" name="oneName">
+            <select id="oneName" class="easyui-combobox"   data-options="width:130" name="oneName">
                 <option>--请选择--</option>
             </select>
         </td>
@@ -56,10 +58,13 @@
                 <option >--请选择--</option>
             </select>
         </td>
+        <td>资和信SKU:</td>
+        <td><input class="easyui-textbox" name="product_SKU"  data-options="iconCls:'',prompt:'请输入SKU'" style="width:130px"> </td>
 
         <td width="100px">
             <button onclick="searchGoodInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button>
         </td>
+
 
 
     </tr>
@@ -150,6 +155,7 @@ $(function() {
     });
 
 //---------------------------------------------------------------------------------
+    var productSku = null;
     //通过三级查四级
     $('#threeName').combobox({
         onSelect: function(){
@@ -183,14 +189,14 @@ $(function() {
 //查询触发
   function searchGoodInfo(){
     //条查
-      var oneName=$("[name='oneName']").val();
-      //alert(oneName);
-      var twoName=$("[name='twoName']").val();
-     // alert(twoName);
-      var threeName=$("[name='threeName']").val();
-     // alert(threeName);
-      var fourName=$("[name='fourName']").val();
-      //alert(fourName);
+      /*var oneName = $("#oneName");*/
+
+     var oneName=$("[name='oneName']").val();
+     var twoName=$("[name='twoName']").val();
+     var threeName=$("[name='threeName']").val();
+     var fourName=$("[name='fourName']").val();
+     var product_SKU=$("[name='product_SKU']").val();
+         alert(product_SKU);
 
     $('#goodTable').datagrid({
       url: "/good/queryGoodList.jhtml",
@@ -198,9 +204,10 @@ $(function() {
       pagination: true,
       queryParams: {
         goodType: oneName,
-        goodNumber: twoName,
-        goodNumber: threeName,
-        goodNumber: fourName,
+        goodType: twoName,
+        goodType: threeName,
+        goodType: fourName,
+        goodType: product_SKU,
       },
       columns:[[
         {field:'ckecked',checkbox:true,name:'check'},
@@ -266,7 +273,7 @@ $(function() {
                   ($("#desc").val()); //获取修改页面的desc的id选择器
                   $.ajax({
                       type:"post",
-                      url:'<%=request.getContextPath()%>/good/updateGood.jhtml',
+                      url:'<%=request.getContextPath()%>/good/updateProductInfo.jhtml',
                       data:$("#upGoodForm").serialize(),
                       success:function (msg){
                           $.messager.alert('我的消息','修改成功！','info');

@@ -5,6 +5,7 @@ import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
 
 import com.zihexin.user.entity.User;
+
 import com.zihexin.user.entity.mallItem.MallItem;
 import com.zihexin.user.entity.mallProductInfo.MallProductInfo;
 import com.zihexin.user.entity.mallProductType.MallProductType;
@@ -46,15 +47,15 @@ public class GoodController extends BaseController {
 
     /**
      * 查询商品
-     * @param good
+     * @param
      * @param response
      */
     @RequestMapping("/queryGoodList")
     @ResponseBody
-    public void queryGoodList(Good good,HttpServletResponse response) {
-        List<Good> goodList=new ArrayList<Good>();
+    public void queryGoodList(MallProductInfo mallProductInfo,HttpServletResponse response) {
+        List<MallProductInfo> goodList=new ArrayList<>();
         try {
-            goodList= goodService.queryGoiodList(good);
+            goodList= goodService.queryGoiodList(mallProductInfo);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -62,9 +63,25 @@ public class GoodController extends BaseController {
 
     }
 
+    /**
+     * 查询京东商品信息
+     */
+    @RequestMapping("/queryItemList")
+    @ResponseBody
+    public void queryItemList(MallItem mallItem,HttpServletResponse response){
+
+            List<MallItem> itemList = new ArrayList<>();
+        try {
+            itemList= goodService.queryItemList(mallItem);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        writeJson(itemList,response);
+    }
+
 
     /**
-     * <pre>insertUser(新增商品信息)
+     * <pre>insertinfo导入商品库)
      * @param
      * @return</pre>
      */
@@ -77,11 +94,11 @@ public class GoodController extends BaseController {
     }
 
 
-    //回显
+    //回显 查id
     @RequestMapping("findGoodByid")
-    public ModelAndView findGoodByid(Good good,HttpServletResponse response){
+    public ModelAndView findGoodByid(MallProductInfo mallProductInfo,HttpServletResponse response){
         ModelAndView mav=new ModelAndView();
-        Good updList=goodService.findGoodByid(good);
+        List<MallProductInfo> updList=goodService.findGoodByid(mallProductInfo);
         mav.addObject("us",updList);
         mav.setViewName("good/upGood");
         return mav;
@@ -122,13 +139,13 @@ public class GoodController extends BaseController {
 
     /**
      * 修改商品
-     * @param good
+     * @param
      * @param response
      * @throws Exception
      */
-    @RequestMapping("/updateGood")
-     public void updateGood(Good good,HttpServletResponse response)throws Exception{
-        goodService.updateGood(good);
+    @RequestMapping("/updateProductInfo")
+     public void updateProductInfo(MallProductInfo mallProductInfo,HttpServletResponse response)throws Exception{
+        goodService.updateProductInfo(mallProductInfo);
 
 
     }

@@ -109,13 +109,12 @@ public class HttpClientUtil {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String message = "{\"ChannelID\":\"99999\",\"MainData\":{\"MsgInfo\":{\"CommType\":\"REQ\",\"TxnType\":\"ActivateCertificate\",\"TxnVersion\":\"0.0.1\",\"Charset\":\"UTF-8\"},\"ChannelInfo\":{\"ChannelLang\":\"zh_CN\",\"ChannelHostIP\":\"10.7.13.109\",\"ChannelRefNo\":\"Rbf69f45db57442e78f5f3374ca4e51201480508615744\",\"ChannelTimeStamp\":\"1480058250936\",\"ChannelTimeZone\":\"CCT\",\"SAFFlag\":\"\",\"SAFTimeStamp\":\"\"},\"RetailerInfo\":{\"StoreID\":\"100112610000012\",\"StoreName\":\"TEST2微信公众号\"\n" +
-				",\"StoreTimeZone\":\"CCT\",\"TerminalID\":\"111\",\"TerminalRefNo\":\"011\",\"TerminalTimeStamp\":\"1480058250936\",\"TerminalLang\":\"zh_CN\",\"MerchantId\":\"1001\",\"MerchantName\":\"TEST2\",\"MerchantDivId\":\"1001126\"},\"ServiceData\":{\"CardList\":[{\"EAN\":\"6923127360120\",\"CardNo\":\"9988056400000751844\",\"InputType\":\"01\",\"FaceValue\":\"10000\",\"CNYCode\":\"CHN\"}]}},\"ChannelRefNo\":\"Rbf69f45db57442e78f5f3374ca4e51201480508615744\",\"Signature\":\"42ec7b80e56f0caa582bf8d2805ae9c9\"}";
+		String message = "{\"channel_ID\":\"1001\",\"channel_SKU\":\"4720507\"}";
 
 //		 String url = "https://202.85.211.63/itunes/communication/message";http://10.6.16.233:443/GiftCardServer
 		// String url = "http://10.7.13.109:8080/itunes/communication/message";//10.7.13.109:8080
 //		String url = "http://10.6.16.12:8089/csp/communication/message";//10.7.13.109:8080
-		 String url = "http://10.6.16.233:443/GiftCardServer/services/giftCard";//10.7.13.109:8080
+		 String url = "http://10.7.13.56:8080/WelfareMall-management/product/queryProductDetail.cp ";//10.7.13.109:8080
 		//String url = "http://10.6.5.114:8080/WelfareMall-management";
 
 //		 String url = "http://10.6.16.29:443/GiftCardServer/services/giftCard";

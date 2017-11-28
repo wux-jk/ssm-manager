@@ -36,7 +36,7 @@ public class MallProductTypeServiceImpl implements MallProductTypeService {
 
        JSONObject json = JSONObject.fromObject(mallProductType);
         String str = json.toString();
-        String url = "http://localhost:8080/WelfareMall-management/product/loadHierarchy.cp";
+        String url = "http://localhost:8080/WelfareMall-management/productInfo/loadHierarchy.cp";
         String doPost = HttpClientUtil.doPostHttp(url, str);
         try {
             System.out.println(URLDecoder.decode(doPost, "UTF-8"));
@@ -60,7 +60,7 @@ public class MallProductTypeServiceImpl implements MallProductTypeService {
        MallProductType mallProductType = new MallProductType();
         mallProductType.setType_ID(id);
         JSONObject json = JSONObject.fromObject(mallProductType);
-        String url = "http://localhost:8080/WelfareMall-management/product/loadHierarchyName.cp";
+        String url = "http://localhost:8080/WelfareMall-management/productInfo/loadHierarchyName.cp";
         String doPost = HttpClientUtil.doPostHttp(url, json.toString());
 
         try {
