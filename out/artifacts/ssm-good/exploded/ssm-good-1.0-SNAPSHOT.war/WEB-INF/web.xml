@@ -23,6 +23,10 @@
         <url-pattern>*.jhtml</url-pattern>
     </servlet-mapping>
 
+    <!-- 设置session过期时间-->
+    <session-config>
+        <session-timeout>20</session-timeout>
+    </session-config>
 
     <!-- 配置spring监听 -->
     <listener>

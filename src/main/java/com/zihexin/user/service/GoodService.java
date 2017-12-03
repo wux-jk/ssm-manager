@@ -2,12 +2,14 @@ package com.zihexin.user.service;
 
 import com.zihexin.user.entity.Good;
 
+import com.zihexin.user.entity.ItemProduct;
 import com.zihexin.user.entity.User;
 
 import com.zihexin.user.entity.mallItem.MallItem;
 import com.zihexin.user.entity.mallProductInfo.MallProductInfo;
 import com.zihexin.user.entity.mallProductType.MallProductType;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -23,17 +25,17 @@ public interface GoodService {
 
     Good findKinderitor(Good good);
 
-    void updateGoodStatus(Good good);
+    void updateGoodStatus(MallProductInfo mallProductInfo);
 
         //修改状态  新增库存数量
-    void upGoodOnStatusStock(Good good);
+    void upGoodOnStatusStock(MallProductInfo mallProductInfo);
 
 
-    void insertGoodInfo(MallItem mallItem, MallProductInfo mallProductInfo);
+    void insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo);
 
-    List<MallProductInfo> findGoodByid(MallProductInfo mallProductInfo);
+  List<MallProductInfo> findGoodByid(MallProductInfo mallProductInfo);
 
-    List<MallItem> queryItemList(MallItem mallItem);
+    String queryItemList(MallItem mallItem);
 
     void updateProductInfo(MallProductInfo mallProductInfo);
 }

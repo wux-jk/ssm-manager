@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zihexin.user.constant.BaseController;
 import com.zihexin.user.entity.Good;
 
+import com.zihexin.user.entity.ItemProduct;
 import com.zihexin.user.entity.User;
 
 import com.zihexin.user.entity.mallItem.MallItem;
@@ -12,6 +13,7 @@ import com.zihexin.user.entity.mallProductType.MallProductType;
 import com.zihexin.user.service.GoodService;
 import com.zihexin.user.util.CacheProperties;
 import com.zihexin.user.util.FastDFSClient;
+import com.zihexin.user.util.JsonUtils;
 import com.zihexin.user.util.StaticFileServerUtil;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.*;
 
@@ -46,14 +49,14 @@ public class GoodController extends BaseController {
 
 
     /**
-     * 查询商品
+     * 条件 查询商品
      * @param
      * @param response
      */
     @RequestMapping("/queryGoodList")
     @ResponseBody
     public void queryGoodList(MallProductInfo mallProductInfo,HttpServletResponse response) {
-        List<MallProductInfo> goodList=new ArrayList<>();
+        List goodList=new ArrayList<>();
         try {
             goodList= goodService.queryGoiodList(mallProductInfo);
         }catch (Exception e){
@@ -68,15 +71,15 @@ public class GoodController extends BaseController {
      */
     @RequestMapping("/queryItemList")
     @ResponseBody
-    public void queryItemList(MallItem mallItem,HttpServletResponse response){
-
-            List<MallItem> itemList = new ArrayList<>();
+    public String queryItemList(MallItem mallItem,HttpServletResponse response){
+       String item="";
         try {
-            itemList= goodService.queryItemList(mallItem);
+            item  = goodService.queryItemList(mallItem);
+
         }catch (Exception e){
             e.printStackTrace();
         }
-        writeJson(itemList,response);
+       return item;
     }
 
 
@@ -89,6 +92,7 @@ public class GoodController extends BaseController {
     @ResponseBody
     public String insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo) {
         goodService.insertGoodInfo(mallItem,mallProductInfo);
+
         //重定向
         return "{}";
     }
@@ -105,7 +109,21 @@ public class GoodController extends BaseController {
     }
 
 
+    /**
+     * 修改商品 并插入日志表 新增快照表快照表
+     * @param
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping("/updateProductInfo")
+    public void updateProductInfo(MallProductInfo mallProductInfo,HttpServletResponse response,HttpServletRequest request)throws Exception{
+        HttpSession session = request.getSession();
+        String userInfo = session.getAttribute("userInfo").toString();
+        mallProductInfo.setUserID(userInfo);
+        goodService.updateProductInfo(mallProductInfo);
 
+
+    }
 
     /**
      * 预览商品
@@ -130,39 +148,27 @@ public class GoodController extends BaseController {
      * @return
      */
     @RequestMapping(value="/toPutawayGood", method = RequestMethod.GET)
-    public ModelAndView toPutawayGood(String goodID,HttpServletRequest request){
+    public ModelAndView toPutawayGood(String product_ID, HttpServletRequest request){
         Map<String, String> model = new HashMap<String, String>();
-        model.put("goodID",goodID);
+        model.put("product_ID",product_ID);
         ModelAndView mav = new ModelAndView("good/goodRepetroy",model);
         return mav;
     }
 
-    /**
-     * 修改商品
-     * @param
-     * @param response
-     * @throws Exception
-     */
-    @RequestMapping("/updateProductInfo")
-     public void updateProductInfo(MallProductInfo mallProductInfo,HttpServletResponse response)throws Exception{
-        goodService.updateProductInfo(mallProductInfo);
 
-
-    }
 
    //修改状态  下架
     @RequestMapping("/updateGoodStatus")
     @ResponseBody
-    public void updateGoodStatus(Good good) throws Exception{
-        System.out.println(good.getGoodStatus());
-        goodService.updateGoodStatus(good);
+    public void updateGoodStatus(MallProductInfo mallProductInfo,HttpServletResponse response) throws Exception{
+        goodService.updateGoodStatus(mallProductInfo);
     }
 
     //修改状态  上架
     @RequestMapping("/upGoodOnStatusStock")
     @ResponseBody
-    public void upGoodOnStatusStock(Good good,HttpServletResponse response) throws Exception{
-        goodService.upGoodOnStatusStock(good);
+    public void upGoodOnStatusStock(MallProductInfo mallProductInfo,HttpServletResponse response) throws Exception{
+        goodService.upGoodOnStatusStock(mallProductInfo);
     }
 
 
@@ -173,7 +179,7 @@ public class GoodController extends BaseController {
      */
     @RequestMapping("/pic/upload")
     @ResponseBody
-    public Map uploadFile(MultipartFile uploadFile ) {
+    public String uploadFile(MultipartFile uploadFile ) {
 
         try {
 
@@ -190,13 +196,16 @@ public class GoodController extends BaseController {
             Map result = new HashMap<>();
             result.put("error", 0);
             result.put("url", url);
-            return result;
+           String json = JsonUtils.objectToJson(result);
+            return json;
         } catch (Exception e) {
             e.printStackTrace();
             Map result = new HashMap<>();
             result.put("error", 1);
             result.put("message", "图片上传失败");
-            return result;
+            String json = JsonUtils.objectToJson(result);
+            return json;
+
         }
     }
 

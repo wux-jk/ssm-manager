@@ -25,9 +25,9 @@ public class MallItem implements Serializable {
     private Date update_Time;//更新时间
     private String top_Status;//状态   0：有效    1：失效
     private String gift_Status;//状态   0：有效    1：失效
-    private Integer channel_Price;//渠道单价
-    private Integer agreement_Price;//协议单价
-    private Integer sale_Price;//售卖单价
+    private Double channelPrice;//供应商售卖单价
+    private Double agreement_Price;//协议单价
+    private Double salePrice;//zhx售卖单价
     private String img_url;//主图
 
     public String getImg_url() {
@@ -166,27 +166,27 @@ public class MallItem implements Serializable {
         this.top_Status = top_Status;
     }
 
-    public Integer getChannel_Price() {
-        return channel_Price;
+    public Double getChannelPrice() {
+        return channelPrice;
     }
 
-    public void setChannel_Price(Integer channel_Price) {
-        this.channel_Price = channel_Price;
+    public void setChannelPrice(Double channelPrice) {
+        this.channelPrice = channelPrice;
     }
 
-    public Integer getAgreement_Price() {
+    public Double getAgreement_Price() {
         return agreement_Price;
     }
 
-    public void setAgreement_Price(Integer agreement_Price) {
+    public void setAgreement_Price(Double agreement_Price) {
         this.agreement_Price = agreement_Price;
     }
 
-    public Integer getSale_Price() {
-        return sale_Price;
+    public Double getSalePrice() {
+        return salePrice;
     }
 
-    public void setSale_Price(Integer sale_Price) {
-        this.sale_Price = sale_Price;
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
     }
 }

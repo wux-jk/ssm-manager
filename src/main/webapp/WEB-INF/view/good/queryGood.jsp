@@ -59,7 +59,7 @@
             </select>
         </td>
         <td>资和信SKU:</td>
-        <td><input class="easyui-textbox" name="product_SKU"  data-options="iconCls:'',prompt:'请输入SKU'" style="width:130px"> </td>
+        <td><input class="easyui-textbox" name="product_Sku"  data-options="iconCls:'',prompt:'请输入SKU'" style="width:130px"> </td>
 
         <td width="100px">
             <button onclick="searchGoodInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button>
@@ -189,45 +189,53 @@ $(function() {
 //查询触发
   function searchGoodInfo(){
     //条查
-      /*var oneName = $("#oneName");*/
 
-     var oneName=$("[name='oneName']").val();
+
+   var oneName=$("[name='oneName']").val();
+
      var twoName=$("[name='twoName']").val();
+
      var threeName=$("[name='threeName']").val();
+
      var fourName=$("[name='fourName']").val();
-     var product_SKU=$("[name='product_SKU']").val();
-         alert(product_SKU);
+
+     var product_Sku=$("[name='product_Sku']").val();
+
 
     $('#goodTable').datagrid({
       url: "/good/queryGoodList.jhtml",
       fitColumns: true,
       pagination: true,
       queryParams: {
-        goodType: oneName,
-        goodType: twoName,
-        goodType: threeName,
-        goodType: fourName,
-        goodType: product_SKU,
+          oneName: oneName,
+          twoName: twoName,
+          threeName: threeName,
+          type_ID: fourName,
+          product_Sku: product_Sku,
       },
       columns:[[
         {field:'ckecked',checkbox:true,name:'check'},
         {field:'product_ID',title:'ID',width:30,align:'center'},
-        {field:'product_SKU',title:'ZHXsku',width:30,align:'center'},
-        {field:'channel_SKU',title:'供应商的sku',width:30,align:'center'},
+        {field:'product_Sku',title:'ZHXsku',width:30,align:'center'},
+        {field:'channel_Sku',title:'供应商的sku',width:30,align:'center'},
         {field:'channel_ID',title:'供应商',width:35,align:'center'},
         {field:'product_Name',title:'商品名称',width:50,align:'center'},
-        {field:'channel_Price',title:'供应商的协议单价',width:30,align:'center'},
-        {field:'agreement_Price',title:'供应商的售卖价',width:30,align:'center'},
+        {field:'agreement_Price',title:'供应商的协议单价',width:30,align:'center'},
+        {field:'channel_Price',title:'供应商的售卖价',width:30,align:'center'},
         {field:'sale_Price',title:'ZHX售卖价',width:30,align:'center'},
-        /*{field:'goodType',title:'商家',width:20,align:'center',
+        /* {field:'status',title:'状态',width:30,align:'center'},*/
+         /* {field:'sataus',title:'状态',width:30,align:'center'},*/
+        {field:'status',title:'状态',width:20,align:'center',
           formatter: function(value,row,index){
-            if(row.goodType == 1){
-              return '京东';
-            }else if(row.goodType == 2){
-              return '麦德龙';
+            if(row.status == 00){
+              return '上架';
+            }else if(row.status == 01){
+              return '编辑';
+            }else if(row.status == 02){
+                return '失效';
             }
           }
-        },*/ {field:'crud',title:'操作',width:20,align:'center',
+        }, {field:'crud',title:'操作',width:20,align:'center',
           formatter: function (value,row,index){
             var str = '<input type="button" value="预览商品" class="btn btn-info" onclick="findGoodDesc(\''+row.product_ID+'\')"/>';
             return str;
@@ -270,7 +278,7 @@ $(function() {
               text:'保存',
               iconCls:"icon-ok",
               handler:function(){
-                  ($("#desc").val()); //获取修改页面的desc的id选择器
+                /*  ($("#desc").val());*/ //获取修改页面的desc的id选择器
                   $.ajax({
                       type:"post",
                       url:'<%=request.getContextPath()%>/good/updateProductInfo.jhtml',
@@ -278,7 +286,8 @@ $(function() {
                       success:function (msg){
                           $.messager.alert('我的消息','修改成功！','info');
                           $("#divGood").dialog("close");
-                          searchGood();
+                          $('#goodTable').datagrid("load");
+                          searchGoodInfo();
                       }
                   });
               }
@@ -300,23 +309,22 @@ $(function() {
 
   //商品上架
      function putawayGood(){
-
-         var selectedRow = $("#goodTable").datagrid("getSelections");
+        var selectedRow = $("#goodTable").datagrid("getSelections");
         if (selectedRow.length != 1) {
                $.messager.alert("系统提示", "请选择一条要操作的数据！");
                 return;
              }
-         var goodID = selectedRow[0].goodID;
-         var goodStatus = selectedRow[0].goodStatus;
-         alert(goodStatus)
-         if(goodStatus != 2) {
+         var product_ID = selectedRow[0].product_ID;
+         var sataus = selectedRow[0].status;
+         var proSku= selectedRow[0].product_Sku;
+         if(sataus != 00) {
              $('#divGood').dialog({
              title: '上架',
              width: 300,
              height: 300,
              closed: false,
              cache: false,
-             href: '/good/toPutawayGood.jhtml?goodID='+goodID,
+             href: '/good/toPutawayGood.jhtml?product_ID='+product_ID,
              modal: true,
              buttons: [{
              text: '确定上架',
@@ -325,12 +333,18 @@ $(function() {
                  $.ajax({
                      type: "post",
                      url: '/good/upGoodOnStatusStock.jhtml',
-                     data: $("#stokForm").serialize(),
-                     success: function (msg) {
-                           $.messager.alert('我的消息', '上架成功！', 'info');
-                           $("#divGood").dialog("close");
-                            searchGood();
-                         }
+                     data: {"product_ID":product_ID,"sataus":sataus,"product_Sku":proSku,"inventory_count":$("#inventory_count_so").val()},
+                     success: function (result) {
+                            if(result.stateCode == "200"){
+                                $.messager.alert('我的消息', '上架成功！', 'info');
+                                $("#divGood").dialog("close");
+                                $('#goodTable').datagrid("load");
+                                searchGoodInfo();
+                            }
+
+
+
+                     }
                  });
              }
              }, {
@@ -342,6 +356,7 @@ $(function() {
              }]
 
              });
+             $('#goodTable').datagrid("load");
          }else{
                $.messager.alert("系统提示","该商品已上架","warning");
          }
@@ -355,25 +370,30 @@ $(function() {
 
 
       var selectedRow = $("#goodTable").datagrid("getSelections");
-      var goodID = selectedRow[0].goodID;
       if (selectedRow.length != 1) {
           $.messager.alert("系统提示", "请选择一条要操作的数据！");
           return;
       }
-        if(selectedRow[0].goodStatus == 2){
+
+      var sataus = selectedRow[0].status;
+      var product_ID = selectedRow[0].product_ID;
+      var proSku= selectedRow[0].product_Sku;
+        if(sataus == 00){
             $.messager.confirm("系统提示","确认下架吗？",function(s){
                 if(s){
                     $.ajax({
                         url:"/good/updateGoodStatus.jhtml",
-                        data:{"goodID":goodID,"goodStatus":3},
+                        data:{"product_ID":product_ID,"sataus":sataus,"product_Sku":proSku,"inventory_count":0},
                         type:"post",
                         success:function(msg){
                             $.messager.alert('我的消息','操作成功！','info');
-                            searchGood();
+                            $('#goodTable').datagrid("load");
+                            searchGoodInfo();
                         }
                     })
                 }
             });
+
         }else{
             $.messager.alert('系统消息','该商品不可操作！','info');
         }
@@ -395,7 +415,7 @@ $(function() {
       title: '预览商品',
       width: 400,
       height: 600,
-      href: '<%=request.getContextPath()%>/good/findKinderitor.jhtml?goodID='+goodID,
+      href: '<%=request.getContextPath()%>/good/findKinderitor.jhtml?product_ID='+product_ID,
       modal: true,
     /*  onLoad:function (){
         editor.readonly(true);   // 设置  kindeditor  只读

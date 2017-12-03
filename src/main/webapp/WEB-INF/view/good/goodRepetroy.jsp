@@ -16,8 +16,9 @@
 
     <tr>
       <td>库存数量:</td>
-      <td><input class="easyui-numberbox" type="text"  name="goodStock" />
-          <input type="hidden"  value="${goodID}" name="goodID">
+      <td><input class="easyui-numberbox" type="text"  id="inventory_count_so" />
+        <input type="hidden"  value="${inventory_count}" name="inventory_count">
+          <input type="hidden"  value="${product_ID}" name="product_ID">
       </td>
     </tr>
 
