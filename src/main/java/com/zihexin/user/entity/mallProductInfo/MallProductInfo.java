@@ -1,12 +1,14 @@
 package com.zihexin.user.entity.mallProductInfo;
 
+import com.zihexin.user.util.Page;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2017/11/17 0017.
  */
-public class MallProductInfo implements Serializable {
+public class MallProductInfo extends Page implements Serializable {
 
 
 
@@ -38,19 +40,28 @@ public class MallProductInfo implements Serializable {
     private String product_Type_ID_TH;//商品分类ID 三级
     private String product_Type_ID_F;//商品分类ID 四级
     private String snapshot_Id;//快照ID
+    private String product_Detail; //商品详情
 
     private String type_ID;//商品类别ID
 
     private Integer inventory_count;//库存数量
+    private String userName;
 
-    private String userID;
 
-    public String getUserID() {
-        return userID;
+    public String getProduct_Detail() {
+        return product_Detail;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setProduct_Detail(String product_Detail) {
+        this.product_Detail = product_Detail;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Integer getInventory_count() {
@@ -284,9 +295,6 @@ public class MallProductInfo implements Serializable {
     public void setProduct_Type_ID_F(String product_Type_ID_F) {
         this.product_Type_ID_F = product_Type_ID_F;
     }
-
-
-
 
 
 

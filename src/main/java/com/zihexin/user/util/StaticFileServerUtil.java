@@ -18,9 +18,9 @@ public class StaticFileServerUtil {
 	// private static final String BOUNDARY = "--" + BOUNDARYSTR + "\r\n";
 
 	public static void main(String[] args) {
-//		sendPost("http://127.0.0.1:18081/upload/aa.doc",
-//				"d:\\Î´Õý³£Ë¢¿¨ËµÃ÷µ¥_Ðì»³Óî201507.doc");
-		String ss="\\20150812\\40978b30-40e5-11e5-a461-9bb9e443f350.jpg";
+	sendPost("http://10.6.4.172:8080/upload/xxx.txt \n" +
+			"\n","E:\\aa.txt");
+		String ss="\\20150812\\50.jpg";
 		String result = ss.replace("\\", "/");
 		System.out.println(result);
 	}
@@ -38,7 +38,7 @@ public class StaticFileServerUtil {
 
 		byte[] bytes = new byte[capacity];
 		try {
-			// [start] ´´½¨HTTPÁ¬½Ó
+			// [start] ï¿½ï¿½ï¿½ï¿½HTTPï¿½ï¿½ï¿½ï¿½
 			URL url;
 			url = new URL(urlString);
 			urlConnection = (HttpURLConnection) url.openConnection();
@@ -51,35 +51,35 @@ public class StaticFileServerUtil {
 			// urlConnection.setRequestProperty("Content-type",
 			// "multipart/octet-stream;boundary=" + BOUNDARYSTR);
 			urlConnection.connect();
-			// [end] ´´½¨HTTPÁ¬½Ó
+			// [end] ï¿½ï¿½ï¿½ï¿½HTTPï¿½ï¿½ï¿½ï¿½
 
-			// [start] ¶ÁÎÄ¼þµ½µ½byte[]
+			// [start] ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½byte[]
 			fis = new FileInputStream(file);
 
 
-			// [start] ·¢ËÍÊý¾Ý
+			// [start] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			os = urlConnection.getOutputStream();
 
 			int numReadByte = 0;
 			while ((numReadByte = fis.read(bytes, 0, capacity)) > 0) {
 				os.write(bytes, 0, numReadByte);
 			}
-			// [start] ·¢ËÍÊý¾Ý
+			// [start] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-			// [start] ½ÓÊÕ·µ»Ø
+			// [start] ï¿½ï¿½ï¿½Õ·ï¿½ï¿½ï¿½
 			br = new BufferedReader(new InputStreamReader(
 					urlConnection.getInputStream()));
 
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-			// [start] ½ÓÊÕ·µ»Ø
+			// [start] ï¿½ï¿½ï¿½Õ·ï¿½ï¿½ï¿½
 
-			// [strat] ·µ»Ø½á¹û
+			// [strat] ï¿½ï¿½ï¿½Ø½ï¿½ï¿½
 			if (urlConnection.getResponseCode() != 200) {
 				result = "err";
 			}
-			// [end] ·µ»Ø½á¹û
+			// [end] ï¿½ï¿½ï¿½Ø½ï¿½ï¿½
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -114,11 +114,11 @@ public class StaticFileServerUtil {
 	/**
 	 *
 	 * @param urlString
-	 *            ÇëÇóÂ·¾¶ http://ip:port/upload/<your file name>
+	 *            ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ http://ip:port/upload/<your file name>
 	 * @param filePath
-	 *            ±¾µØÎÄ¼þÂ·¾¶
-	 * @return Èç¹û·µ»Ø½á¹ûÎª "" »ò "err"£¬ ±íÊ¾ÉÏ´«Ê§°Ü ·µ»Ø½á¹ûÒÑ \ £¨ÏµÍ³·Ö¸ô·û£© ¿ªÊ¼£¬ÈçÐè²Ù×÷£¬ÇëÓÃÏµÍ³·Ö¸ô·û
-	 *         ·µ»Ø½á¹ûÀý×Ó£º\20150808\bafa9900-3dd2-11e5-9811-7986ed18b280.doc
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½Îª "" ï¿½ï¿½ "err"ï¿½ï¿½ ï¿½ï¿½Ê¾ï¿½Ï´ï¿½Ê§ï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ \ ï¿½ï¿½ÏµÍ³ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ö¸ï¿½ï¿½ï¿½
+	 *         ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½\20150808\bafa9900-3dd2-11e5-9811-7986ed18b280.doc
 	 */
 	private static String sendPost(String urlString, String filePath) {
 		String result = "";

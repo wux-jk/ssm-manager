@@ -17,7 +17,7 @@ public class MallProductInfoLog implements Serializable {
     private Integer agreement_Price;//供应商协议单价
     private Integer channel_Price;//渠道单价
     private Integer sale_Price;//售卖单价
-    private String userID;
+    private String userName;
 
     public String getChannel_Sku() {
         return channel_Sku;
@@ -84,11 +84,11 @@ public class MallProductInfoLog implements Serializable {
         this.sale_Price = sale_Price;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -5,14 +5,14 @@ package com.zihexin.user.util;
  */
 public class CacheProperties {
 
-    public  static final String RESOURCE_SERVER_URL = "http://10.6.4.172:8080/";
+    public  static final String RESOURCE_SERVER_URL = "http://10.6.4.172:8080/upload/xxx.txt";
 
 
-    public static final String UPLOAD_DIR  = "images";
+    public static final String UPLOAD_DIR  = "FLDS";
 
 
     ;
 
-   /* public static final String RESOURCE_SERVER_URL = "http://192.168.25.133/";*/
+
 
 }

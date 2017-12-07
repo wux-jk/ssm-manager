@@ -64,6 +64,8 @@
         <mvc:interceptor>
             <!-- 所有得都拦截 -->
             <mvc:mapping path="/*/*.jhtml"/>
+            <mvc:mapping path="/*.jsp"/>
+
 
             <!-- 不拦截的 放过的 -->
             <mvc:exclude-mapping path="/login/LoginAuthentication.jhtml"/>

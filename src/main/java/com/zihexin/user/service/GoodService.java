@@ -2,7 +2,7 @@ package com.zihexin.user.service;
 
 import com.zihexin.user.entity.Good;
 
-import com.zihexin.user.entity.ItemProduct;
+
 import com.zihexin.user.entity.User;
 
 import com.zihexin.user.entity.mallItem.MallItem;
@@ -23,7 +23,7 @@ public interface GoodService {
 
 
 
-    Good findKinderitor(Good good);
+    List<MallProductInfo> findKinderitor(MallProductInfo mallProductInfo);
 
     void updateGoodStatus(MallProductInfo mallProductInfo);
 
@@ -38,4 +38,6 @@ public interface GoodService {
     String queryItemList(MallItem mallItem);
 
     void updateProductInfo(MallProductInfo mallProductInfo);
+
+    /*int selectGoodCount(MallProductInfo mallProductInfo);*/
 }

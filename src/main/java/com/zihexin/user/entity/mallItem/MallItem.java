@@ -13,7 +13,7 @@ public class MallItem implements Serializable {
     private String name;//名称
     private String descRiption;//描述
     private Integer sale_Count;//已售数量
-    private String channel_SKU;//渠道SKU
+    private String channel_Sku;//渠道SKU
     private String channel_ID;//渠道ID
     private String item_Type_ID;//商品分类ID
     private String status;//状态    0：有效  1：失效
@@ -25,7 +25,7 @@ public class MallItem implements Serializable {
     private Date update_Time;//更新时间
     private String top_Status;//状态   0：有效    1：失效
     private String gift_Status;//状态   0：有效    1：失效
-    private Double channelPrice;//供应商售卖单价
+    private Double channel_Price;//供应商售卖单价
     private Double agreement_Price;//协议单价
     private Double salePrice;//zhx售卖单价
     private String img_url;//主图
@@ -78,12 +78,12 @@ public class MallItem implements Serializable {
         this.channel_ID = channel_ID;
     }
 
-    public String getChannel_SKU() {
-        return channel_SKU;
+    public String getChannel_Sku() {
+        return channel_Sku;
     }
 
-    public void setChannel_SKU(String channel_SKU) {
-        this.channel_SKU = channel_SKU;
+    public void setChannel_Sku(String channel_Sku) {
+        this.channel_Sku = channel_Sku;
     }
 
     public Integer getSale_Count() {
@@ -166,12 +166,12 @@ public class MallItem implements Serializable {
         this.top_Status = top_Status;
     }
 
-    public Double getChannelPrice() {
-        return channelPrice;
+    public Double getChannel_Price() {
+        return channel_Price;
     }
 
-    public void setChannelPrice(Double channelPrice) {
-        this.channelPrice = channelPrice;
+    public void setChannel_Price(Double channel_Price) {
+        this.channel_Price = channel_Price;
     }
 
     public Double getAgreement_Price() {

@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.zihexin.user.entity.Good;
 
-import com.zihexin.user.entity.ItemProduct;
+
 import com.zihexin.user.entity.User;
 
 import com.zihexin.user.entity.mallItem.MallItem;
@@ -61,6 +61,29 @@ public class GoodServiceImpl implements GoodService{
 
     }
 
+   /* *//**
+     * 查询条数
+     * @param mallProductInfo
+     * @return
+     *//*
+    @Override
+    public int selectGoodCount(MallProductInfo mallProductInfo) {
+
+        //把对象转成json
+        JSONObject proJson = JSONObject.fromObject(mallProductInfo);
+        String str = proJson.toString();
+        String url = "http://localhost:8080/WelfareMall-management/productInfo/selectGoodCount.cp";
+        String doPost = HttpClientUtil.doPostHttp(url, str);
+        try {
+            System.out.println(URLDecoder.decode(doPost, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        return 0;
+    }*/
+
     /**
      * 查询京东商品信息
      * @param mallItem
@@ -75,7 +98,7 @@ public class GoodServiceImpl implements GoodService{
         }
 
         map.put("channelId",channelId);
-        map.put("id",mallItem.getChannel_SKU());
+        map.put("id",mallItem.getChannel_Sku());
         map.put("queryExts","appintroduce");
         JSONObject itemJjson = JSONObject.fromObject(map);
         String item= itemJjson.toString();
@@ -100,7 +123,7 @@ public class GoodServiceImpl implements GoodService{
      */
     @Override
     public void insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo) {
-
+       /* mallItem.setStatus("01");*/
       Map<String,Object> map = new HashMap<>();
         map.put("mallItem",mallItem);
         map.put("productInfo",mallProductInfo);
@@ -204,13 +227,25 @@ public class GoodServiceImpl implements GoodService{
     }
 
 
-
-
-
+    /**
+     * 预览商品
+     * @param mallProductInfo
+     * @return
+     */
     @Override
-    public Good findKinderitor(Good good) {
+    public List<MallProductInfo> findKinderitor(MallProductInfo mallProductInfo) {
+        JSONObject json = JSONObject.fromObject(mallProductInfo);
+        String str = json.toString();
+        String url = "http://localhost:8080/WelfareMall-management/productInfo/findGoodByid.cp";
+        String doPost = HttpClientUtil.doPostHttp(url, str);
+        try {
+            System.out.println(URLDecoder.decode(doPost, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-        return goodMapper.findKinderitor(good);
+        List<MallProductInfo> infos = JSONArray.parseArray(doPost, MallProductInfo.class);
+        return infos;
     }
 
 

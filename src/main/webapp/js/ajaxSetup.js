@@ -12,4 +12,15 @@ $.ajaxSetup({
 			win.location.href= XMLHttpRequest.getResponseHeader("CONTEXTPATH");
 		}
 	}
-}); 
+});
+
+$(document).ajaxComplete(function(event, xhr, settings) {
+	if(xhr.getResponseHeader("sessionstatus")=="timeOut"){
+		if(xhr.getResponseHeader("loginPath")){
+			alert("会话过期，请重新登陆!");
+			window.location.replace(xhr.getResponseHeader("loginPath"));
+		}else{
+			alert("请求超时请重新登陆 !");
+		}
+	}
+});

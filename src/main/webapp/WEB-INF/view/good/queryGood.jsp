@@ -16,6 +16,8 @@
   <script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 
     <script type="text/javascript" src="js/json/json-minified.js"></script>
+    <!-- 加载ajax重定向设置文件 -->
+    <script type="text/javascript" src="js/ajaxSetup.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
   <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
@@ -33,28 +35,28 @@
     <tr>
         <td>一类:</td>
         <td>
-            <select id="oneName" class="easyui-combobox"   data-options="width:130" name="oneName">
+            <select id="oneName" class="easyui-combobox"   data-options="width:130" name="product_Type_ID">
                 <option>--请选择--</option>
             </select>
         </td>
 
         <td>二类:</td>
         <td>
-            <select id="twoName" class="easyui-combobox" data-options="width:130" name="twoName" >
+            <select id="twoName" class="easyui-combobox" data-options="width:130" name="product_Type_ID_T" >
                 <option>--请选择--</option>
             </select>
         </td>
 
         <td>三类:</td>
         <td>
-            <select id="threeName" class="easyui-combobox" data-options="width:130" name="threeName" >
+            <select id="threeName" class="easyui-combobox" data-options="width:130" name="product_Type_ID_TH" >
                 <option>--请选择--</option>
             </select>
         </td>
 
         <td>四类:</td>
         <td>
-            <select id="fourName" class="easyui-combobox" data-options="width:130"  name="fourName">
+            <select id="fourName" class="easyui-combobox" data-options="width:130"  name="product_Type_ID_F">
                 <option >--请选择--</option>
             </select>
         </td>
@@ -189,15 +191,24 @@ $(function() {
 //查询触发
   function searchGoodInfo(){
     //条查
+  /* var oneName=$("[name='product_Type_ID']");*/
+     /* console.log(oneName.);*/
+      /*var as;
 
+      for(var i=oneName.length;i > 0;i-- ){
 
-   var oneName=$("[name='oneName']").val();
+          if(oneName[i-1].value !="" && oneName[i-1].value !="--请选择--"){
+              as=oneName[i-1].value;
+              /!**!/
+          }
+      }*/
+      var oneName=$("[name='product_Type_ID']").val()=="--请选择--"?"":$("[name='product_Type_ID']").val();
 
-     var twoName=$("[name='twoName']").val();
+    var twoName=$("[name='product_Type_ID_T']").val()=="--请选择--"?"":$("[name='product_Type_ID_T']").val();
 
-     var threeName=$("[name='threeName']").val();
+     var threeName=$("[name='product_Type_ID_TH']").val()=="--请选择--"?"":$("[name='product_Type_ID_TH']").val();
 
-     var fourName=$("[name='fourName']").val();
+     var fourName=$("[name='product_Type_ID_F']").val()=="--请选择--"?"":$("[name='product_Type_ID_F']").val();
 
      var product_Sku=$("[name='product_Sku']").val();
 
@@ -206,19 +217,36 @@ $(function() {
       url: "/good/queryGoodList.jhtml",
       fitColumns: true,
       pagination: true,
+      autoRowHeight:true,
+      loadMsg:'正在加载请稍后.....',
+      nowrap:true,
+    /* rownumbers:true,*/
+      pageSize:5,
+      pageList:[10,20,30],
       queryParams: {
-          oneName: oneName,
-          twoName: twoName,
-          threeName: threeName,
-          type_ID: fourName,
+          product_Type_ID: oneName,
+          product_Type_ID_T: twoName,
+          product_Type_ID_TH: threeName,
+          product_Type_ID_F: fourName,
           product_Sku: product_Sku,
       },
       columns:[[
         {field:'ckecked',checkbox:true,name:'check'},
         {field:'product_ID',title:'ID',width:30,align:'center'},
         {field:'product_Sku',title:'ZHXsku',width:30,align:'center'},
+
         {field:'channel_Sku',title:'供应商的sku',width:30,align:'center'},
         {field:'channel_ID',title:'供应商',width:35,align:'center'},
+           /* formatter: function(value,row,index){
+                if(row.channel_ID == 1001){
+                    return 'JD';
+                }else if(row.channel_ID == 1002){
+                    return 'MDL';
+                }else{
+                    return "不知";
+                }
+            }*/
+
         {field:'product_Name',title:'商品名称',width:50,align:'center'},
         {field:'agreement_Price',title:'供应商的协议单价',width:30,align:'center'},
         {field:'channel_Price',title:'供应商的售卖价',width:30,align:'center'},
@@ -269,7 +297,7 @@ $(function() {
       $('#divGood').dialog({
           title: '修改',
           width: 1000,
-          height:500,
+          height:800,
           closed: false,
           cache: false,
           href:'/good/findGoodByid.jhtml?product_ID='+id,
@@ -335,14 +363,10 @@ $(function() {
                      url: '/good/upGoodOnStatusStock.jhtml',
                      data: {"product_ID":product_ID,"sataus":sataus,"product_Sku":proSku,"inventory_count":$("#inventory_count_so").val()},
                      success: function (result) {
-                            if(result.stateCode == "200"){
-                                $.messager.alert('我的消息', '上架成功！', 'info');
                                 $("#divGood").dialog("close");
                                 $('#goodTable').datagrid("load");
+                                $.messager.alert('我的消息', '上架成功！', 'info');
                                 searchGoodInfo();
-                            }
-
-
 
                      }
                  });
@@ -356,7 +380,7 @@ $(function() {
              }]
 
              });
-             $('#goodTable').datagrid("load");
+
          }else{
                $.messager.alert("系统提示","该商品已上架","warning");
          }
@@ -409,12 +433,12 @@ $(function() {
   //-----------------------------------------
 
   //   查看   介绍
-  function findGoodDesc(goodID){
+  function findGoodDesc(product_ID){
 
     $('#goodDesc').dialog({
       title: '预览商品',
-      width: 400,
-      height: 600,
+      width: 700,
+      height: 900,
       href: '<%=request.getContextPath()%>/good/findKinderitor.jhtml?product_ID='+product_ID,
       modal: true,
     /*  onLoad:function (){
