@@ -18,8 +18,9 @@ public class StaticFileServerUtil {
 	// private static final String BOUNDARY = "--" + BOUNDARYSTR + "\r\n";
 
 	public static void main(String[] args) {
-	sendPost("http://10.6.4.172:8080/upload/xxx.txt \n" +
-			"\n","E:\\aa.txt");
+	String txt= sendPost("http://10.6.4.172:8080/upload/xxx.jpg \n" +
+			"\n","E:\\m.jpg");
+		System.out.println(txt);
 		String ss="\\20150812\\50.jpg";
 		String result = ss.replace("\\", "/");
 		System.out.println(result);

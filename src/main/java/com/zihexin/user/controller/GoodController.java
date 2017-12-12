@@ -13,6 +13,7 @@ import com.zihexin.user.entity.mallProductType.MallProductType;
 import com.zihexin.user.service.GoodService;
 import com.zihexin.user.util.*;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -45,55 +46,35 @@ public class GoodController extends BaseController {
     private String IMAGE_SERVER_URL;
 
 
- /*   *//**
-     * 条件 查询商品
-     * @param
-     * @param response
-     *//*
-    @RequestMapping("/queryGoodList")
-    @ResponseBody
-    public Map<String,Object> queryGoodList(MallProductInfo mallProductInfo,String pageNumber,HttpServletResponse response) {
-
-        List goodList=new ArrayList<>();
-        try {
-           *//* int  totalCount = goodService.selectGoodCount(mallProductInfo);
-            mallProductInfo.setTotalCount(totalCount);
-            if (null == pageNumber  || "".equals(pageNumber.trim())){
-                pageNumber = "1";
-            }
-            mallProductInfo.setPageIndex(Integer.valueOf(pageNumber));
-            //计算分页信息 调用util封装的计算方法
-            mallProductInfo.calculate();*//*
-            //查询列表
-            goodList= goodService.queryGoiodList(mallProductInfo);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-      *//*  Map<String, Object> map = new HashMap<String, Object>();
-       *//**//* map.put("total",);*//**//*
-        map.put("rows",goodList);*//*
-        writeJson(goodList, response);
-      *//*  return map;*//*
-    }*/
 
 
 
 
-    /**--------------------------------------------------------------------------------------------------------------------------------
+    /**
      * 条件 查询商品
      * @param
      * @param response
      */
     @RequestMapping("/queryGoodList")
     @ResponseBody
-    public void queryGoodList(MallProductInfo mallProductInfo,HttpServletResponse response) {
-        List goodList=new ArrayList<>();
+    public String queryGoodList(HttpServletRequest request,MallProductInfo mallProductInfo,HttpServletResponse response) {
+        //List goodList=new ArrayList<>();
+        String goodList="";
         try {
+            String pageIndex=request.getParameter("page");
+            String pageSize=request.getParameter("rows");
+            mallProductInfo.setPageIndex(Integer.valueOf(pageIndex)-1);
+            mallProductInfo.setPageSize(Integer.valueOf(pageSize));
+            mallProductInfo.setPageNumber(pageSize);
             goodList= goodService.queryGoiodList(mallProductInfo);
         }catch (Exception e){
             e.printStackTrace();
         }
-        writeJson(goodList,response);
+
+        JSONObject jsonObject = JSONObject.parseObject(goodList);
+        String json = jsonObject.toString();
+       /* writeJson(goodList, response);*/
+        return json;
 
     }
 
@@ -124,9 +105,9 @@ public class GoodController extends BaseController {
     @ResponseBody
     public String insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo) {
 
-        goodService.insertGoodInfo(mallItem,mallProductInfo);
+      String recode =  goodService.insertGoodInfo(mallItem, mallProductInfo);
         //重定向
-        return "{}";
+        return recode;
     }
 
 
@@ -218,20 +199,14 @@ public class GoodController extends BaseController {
 
             //取文件扩展名
            String originalFilename = uploadFile.getOriginalFilename();
-
-            String orgName = originalFilename.substring(originalFilename.lastIndexOf(".") );
+           String orgName = originalFilename.substring(originalFilename.lastIndexOf(".") );
             //给文件名随机一个ID  避免重名覆盖原来的文件
-            String fileName=UUID.randomUUID().toString() + orgName;
-      /*      String path=fileName + DateUtil.formatDateToString(new Date(), "yyyyMMdd");*/
-
-
-            String pic_path="";
+            String randomName=UUID.randomUUID().toString() + orgName;
+             String pic_path="";
             //获取Tomcat服务器所在的路径
             String tomcat_path = System.getProperty( "user.dir" );
-            System.out.println(tomcat_path);
             //获取Tomcat服务器所在路径的最后一个文件目录
             String bin_path = tomcat_path.substring(tomcat_path.lastIndexOf("\\")+1,tomcat_path.length());
-            System.out.println(bin_path);
             //若最后一个文件目录为bin目录，则服务器为手动启动
             if(("bin").equals(bin_path)){//手动启动Tomcat时获取路径为：D:\Software\Tomcat-8.5\bin
                 //获取保存上传图片的文件路径
@@ -243,17 +218,16 @@ public class GoodController extends BaseController {
             if(!filePath.exists()){
                filePath.mkdir();
             }
-            File fileDir = new File(pic_path+fileName);
-
+            File fileDir = new File(pic_path+randomName);
+            String fileName="xxx.jpg";
             uploadFile.transferTo(fileDir);
              String dir = StaticFileServerUtil.sendPost( CacheProperties.RESOURCE_SERVER_URL + CacheProperties.UPLOAD_DIR + fileName,fileDir);
              fileDir.delete();
 
-         
             //封装到map中返回
             Map result = new HashMap<>();
             result.put("error", 0);
-            result.put("url", dir);
+            result.put("url", CacheProperties.RESOURCE_SERVER_URL+dir);
            String json = JsonUtils.objectToJson(result);
             return json;
         } catch (Exception e) {

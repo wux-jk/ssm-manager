@@ -17,11 +17,9 @@ import java.util.Map;
  * Created by Administrator on 2017/10/27 0027.
  */
 public interface GoodService {
-    List<MallProductInfo> queryGoiodList(MallProductInfo mallProductInfo);
+    //List<MallProductInfo> queryGoiodList(MallProductInfo mallProductInfo);
 
-
-
-
+    String queryGoiodList(MallProductInfo mallProductInfo);
 
     List<MallProductInfo> findKinderitor(MallProductInfo mallProductInfo);
 
@@ -31,7 +29,7 @@ public interface GoodService {
     void upGoodOnStatusStock(MallProductInfo mallProductInfo);
 
 
-    void insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo);
+    String insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo);
 
   List<MallProductInfo> findGoodByid(MallProductInfo mallProductInfo);
 

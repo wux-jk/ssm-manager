@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
+<title>资和信商品后台管理</title>
 
 <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/gray/easyui.css" />
 <link rel="stylesheet" type="text/css" href="js/jquery-easyui/themes/icon.css" />
@@ -46,27 +46,30 @@
 <body class="easyui-layout">
     <!-- 头部标题 -->
 	<div data-options="region:'north',border:false" style="height:60px; padding:5px; background:#F3F3F3"> 
-		<center><span class="northTitle">商品后台管理系统</span></center>
+		<center><span class="northTitle">资和信商品后台管理系统</span></center>
 	    <span class="loginInfo">登录用户：${userInfo.userName}</span>
 	</div>
     <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
     	<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
+			<c:if test="${userInfo.rolesID==1}">
          	<li>
          		<span>商品管理</span>
          		<ul>
-					<li data-options="attributes:{'url':'toquery.jhtml'}">商品查询</li>
-
-						<li data-options="attributes:{'url':'edit.jhtml'}">ZHX商品查询</li>
+					<li data-options="attributes:{'url':'toquery.jhtml'}">供应商产品查询</li>
+					<li data-options="attributes:{'url':'edit.jhtml'}">商城商品管理</li>
 		      	</ul>
 			</li>
-			<c:if test="${userInfo.rolesID==2}">
-			<li>
-				<span>用户管理</span>
-				<ul>
-					<li data-options="attributes:{'url':'toUserList.jhtml'}">用户操作</li>
-				</ul>
-			</li>
 			</c:if>
+			<c:if test="${userInfo.rolesID==2}">
+				<li>
+					<span>商品管理</span>
+					<ul>
+						<li data-options="attributes:{'url':'toquery.jhtml'}">供应商产品查询</li>
+						<li data-options="attributes:{'url':'edit.jhtml'}">商城商品管理</li>
+					</ul>
+				</li>
+			</c:if>
+
 			<c:if test="${userInfo.rolesID==1}">
 				<li>
 					<span>用户管理</span>
@@ -76,15 +79,7 @@
 				</li>
 			</c:if>
 
-			<li>
-				<span>内容管理</span>
-				<ul>
-					<li data-options="attributes:{'url':'edit.jhtml'}">内容管理</li>
-					<li data-options="attributes:{'url':'edit.jhtml'}">内容分类管理</li>
-				</ul>
-			</li>
-
-         </ul>
+	     </ul>
     </div>
 
     <div data-options="region:'center',title:''">

@@ -22,6 +22,8 @@ Date.prototype.format = function(format){
 var E3 = {
 	// 编辑器参数
 	kingEditorParams : {
+
+
 		//指定上传文件参数名称
 		filePostName  : "uploadFile",
 		//指定上传文件请求的url。
@@ -29,6 +31,8 @@ var E3 = {
 		//上传类型，分别为image、flash、media、file
 		dir : "image",
 		afterBlur: function(){this.sync();}
+
+
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){

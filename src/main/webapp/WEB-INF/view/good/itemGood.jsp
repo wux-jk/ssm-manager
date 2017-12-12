@@ -38,7 +38,7 @@
       </td>
       <td>商品编号SKU:</td>
       <td><input class="easyui-textbox" name="channel_Sku"  data-options="iconCls:'',prompt:'请输入编号SKU'" style="width:100px"> </td>
-      <td width="100px"><button onclick="searchGoodType()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button></td>
+      <td width="100px"><div onclick="searchGoodType()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</div></td>
     </tr>
 
   </table>
@@ -47,14 +47,14 @@
 
 
 
-<div id="divGood" style="display: none" style="width:1500px;padding:10px;">
-<table>
-  <form id="inserInfo">
-      <%--<input type="hidden"  name="upc" id="item_upc"/>
-      <input type="hidden"  name="unit" id="item_unit"/>
-      <input type="hidden"  name="sale_Count" id="item_saleCount"/>--%>
-             <td>
-                  <table>
+<div id="divGood" style="display: none" style="width:1800px;padding:10px;">
+<table valign="top">
+  <form id="inserInfo" autocomplete="on">
+               <td valign="top">
+                  <table  valign="top">
+                      <tr align="center" >
+                          <th colspan="2" height="20" style="font-size:25px"> 供应商商品信息</th>
+                      </tr>
                       <tr>
                          <td>供应商的sku:</td>
                           <td><input class="easyui-textbox"  readonly="readonly"  type="text" id="item_sku" name="channel_Sku"   style="width: 150px;"/></td>
@@ -70,7 +70,6 @@
                           </td>
                       </tr>
 
-                     
                       <tr>
                           <td>重量:</td>
                           <td>
@@ -79,13 +78,13 @@
                       </tr>
                       <tr>
                           <td>协议价:</td>
-                          <td><input class="easyui-numberbox" type="text" readonly="readonly" id="item_agreement" name="agreement_Price" />
+                          <td><input class="easyui-numberbox"  readonly="readonly" id="item_agreement" name="agreement_Price" />
 
                           </td>
                       </tr>
                       <tr>
                           <td>供应商售卖价:</td>
-                          <td><input class="easyui-numberbox" type="text" readonly="readonly" id="itemchannel_Price" name="channel_Price"  />
+                          <td><input class="easyui-numberbox"  readonly="readonly" id="itemchannel_Price" name="channel_Price"  />
                           </td>
                       </tr>
                       <tr>
@@ -104,31 +103,34 @@
 
                   </table>
             </td>
-      </form>
-              <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-      <form id="proFrom">
+
+              <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
               <td>
-                  <table>
+                  <table valign="top">
+                      <tr align="center">
+                        <th colspan="2" style="font-size:25px"> 商城商品信息</th>
+                      </tr>
                       <tr>
                           <td>ZHXSKU:</td>
-                          <td><input class="easyui-textbox" type="text" id="product_sku" name="product_Sku"  style="width: 150px;"/></td>
+                          <td><input class="easyui-textbox"  id="product_sku" name="product_Sku"  style="width: 150px;"/></td>
                       </tr>
                       <tr>
                           <td>商品名称:</td>
-                          <td><input class="easyui-textbox" type="text" id="product_name" name="product_Name"   style="width: 480px;"/></td>
+                          <td><input class="easyui-textbox"  id="product_name" name="product_Name"   style="width: 480px;"/></td>
                       </tr>
                       <tr>
                           <td>品牌:</td>
                           <td>
-                              <input class="easyui-textbox" type="text" id="product_brand" name="brand_Name" style="width: 250px;" />
+                              <input class="easyui-textbox"  id="product_brand" name="brand_Name" style="width: 250px;" />
                           </td>
                       </tr>
                       <tr>
-                          <td>商品详情:</td>
-                          <td><input class="easyui-textbox" type="text"  id="pro_detall" name="product_Detail" style="width: 480px;"/></td>
+                          <td>简介:</td>
+                          <td><input class="easyui-textbox"  id="pro_detall" name="product_Detail" style="width: 480px;"/></td>
                       </tr>
                       <tr>
-                          <td>重量():</td>
+                          <td>重量:</td>
                           <td>
                               <input class="easyui-numberbox" readonly="readonly" type="text" id="pro_weight" name="weight"  />
 
@@ -143,7 +145,7 @@
                       <tr>
                           <td>资和信售卖价:</td>
                           <td>
-                              <input class="easyui-numberbox" id="product_sale" type="text" name="sale_Price"/>
+                              <input class="easyui-numberbox" precision="2" id="product_sale" type="text" name="sale_Price"/>
                           </td>
                       </tr>
                       <tr>
@@ -206,49 +208,68 @@
 </div>
 
 <script type="text/javascript">
+
+
   function searchGoodType() {
     //d当触发查询按钮事件  显示表格
       $("#divGood").show();
        var channelId=$("[name='channel_ID']").val();
-       var id=$("[name='channel_Sku']").val();
+       var sku=$("[name='channel_Sku']").val();
       $.ajax({
           url:"/good/queryItemList.jhtml",
           type:"post",
-         data:{"channel_ID":channelId,"channel_Sku":id},
+         data:{"channel_ID":channelId,"channel_Sku":sku},
          dataType:"json",
          success:function(result){
              if ("000000" == result.resultCode) {
                  var z= '<img src =" ';
                  var h = ' " />'
                  var x = "http://img13.360buyimg.com/n0/";
-                 $("#item_sku").textbox('setText',result.data.SKU);//给input赋值
-                 $("#item_Name").textbox('setText',result.data.NAME);//给input赋值
-                 $("#item_brand").textbox('setText',result.data.BRAND_NAME);//给input赋值
-                 $("#item_weight").textbox('setText',result.data.WEIGHT);//给input赋值
-                 $("#item_agreement").textbox('setText',result.data.AGREEMENT_PRICE);//给input赋值
-                 $("#itemchannel_Price").textbox('setText',result.data.CHANNEL_PRICE);//给input赋值
+                 $("#item_sku").textbox('setText',result.result.sku);//给input赋值
+                 $("#item_Name").textbox('setText',result.result.name);//给input赋值
+                 $("#item_brand").textbox('setText',result.result.brandName);//给input赋值
+                 $("#item_weight").textbox('setText',result.result.weight);//给input赋值
+                 $("#item_agreement").textbox('setText',result.result.AGREEMENT_PRICE);//给价格赋值
+                 $("#itemchannel_Price").textbox('setText',result.result.CHANNEL_PRICE);//给价格赋值
+                  if( $("#item_agreement").textbox('getText') <=0){
+                      $("#divGood").hide();
+                      $.messager.alert('我的消息', '该商品不存在！', 'info')
+                      return;
+                  }
+                 if($("#itemchannel_Price").textbox('getText') <=0){
+                     $("#divGood").hide();
+                     $.messager.alert('我的消息', '该商品不存在！', 'info')
+                     return;
+                 }
+                 itemEditEditor_item_img.html( z + x + result.result.imagePath + h);//主图
+                 itemEditEditor_item.html(result.result.appintroduce +result.result.param );//富文本赋值
+                if(itemEditEditor_item.html() == ""){
+                    $("#divGood").hide();
+                    $.messager.alert('我的消息', '该商品不存在！', 'info')
+                    return;
+                }
 
-         /*        $("#item_upc").val(result.data.UPC);//给input赋值
-                 $("#unit").val(result.data.UNIT);//给input赋值
-                 $("#item_saleCount").val(result.data.SALE_COUNT);//给input赋值*/
+                 /*$("#item_upc").val(result.data.UPC);//给隐藏域input赋值
+                  $("#unit").val(result.data.UNIT);//给input赋值
+                  $("#item_saleCount").val(result.data.SALE_COUNT);//给input赋值*/
 
-                 itemEditEditor_item_img.html( z + x + result.data.IMAGE_PATH + h );//主图
-                 itemEditEditor_item.html(result.data.DESCRIPTION);//富文本赋值
-                //-------------------------------------------------------------------------
+ //-----------------------------------------------------------------------------------------------------------------------
                 var itemID = $("#item_channelID").textbox('getValue');//取渠道的id
                 var itemsk=   $("#item_sku").textbox('getText');//取供应商的sku
                 var prosk= itemID + itemsk;//拼接
                 $("#product_sku").textbox('setText',prosk);//给zhxsku赋值
-                 $("#product_name").textbox('setText',result.data.NAME);//给input赋值
-                 $("#product_brand").textbox('setText',result.data.BRAND_NAME);//给input赋值
-                 $("#pro_weight").textbox('setText',result.data.WEIGHT);//给input赋值
-                 $("#pro_agreementprice").textbox('setText',result.data.AGREEMENT_PRICE);//给input赋值
-                 $("#product_sale").textbox('setText',result.data.CHANNEL_PRICE);//zhx的售卖价
-                 itemEditEditor_proitem_img.html(z + x + result.data.IMAGE_PATH + h);//主图  需要拼接img标签
-                itemEditEditor_product.html(result.data.DESCRIPTION);
-
-
-
+                 $("#product_name").textbox('setText',result.result.name);//给input赋值
+                 $("#product_brand").textbox('setText',result.result.brandName);//给input赋值
+                 $("#pro_weight").textbox('setText',result.result.weight);//给input赋值
+                 $("#pro_agreementprice").textbox('setText',result.result.AGREEMENT_PRICE);//给input赋值
+                 $("#product_sale").textbox('setText',result.result.CHANNEL_PRICE);//zhx的售卖价
+                 itemEditEditor_proitem_img.html(z + x + result.result.imagePath +h);//主图  需要拼接img标签
+                itemEditEditor_product.html(result.result.appintroduce + result.result.param);//商品描述
+                 if(itemEditEditor_product.html() ==""){
+                     $("#divGood").hide();
+                     $.messager.alert('我的消息', '该商品不存在！', 'info')
+                     return;
+                 }
              }
 
            }
@@ -268,6 +289,8 @@
           textField:'type_Name',
           onHidePanel: function(){
               $("#twoName").combobox("setValue",'');//清空二类列表框
+              $("#threeName").combobox("setValue",'');//清空三类列表框
+              $("#fourName").combobox("setValue",'');//清空四类列表框
               var oneValue = $('#oneName').combobox('getValue');
               //查出一类  加载二类
               $.ajax({
@@ -284,7 +307,6 @@
       });
 
       $('#twoName').combobox({
-          //url:'itemManage!categorytbl',
           editable:false, //不可编辑状态
           cache: false,
           panelHeight: '150',//自动高度适合
@@ -297,6 +319,7 @@
       $('#twoName').combobox({
           onSelect: function(){
               $("#threeName").combobox("setValue",'');//清空三类列表框
+              $("#fourName").combobox("setValue",'');//清空四类列表框
               var twoValue = $('#twoName').combobox('getValue');
               $.ajax({
                   type: "POST",
@@ -304,20 +327,19 @@
                   cache: false,
                   dataType : "json",
                   success: function(data){
-                      /*  alert(JSON.stringify(data));*/
-                      $("#threeName").combobox("loadData",data);//加载三类
+                    $("#threeName").combobox("loadData",data);//加载三类
                   }
               });
           }
       });
 
       $('#threeName').combobox({
-          //url:'itemManage!categorytbl',
           editable:false, //不可编辑状态
           cache: false,
           panelHeight: '150',//自动高度适合
           valueField:'type_ID',
           textField:'type_Name',
+
       });
 
 //---------------------------------------------------------------------------------
@@ -340,7 +362,6 @@
       });
 
       $('#fourName').combobox({
-          //url:'itemManage!categorytbl',
           editable:false, //不可编辑状态
           cache: false,
           panelHeight: '150',//自动高度适合
@@ -355,24 +376,16 @@
 
 //导入商品库
 function sumitGood(){
-    alert(2222)
     //左
     var itemID = $("#item_channelID").textbox('getValue');//取渠道id
-
     var itemsk= $("#item_sku").textbox('getText');//取供应商的sku
-
     var item_Name= $("#item_Name").textbox('getText');
-
-     var item_brand= $("#item_brand").textbox('getText');
-
+    var item_brand= $("#item_brand").textbox('getText');
     var item_weight= $("#item_weight").textbox('getText');
-
     var item_agreement= $("#item_agreement").textbox('getText');
-
     var itemchannel_Price= $("#itemchannel_Price").textbox('getText');
-
-    var item_img= itemEditEditor_item_img.html();
-    var item_desc= itemEditEditor_item.html();
+    var item_img= itemEditEditor_item_img.html();//主图
+    var item_desc= itemEditEditor_item.html();//描述
     //------------右
     var product_SKU = $("#product_sku").textbox('getText');//取zhx的sku
     var product_Name = $("#product_name").textbox('getText');
@@ -380,13 +393,43 @@ function sumitGood(){
     var pro_weight = $("#pro_weight").textbox('getText');
    var pro_agreementprice = $("#pro_agreementprice").textbox('getText');
     var product_sale = $("#product_sale").textbox('getText');
-    var proitem_img = itemEditEditor_proitem_img.html();
-    var productInfo_Desc = itemEditEditor_product.html();
-    var pro_detall = $("#pro_detall").textbox('getText');
+    var proitem_img = itemEditEditor_proitem_img.html();//主图
+    var productInfo_Desc = itemEditEditor_product.html();//描述
+    var pro_detall = $("#pro_detall").textbox('getText');//简介
+    if(pro_detall == ""){
+        $.messager.alert('我的消息', '导入失败,请输入简介！', 'info')
+        $("#divGood").hide();
+        return;
+    }
+
     var oneName=$("[name='oneName']").val();
-    var twoName=$("[name='twoName']").val();
+    if(oneName == "" || oneName == "--请选择--"){
+        $.messager.alert('我的消息', '导入失败,请选择商品类别！', 'info')
+        $("#divGood").hide();
+        return;
+
+    }
+     var twoName=$("[name='twoName']").val();
+    if(twoName == "" || twoName == "--请选择--"){
+        $.messager.alert('我的消息', '导入失败,请选择商品类别！', 'info')
+        $("#divGood").hide();
+        return;
+
+    }
      var threeName=$("[name='threeName']").val();
+    if(threeName == "" || threeName == "--请选择--"){
+        $.messager.alert('我的消息', '导入失败,请选择商品类别！', 'info')
+        $("#divGood").hide();
+        return;
+
+    }
      var fourName=$("[name='fourName']").val();
+    if(fourName == "" || fourName == "--请选择--"){
+        $.messager.alert('我的消息', '导入失败,请选择商品类别！', 'info')
+        $("#divGood").hide();
+        return;
+
+    }
 
   $.ajax({
     type:"post",
@@ -400,18 +443,37 @@ function sumitGood(){
         "product_Type_ID_F":fourName,"product_Detail":pro_detall,"channel_ID":itemID},
     dataType:'json',
 
-    success:function (result) {
-        $.messager.alert('我的消息', '添加成功！', 'info');
-      $("#divGood").hide();
-        /* alert("添加成功");*/
-      /* $("#divUser").dialog("close");*/
-        /* $("#show-user").datagrid('reload');*/
+    success:function (data) {
+       if(data.stateCode=="900"){
+            $.messager.alert('我的消息', data.msg, 'info');
+            $("#divGood").hide();
+            var pro_detall = $("#pro_detall").textbox('setText',""); //置空商品详情框
+            $("#oneName").combobox("setValue",'--请选择--');//清空二类列表框
+            $("#twoName").combobox("setValue",'--请选择--');//清空二类列表框
+            $("#threeName").combobox("setValue",'--请选择--');//清空二类列表框
+            $("#fourName").combobox("setValue",'--请选择--');//清空二类列表框
+
+        }else if(data.stateCode=="200"){
+            $.messager.alert('我的消息', '导入成功！', 'info')
+            $("#divGood").hide();
+            var pro_detall = $("#pro_detall").textbox('setText',"");//置空商品详情框
+            $("#oneName").combobox("setValue",'--请选择--');//清空二类列表框
+            $("#twoName").combobox("setValue",'--请选择--');//清空二类列表框
+            $("#threeName").combobox("setValue",'--请选择--');//清空二类列表框
+            $("#fourName").combobox("setValue",'--请选择--');//清空二类列表框
+
+
+        }
+
 
     }
   });
+
+
 }
 
 </script>
+
 <script>
     var itemEditEditor_item ; //左表的描述编辑器
     var itemEditEditor_product; //右表的描述编辑器
@@ -426,13 +488,14 @@ function sumitGood(){
         itemEditEditor_item_img = E3.createEditor("#item_img");
         itemEditEditor_item_img.readonly(true);
 
-
         //右表的主图编辑器
         itemEditEditor_proitem_img = E3.createEditor("#proitem_img");
         itemEditEditor_product = E3.createEditor("#productInfo_Desc");  //右表的描述编辑器
 
 
     });
+
+
 
 </script>
 

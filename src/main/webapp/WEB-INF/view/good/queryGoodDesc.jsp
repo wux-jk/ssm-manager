@@ -18,7 +18,7 @@
 </head>
 
 
-<textarea style="width:100px;height:800px;visibility:hidden;"  id="product_Desc" name="product_Desc">${us.product_Desc}</textarea>
+<textarea style="width:200px;height:800px;visibility:hidden;"  id="product_Desc" name="product_Desc">${us.product_Desc}</textarea>
 
 <script>
   var itemEditEditor_desc ;

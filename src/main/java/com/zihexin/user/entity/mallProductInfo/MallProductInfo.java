@@ -47,6 +47,17 @@ public class MallProductInfo extends Page implements Serializable {
     private Integer inventory_count;//库存数量
     private String userName;
 
+    private String pageNumber = "1";
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+
 
     public String getProduct_Detail() {
         return product_Detail;

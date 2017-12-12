@@ -26,7 +26,7 @@
 
 </head>
 <body>
-<div id="p" class="easyui-panel" title="搜索"  style="width:1100px;padding:10px;background:#fafafa;"
+<div id="ps" class="easyui-panel" title="搜索"  style="width:1100px;padding:10px;background:#fafafa;"
      data-options="iconCls:'icon-save',closable:true,collapsible:true,minimizable:true,maximizable:true">
 
 
@@ -35,28 +35,28 @@
     <tr>
         <td>一类:</td>
         <td>
-            <select id="oneName" class="easyui-combobox"   data-options="width:130" name="product_Type_ID">
+            <select id="oneName1" class="easyui-combobox"   data-options="width:130" name="product_Type_ID">
                 <option>--请选择--</option>
             </select>
         </td>
 
         <td>二类:</td>
         <td>
-            <select id="twoName" class="easyui-combobox" data-options="width:130" name="product_Type_ID_T" >
+            <select id="twoName2" class="easyui-combobox" data-options="width:130" name="product_Type_ID_T" >
                 <option>--请选择--</option>
             </select>
         </td>
 
         <td>三类:</td>
         <td>
-            <select id="threeName" class="easyui-combobox" data-options="width:130" name="product_Type_ID_TH" >
+            <select id="threeName3" class="easyui-combobox" data-options="width:130" name="product_Type_ID_TH" >
                 <option>--请选择--</option>
             </select>
         </td>
 
         <td>四类:</td>
         <td>
-            <select id="fourName" class="easyui-combobox" data-options="width:130"  name="product_Type_ID_F">
+            <select id="fourName4" class="easyui-combobox" data-options="width:130"  name="product_Type_ID_F">
                 <option >--请选择--</option>
             </select>
         </td>
@@ -64,11 +64,8 @@
         <td><input class="easyui-textbox" name="product_Sku"  data-options="iconCls:'',prompt:'请输入SKU'" style="width:130px"> </td>
 
         <td width="100px">
-            <button onclick="searchGoodInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</button>
+            <div onclick="searchGoodInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</div>
         </td>
-
-
-
     </tr>
 
   </table>
@@ -88,14 +85,14 @@
 <!-- 预览商品弹框-->
 <div id="goodDesc"></div>
 <!--  修改页面对话框  -->
-<div id="divGood"></div>
+<div id="productGood"></div>
 
 
 <script type="text/javascript">
 //动态查询下拉列表框
 $(function() {
     // 下拉框选择控件，下拉框的内容是动态查询数据库信息
-    $('#oneName').combobox({
+    $('#oneName1').combobox({
         url:'/product/loadOneName.jhtml',
         editable:false, //不可编辑状态
         cache: false,
@@ -103,8 +100,10 @@ $(function() {
         valueField:'type_ID',
         textField:'type_Name',
         onHidePanel: function(){
-            $("#twoName").combobox("setValue",'');//清空二类列表框
-            var oneValue = $('#oneName').combobox('getValue');
+            $("#twoName2").combobox("setValue",'');//清空二类列表框
+            $("#threeName3").combobox("setValue",'');//清空三类列表框
+            $("#fourName4").combobox("setValue",'');//清空四类列表框
+            var oneValue = $('#oneName1').combobox('getValue');
             //查出一类  加载二类
             $.ajax({
                 type: "POST",
@@ -113,14 +112,13 @@ $(function() {
                 dataType : "json",
                 success: function(data){
                     /*  alert(JSON.stringify(data));*/
-                    $("#twoName").combobox("loadData",data);//加载二类
+                    $("#twoName2").combobox("loadData",data);//加载二类
                 }
             });
         }
     });
 
-   $('#twoName').combobox({
-        //url:'itemManage!categorytbl',
+   $('#twoName2').combobox({
         editable:false, //不可编辑状态
         cache: false,
         panelHeight: '150',//自动高度适合
@@ -130,10 +128,10 @@ $(function() {
 //------------------------------------------------------------------------------------------------
 
     //通过二级查三级
-    $('#twoName').combobox({
+    $('#twoName2').combobox({
         onSelect: function(){
-            $("#threeName").combobox("setValue",'');//清空三类列表框
-            var twoValue = $('#twoName').combobox('getValue');
+            $("#threeName3").combobox("setValue",'');//清空三类列表框
+            var twoValue = $('#twoName2').combobox('getValue');
             $.ajax({
                 type: "POST",
                 url: '/product/loadThreeName.jhtml?id=' + twoValue,
@@ -141,13 +139,13 @@ $(function() {
                 dataType : "json",
                 success: function(data){
                     /*  alert(JSON.stringify(data));*/
-                    $("#threeName").combobox("loadData",data);//加载三类
+                    $("#threeName3").combobox("loadData",data);//加载三类
                 }
             });
         }
     });
 
-    $('#threeName').combobox({
+    $('#threeName3').combobox({
         //url:'itemManage!categorytbl',
         editable:false, //不可编辑状态
         cache: false,
@@ -159,23 +157,23 @@ $(function() {
 //---------------------------------------------------------------------------------
     var productSku = null;
     //通过三级查四级
-    $('#threeName').combobox({
+    $('#threeName3').combobox({
         onSelect: function(){
-            $("#fourName").combobox("setValue",'');//清空四类列表框
-            var fourValue = $('#threeName').combobox('getValue');
+            $("#fourName4").combobox("setValue",'');//清空四类列表框
+            var fourValue = $('#threeName3').combobox('getValue');
             $.ajax({
                 type: "POST",
                 url: '/product/loadfourName.jhtml?id=' + fourValue,
                 cache: false,
                 dataType : "json",
                 success: function(data){
-                 $("#fourName").combobox("loadData",data);//加载四类
+                 $("#fourName4").combobox("loadData",data);//加载四类
                 }
             });
         }
     });
 
-    $('#fourName').combobox({
+    $('#fourName4').combobox({
         //url:'itemManage!categorytbl',
         editable:false, //不可编辑状态
         cache: false,
@@ -190,25 +188,13 @@ $(function() {
 
 //查询触发
   function searchGoodInfo(){
-    //条查
-  /* var oneName=$("[name='product_Type_ID']");*/
-     /* console.log(oneName.);*/
-      /*var as;
+    var oneName1=$("[name='product_Type_ID']").val()=="--请选择--"?"":$("[name='product_Type_ID']").val();
 
-      for(var i=oneName.length;i > 0;i-- ){
+    var twoName2=$("[name='product_Type_ID_T']").val()=="--请选择--"?"":$("[name='product_Type_ID_T']").val();
 
-          if(oneName[i-1].value !="" && oneName[i-1].value !="--请选择--"){
-              as=oneName[i-1].value;
-              /!**!/
-          }
-      }*/
-      var oneName=$("[name='product_Type_ID']").val()=="--请选择--"?"":$("[name='product_Type_ID']").val();
+     var threeName3=$("[name='product_Type_ID_TH']").val()=="--请选择--"?"":$("[name='product_Type_ID_TH']").val();
 
-    var twoName=$("[name='product_Type_ID_T']").val()=="--请选择--"?"":$("[name='product_Type_ID_T']").val();
-
-     var threeName=$("[name='product_Type_ID_TH']").val()=="--请选择--"?"":$("[name='product_Type_ID_TH']").val();
-
-     var fourName=$("[name='product_Type_ID_F']").val()=="--请选择--"?"":$("[name='product_Type_ID_F']").val();
+     var fourName4=$("[name='product_Type_ID_F']").val()=="--请选择--"?"":$("[name='product_Type_ID_F']").val();
 
      var product_Sku=$("[name='product_Sku']").val();
 
@@ -218,23 +204,26 @@ $(function() {
       fitColumns: true,
       pagination: true,
       autoRowHeight:true,
+
+      pagePosition:'both',
       loadMsg:'正在加载请稍后.....',
       nowrap:true,
-    /* rownumbers:true,*/
-      pageSize:5,
-      pageList:[10,20,30],
+      singleSelect : false,
+      remoteSort: true ,
+      pageNumber:1,
+      pageSize: 5 ,   // 在设置分页属性的时候初始化页面大小。
+      pageList :[5,10,20,30,40],
       queryParams: {
-          product_Type_ID: oneName,
-          product_Type_ID_T: twoName,
-          product_Type_ID_TH: threeName,
-          product_Type_ID_F: fourName,
+          product_Type_ID: oneName1,
+          product_Type_ID_T: twoName2,
+          product_Type_ID_TH: threeName3,
+          product_Type_ID_F: fourName4,
           product_Sku: product_Sku,
       },
       columns:[[
         {field:'ckecked',checkbox:true,name:'check'},
         {field:'product_ID',title:'ID',width:30,align:'center'},
         {field:'product_Sku',title:'ZHXsku',width:30,align:'center'},
-
         {field:'channel_Sku',title:'供应商的sku',width:30,align:'center'},
         {field:'channel_ID',title:'供应商',width:35,align:'center'},
            /* formatter: function(value,row,index){
@@ -251,6 +240,7 @@ $(function() {
         {field:'agreement_Price',title:'供应商的协议单价',width:30,align:'center'},
         {field:'channel_Price',title:'供应商的售卖价',width:30,align:'center'},
         {field:'sale_Price',title:'ZHX售卖价',width:30,align:'center'},
+          {field:'inventory_count',title:'库存数量',width:30,align:'center'},
         /* {field:'status',title:'状态',width:30,align:'center'},*/
          /* {field:'sataus',title:'状态',width:30,align:'center'},*/
         {field:'status',title:'状态',width:20,align:'center',
@@ -294,7 +284,7 @@ $(function() {
           return;
       }
       var id = selectedRows[0].product_ID;
-      $('#divGood').dialog({
+      $('#productGood').dialog({
           title: '修改',
           width: 1000,
           height:800,
@@ -313,7 +303,7 @@ $(function() {
                       data:$("#upGoodForm").serialize(),
                       success:function (msg){
                           $.messager.alert('我的消息','修改成功！','info');
-                          $("#divGood").dialog("close");
+                          $("#productGood").dialog("close");
                           $('#goodTable').datagrid("load");
                           searchGoodInfo();
                       }
@@ -323,7 +313,7 @@ $(function() {
               text:'关闭',
               iconCls:"icon-no",
               handler:function(){
-                  $('#divGood').dialog('close');
+                  $('#productGood').dialog('close');
               }
           }]
 
@@ -346,7 +336,7 @@ $(function() {
          var sataus = selectedRow[0].status;
          var proSku= selectedRow[0].product_Sku;
          if(sataus != 00) {
-             $('#divGood').dialog({
+             $('#productGood').dialog({
              title: '上架',
              width: 300,
              height: 300,
@@ -363,7 +353,7 @@ $(function() {
                      url: '/good/upGoodOnStatusStock.jhtml',
                      data: {"product_ID":product_ID,"sataus":sataus,"product_Sku":proSku,"inventory_count":$("#inventory_count_so").val()},
                      success: function (result) {
-                                $("#divGood").dialog("close");
+                                $("#productGood").dialog("close");
                                 $('#goodTable').datagrid("load");
                                 $.messager.alert('我的消息', '上架成功！', 'info');
                                 searchGoodInfo();
@@ -375,7 +365,7 @@ $(function() {
                  text: '关闭',
                          iconCls: "icon-no",
                          handler: function () {
-                         $('#divGood').dialog('close');
+                         $('#productGood').dialog('close');
                      }
              }]
 

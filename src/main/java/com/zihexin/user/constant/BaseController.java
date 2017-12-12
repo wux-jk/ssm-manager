@@ -23,15 +23,7 @@ public class BaseController {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * <pre>outString(打印字符串) jsonp讲解时，使用response.setContentType("application/json");
-	 * 创建人：杨志超 yangzhichao150@126.com    
-	 * 创建时间：2016年3月14日 上午10:07:28    
-	 * 修改人：杨志超 yangzhichao150@126.com     
-	 * 修改时间：2016年3月14日 上午10:07:28    
-	 * 修改备注： 
-	 * @param json</pre>
-	 */
+
 	protected void outString(String json, HttpServletResponse response) {
 		PrintWriter writer = null;
 		response.setContentType("application/json");

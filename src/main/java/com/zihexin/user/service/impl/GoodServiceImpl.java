@@ -43,46 +43,29 @@ public class GoodServiceImpl implements GoodService{
 
     //条查；查询商品信息表列表
     @Override
-    public List queryGoiodList(MallProductInfo mallProductInfo) {
+    public String queryGoiodList(MallProductInfo mallProductInfo) {
 
         //把对象转成json
         JSONObject proJson = JSONObject.fromObject(mallProductInfo);
          String str = proJson.toString();
         String url = "http://localhost:8080/WelfareMall-management/productInfo/queryGoodInfo.cp";
         String doPost = HttpClientUtil.doPostHttp(url, str);
+        doPost=doPost.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
         try {
-            System.out.println(URLDecoder.decode(doPost, "UTF-8"));
+            doPost=URLDecoder.decode(doPost, "UTF-8");
+           /* System.out.println(URLDecoder.decode(doPost, "UTF-8"));*/
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        List<MallProductInfo> goodInfo = JSONArray.parseArray(doPost, MallProductInfo.class);
-        return goodInfo;
+       // List<MallProductInfo> goodInfo = JSONArray.parseArray(doPost, MallProductInfo.class);
+        //Map<String,Object> map=JSON.parseObject(doPost,Map.class);
+        return doPost;
 
 
     }
 
-   /* *//**
-     * 查询条数
-     * @param mallProductInfo
-     * @return
-     *//*
-    @Override
-    public int selectGoodCount(MallProductInfo mallProductInfo) {
 
-        //把对象转成json
-        JSONObject proJson = JSONObject.fromObject(mallProductInfo);
-        String str = proJson.toString();
-        String url = "http://localhost:8080/WelfareMall-management/productInfo/selectGoodCount.cp";
-        String doPost = HttpClientUtil.doPostHttp(url, str);
-        try {
-            System.out.println(URLDecoder.decode(doPost, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-
-        return 0;
-    }*/
 
     /**
      * 查询京东商品信息
@@ -92,20 +75,19 @@ public class GoodServiceImpl implements GoodService{
     @Override
     public String queryItemList(MallItem mallItem) {
         Map map = new HashMap<>();
-        String channelId="";
+      /*  String channelId="";
        if (StringUtils.isNoneEmpty(mallItem.getChannel_ID()) &&  "1001".equals(mallItem.getChannel_ID())){
          channelId="JD";
-        }
+        }*/
 
-        map.put("channelId",channelId);
-        map.put("id",mallItem.getChannel_Sku());
+        map.put("channelId",mallItem.getChannel_ID());
+        map.put("sku",mallItem.getChannel_Sku());
         map.put("queryExts","appintroduce");
         JSONObject itemJjson = JSONObject.fromObject(map);
         String item= itemJjson.toString();
         String url = "http://10.6.5.114:8080/WelfareMall-management/product/queryProductDetail.cp";
-
-     /*   String url = "http://10.6.5.114:8080/WelfareMall-management/product/queryProductDetail.cp";*/
         String doPost = HttpClientUtil.doPostHttp(url, item);
+        doPost=doPost.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
         try {
             doPost = URLDecoder.decode(doPost, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -122,9 +104,19 @@ public class GoodServiceImpl implements GoodService{
      * @param
      */
     @Override
-    public void insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo) {
-       /* mallItem.setStatus("01");*/
-      Map<String,Object> map = new HashMap<>();
+    public String insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo) {
+
+        Map<String,Object> map = new HashMap<>();
+        String str =  mallItem.getImg_url().substring(11); //截取URL的img标签
+        int i = str.lastIndexOf("'");
+        String substring = str.substring(0, str.length()-4);
+        mallItem.setImg_url(substring);
+
+        String strPro = mallProductInfo.getImg_Url().substring(11); //截取URL的img标签
+        int j = strPro.lastIndexOf("'");
+        String prosub = strPro.substring(0, strPro.length() - 4);
+        mallProductInfo.setImg_Url(prosub);
+
         map.put("mallItem",mallItem);
         map.put("productInfo",mallProductInfo);
 
@@ -133,11 +125,14 @@ public class GoodServiceImpl implements GoodService{
         String strMap = mjson.toString();
         String url = "http://localhost:8080/WelfareMall-management/productInfo/insertGoodInfo.cp";
         String doPost = HttpClientUtil.doPostHttp(url, strMap);
-        try {
-            System.out.println(URLDecoder.decode(doPost, "UTF-8"));
+
+       try {
+            doPost =(URLDecoder.decode(doPost, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+        return doPost;
 
     }
 
@@ -188,9 +183,8 @@ public class GoodServiceImpl implements GoodService{
     //下架
     @Override
     public void updateGoodStatus(MallProductInfo mallProductInfo) {
-         mallProductInfo.setStatus("02");
-        mallProductInfo.setInventory_count(00);
-        JSONObject mjson = JSONObject.fromObject(mallProductInfo);
+        mallProductInfo.setStatus("02");
+       JSONObject mjson = JSONObject.fromObject(mallProductInfo);
         String goodPro = mjson.toString();
         String url = "http://localhost:8080/WelfareMall-management/productInfo/updateGoodStatus.cp";
         String doPost = HttpClientUtil.doPostHttp(url, goodPro);
@@ -201,7 +195,6 @@ public class GoodServiceImpl implements GoodService{
         }
 
 
-      /*  goodMapper.updateGoodStatus(good);*/
     }
 
     /**

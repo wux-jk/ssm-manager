@@ -29,7 +29,7 @@
      </tr>
       <tr>
          <td>供应商sku:</td>
-          <td><input class="easyui-textbox" type="text" name="channel_Sku" value="${us.channel_Sku}"  style="width: 150px;"/></td>
+          <td><input class="easyui-textbox" type="text" readonly="readonly" name="channel_Sku" value="${us.channel_Sku}"  style="width: 150px;"/></td>
    </tr>
       <tr>
           <td>供应商:</td>
@@ -46,19 +46,19 @@
 
      <tr>
          <td>供应商协议单价:</td>
-        <td><input class="easyui-numberbox" type="text" name="agreement_Price" value="${us.agreement_Price}" />
+        <td><input class="easyui-numberbox" type="text" precision="2" readonly="readonly" name="agreement_Price" value="${us.agreement_Price}" />
 
         </td>
       </tr>
    <tr>
         <td>供应商售卖单价:</td>
-        <td><input class="easyui-numberbox" type="text" name="channel_Price" value="${us.channel_Price}" />
+        <td><input class="easyui-numberbox" type="text" precision="2" readonly="readonly" name="channel_Price" value="${us.channel_Price}" />
 
           </td>
       </tr>
       <tr>
           <td>ZHX售卖单价:</td>
-          <td><input class="easyui-numberbox" type="text" name="sale_Price" value="${us.sale_Price}" />
+          <td><input class="easyui-numberbox" type="text"  precision="2" name="sale_Price" value="${us.sale_Price}" />
 
           </td>
      </tr>
@@ -81,10 +81,10 @@
 </div>
 
 <script>
-    var itemEditEditor_desc ;
+    var itemEditEditor_prodesc ;
     $(function(){
     //实例化编辑器
-        itemEditEditor_desc = E3.createEditor("#productInfo_Desc");
+        itemEditEditor_prodesc = E3.createEditor("#productInfo_Desc");
     });
 </script>
 
