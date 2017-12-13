@@ -42,6 +42,7 @@ public class MallProductInfo extends Page implements Serializable {
     private String snapshot_Id;//快照ID
     private String product_Detail; //商品详情
 
+
     private String type_ID;//商品类别ID
 
     private Integer inventory_count;//库存数量

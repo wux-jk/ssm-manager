@@ -66,7 +66,12 @@
           <td>商品详情:</td>
           <td><input class="easyui-textbox" type="text" name="product_Detail" value="${us.product_Detail}"  style="width:470px;"/></td>
       </tr>
-
+      <tr>
+          <td>主图:</td>
+          <td>
+              <textarea style="width:200px;height:600px;" id="productInfo_img_Url" name="img_Url"> <img src = "${us.img_Url}" /> </textarea>
+          </td>
+      </tr>
       <tr>
           <td>商品描述:</td>
           <td>
@@ -82,9 +87,11 @@
 
 <script>
     var itemEditEditor_prodesc ;
+    var itemEditEditor_imgUrl;
     $(function(){
     //实例化编辑器
         itemEditEditor_prodesc = E3.createEditor("#productInfo_Desc");
+        itemEditEditor_imgUrl = E3.createEditor("#productInfo_img_Url")
     });
 </script>
 

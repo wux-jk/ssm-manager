@@ -111,7 +111,7 @@ input{
 			datatype:'json',
 			success:function(data){
 				if(data.falg==1){
-					alert("登录成功")
+				/*	alert("登录成功")*/
 					location.href="tree.jsp";
 				}
 				else if(data.falg==2){
