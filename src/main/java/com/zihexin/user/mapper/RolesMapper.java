@@ -11,6 +11,6 @@ public interface RolesMapper {
 
     List<Roles> selectUserRoleListJson(Roles roles);
     void insertUserRolesList(Roles roleRequestList);
-
     void deleteAllRolesByUserID(Roles roles);
+
 }

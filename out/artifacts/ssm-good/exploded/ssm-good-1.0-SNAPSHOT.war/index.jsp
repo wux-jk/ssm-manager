@@ -4,21 +4,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="../js/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 <title>资和信商品后台管理</title>
+
 <style type="text/css">
 html{    
     width: 100%;    
     height: 100%;    
-    overflow: hidden;    
-    font-style: sans-serif;    
-}    
+    overflow: hidden;
+  /*  font-style:sans-serif;*/
+}
+
 body{    
     width: 100%;    
     height: 100%;    
     font-family: 'Open Sans',sans-serif;    
     margin: 0;    
-    background-color: #orange;    
+    background-color: black;
 }    
 #login{    
     position: absolute;    
@@ -29,7 +34,7 @@ body{
     height: 300px;    
 }    
 #login h1{    
-    color: #red;    
+    color: red;
     text-shadow:0 0 10px;    
     letter-spacing: 1px;    
     text-align: center;    
@@ -45,22 +50,22 @@ input{
     outline: none;    
     padding: 10px;    
     font-size: 13px;    
-    color: #red;    
+    color: red;
     text-shadow:1px 1px 1px;    
     border-top: 1px solid #312E3D;    
     border-left: 1px solid #312E3D;    
     border-right: 1px solid #312E3D;    
     border-bottom: 1px solid #56536A;    
     border-radius: 4px;    
-    background-color: #orange;    
+    background-color: black;
 }    
 .but{    
     width: 300px;    
     min-height: 35px;    
     display: block;    
-    background-color: #orange;    
-    border: 1px solid #pink;    
-    color: #red;    
+    background-color: black;
+    border: 1px solid pink;
+    color: red;
     padding: 9px 14px;    
     font-size: 15px;    
     line-height: normal;    
@@ -68,8 +73,9 @@ input{
     margin: 0;    
 }   
 </style>
+
 </head>
-<body style="background:url('../img/3.jpg') repeat;">
+<body style="background:url('img/3.jpg') black;">
 	<div id="login">   
 		<h1>登录</h1>   
 		<table>
@@ -100,7 +106,6 @@ input{
 			alert("密码不能为空")
 			return;
 		}
-
 		$.ajax({
 			url:"/login/LoginAuthentication.jhtml",
 			type:'post',

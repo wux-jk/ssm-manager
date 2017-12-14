@@ -18,13 +18,13 @@
 </head>
 
 
-<textarea style="width:200px;height:800px;visibility:hidden;"  id="product_Desc" name="product_Desc">${us.product_Desc}</textarea>
+<textarea style="width:200px;height:800px;visibility:hidden;"  id="katproduct_Desc" name="product_Desc">${us.product_Desc}</textarea>
 
 <script>
   var itemEditEditor_desc ;
   $(function(){
     //实例化编辑器
-    itemEditEditor_desc = E3.createEditor("#product_Desc");
+    itemEditEditor_desc = E3.createEditor("#katproduct_Desc");
     itemEditEditor_desc.readonly(true);
   });
 </script>

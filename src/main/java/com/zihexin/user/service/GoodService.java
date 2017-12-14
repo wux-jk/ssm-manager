@@ -17,25 +17,21 @@ import java.util.Map;
  * Created by Administrator on 2017/10/27 0027.
  */
 public interface GoodService {
-    //List<MallProductInfo> queryGoiodList(MallProductInfo mallProductInfo);
 
-    String queryGoiodList(MallProductInfo mallProductInfo);
+     String queryGoiodList(MallProductInfo mallProductInfo);
 
     List<MallProductInfo> findKinderitor(MallProductInfo mallProductInfo);
 
     void updateGoodStatus(MallProductInfo mallProductInfo);
-
         //修改状态  新增库存数量
     void upGoodOnStatusStock(MallProductInfo mallProductInfo);
 
-
     String insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo);
 
-  List<MallProductInfo> findGoodByid(MallProductInfo mallProductInfo);
+    List<MallProductInfo> findGoodByid(MallProductInfo mallProductInfo);
 
     String queryItemList(MallItem mallItem);
 
     void updateProductInfo(MallProductInfo mallProductInfo);
 
-    /*int selectGoodCount(MallProductInfo mallProductInfo);*/
 }

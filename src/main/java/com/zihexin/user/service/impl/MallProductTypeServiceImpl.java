@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.zihexin.user.entity.mallProductType.MallProductType;
 
 import com.zihexin.user.service.MallProductTypeService;
+import com.zihexin.user.util.CommonUrl;
 import com.zihexin.user.util.http.HttpClientUtil;
 import net.sf.json.JSONObject;
 import org.apache.http.entity.StringEntity;
@@ -36,7 +37,7 @@ public class MallProductTypeServiceImpl implements MallProductTypeService {
 
        JSONObject json = JSONObject.fromObject(mallProductType);
         String str = json.toString();
-        String url = "http://localhost:8080/WelfareMall-management/productInfo/loadHierarchy.cp";
+        String url = CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/loadHierarchy.cp";
         String doPost = HttpClientUtil.doPostHttp(url, str);
         try {
             System.out.println(URLDecoder.decode(doPost, "UTF-8"));
@@ -60,7 +61,7 @@ public class MallProductTypeServiceImpl implements MallProductTypeService {
        MallProductType mallProductType = new MallProductType();
         mallProductType.setType_ID(id);
         JSONObject json = JSONObject.fromObject(mallProductType);
-        String url = "http://localhost:8080/WelfareMall-management/productInfo/loadHierarchyName.cp";
+        String url =  CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/loadHierarchyName.cp";
         String doPost = HttpClientUtil.doPostHttp(url, json.toString());
 
         try {

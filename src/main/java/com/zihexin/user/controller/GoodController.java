@@ -196,7 +196,6 @@ public class GoodController extends BaseController {
 
         try {
 
-
             //取文件扩展名
            String originalFilename = uploadFile.getOriginalFilename();
            String orgName = originalFilename.substring(originalFilename.lastIndexOf(".") );
@@ -227,7 +226,7 @@ public class GoodController extends BaseController {
             //封装到map中返回
             Map result = new HashMap<>();
             result.put("error", 0);
-            result.put("url", CacheProperties.RESOURCE_SERVER_URL+dir);
+            result.put("url", CacheProperties.UPLOAD_URL+dir);
            String json = JsonUtils.objectToJson(result);
             return json;
         } catch (Exception e) {

@@ -12,7 +12,7 @@ import com.zihexin.user.entity.User;
 import com.zihexin.user.entity.mallItem.MallItem;
 import com.zihexin.user.entity.mallProductInfo.MallProductInfo;
 import com.zihexin.user.entity.mallProductType.MallProductType;
-import com.zihexin.user.mapper.GoodMapper;
+
 
 import com.zihexin.user.service.GoodService;
 import com.zihexin.user.util.CommonUrl;
@@ -38,8 +38,6 @@ import java.util.Map;
 @Service
 public class GoodServiceImpl implements GoodService{
 
-    @Autowired
-    private GoodMapper goodMapper;
 
 
     //条查；查询商品信息表列表
@@ -49,12 +47,12 @@ public class GoodServiceImpl implements GoodService{
         //把对象转成json
         JSONObject proJson = JSONObject.fromObject(mallProductInfo);
          String str = proJson.toString();
-        String url =CommonUrl.PRODUCTINFO_URL + "WelfareMall-management/productInfo/queryGoodInfo.cp";
+        String url = CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/queryGoodInfo.cp";
         String doPost = HttpClientUtil.doPostHttp(url, str);
         doPost=doPost.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
         try {
             doPost=URLDecoder.decode(doPost, "UTF-8");
-         } catch (UnsupportedEncodingException e) {
+          } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
          return doPost;
@@ -82,7 +80,7 @@ public class GoodServiceImpl implements GoodService{
         map.put("queryExts","appintroduce");
         JSONObject itemJjson = JSONObject.fromObject(map);
         String item= itemJjson.toString();
-        String url = CommonUrl.PRODUCTINFO_URL + "WelfareMall-management/product/queryProductDetail.cp";
+        String url = CommonUrl.PRODUCTINFO_URL +  "WelfareMall-management/product/queryProductDetail.cp";
         String doPost = HttpClientUtil.doPostHttp(url, item);
         doPost=doPost.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
         try {
@@ -103,24 +101,25 @@ public class GoodServiceImpl implements GoodService{
     @Override
     public String insertGoodInfo(MallItem mallItem,MallProductInfo mallProductInfo) {
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>(); //截取供应商的地址
         String str =  mallItem.getImg_url().substring(11); //截取URL的img标签
         int i = str.lastIndexOf("'");
         String substring = str.substring(0, str.length()-4);
         mallItem.setImg_url(substring);
 
-        String strPro = mallProductInfo.getImg_Url().substring(11); //截取URL的img标签
-        int j = strPro.lastIndexOf("'");
-        String prosub = strPro.substring(0, strPro.length() - 4);
-        mallProductInfo.setImg_Url(prosub);
-
+        //截取zhx商品信息的url地址
+        String ss = mallProductInfo.getImg_Url().replace("alt=\"\"","");//todo 替换方法太糙
+        ss = ss.substring(ss.indexOf("http"));
+        int j = ss.indexOf("\"");
+        String subs = ss.substring(0,j);//todo 只有第一张图会上传
+        mallProductInfo.setImg_Url(subs);
         map.put("mallItem",mallItem);
         map.put("productInfo",mallProductInfo);
 
         //把map转成json
         JSONObject mjson = JSONObject.fromObject(map);
         String strMap = mjson.toString();
-        String url = CommonUrl.PRODUCTINFO_URL + "WelfareMall-management/productInfo/insertGoodInfo.cp";
+        String url = CommonUrl.GOODINFO_URL +  "WelfareMall-management/productInfo/insertGoodInfo.cp";
         String doPost = HttpClientUtil.doPostHttp(url, strMap);
 
        try {
@@ -140,22 +139,23 @@ public class GoodServiceImpl implements GoodService{
      */
     @Override
     public void updateProductInfo(MallProductInfo mallProductInfo) {
-      String ss = mallProductInfo.getImg_Url().replace("alt=\"\"","");//todo 替换方法太糙
+        String ss = mallProductInfo.getImg_Url().replace("alt=\"\"","");//todo 替换方法太糙
         ss = ss.substring(ss.indexOf("http"));
         int i = ss.indexOf("\"");
         String substring = ss.substring(0,i);//todo 只有第一张图会上传
         mallProductInfo.setImg_Url(substring);
         JSONObject mjson = JSONObject.fromObject(mallProductInfo);
         String goodPro = mjson.toString();
-        String url = CommonUrl.PRODUCTINFO_URL + "WelfareMall-management/productInfo/updateProductInfo.cp";
+        String url =  CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/updateProductInfo.cp";
         String doPost = HttpClientUtil.doPostHttp(url, goodPro);
         try {
             System.out.println(URLDecoder.decode(doPost, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
+     }
 
     }
+
 
     /**
      * 修改商品库存和上架状态
@@ -166,7 +166,7 @@ public class GoodServiceImpl implements GoodService{
         mallProductInfo.setStatus("00");
         JSONObject mjson = JSONObject.fromObject(mallProductInfo);
         String goodPro = mjson.toString();
-        String url = CommonUrl.PRODUCTINFO_URL + "WelfareMall-management/productInfo/upGoodOnStatusStock.cp";
+        String url =  CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/upGoodOnStatusStock.cp";
         String doPost = HttpClientUtil.doPostHttp(url, goodPro);
         try {
             System.out.println(URLDecoder.decode(doPost, "UTF-8"));
@@ -192,7 +192,7 @@ public class GoodServiceImpl implements GoodService{
         mallProductInfo.setStatus("02");
        JSONObject mjson = JSONObject.fromObject(mallProductInfo);
         String goodPro = mjson.toString();
-        String url = CommonUrl.PRODUCTINFO_URL + "WelfareMall-management/productInfo/updateGoodStatus.cp";
+        String url =  CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/updateGoodStatus.cp";
         String doPost = HttpClientUtil.doPostHttp(url, goodPro);
         try {
             System.out.println(URLDecoder.decode(doPost, "UTF-8"));
@@ -213,7 +213,7 @@ public class GoodServiceImpl implements GoodService{
 
         JSONObject json = JSONObject.fromObject(mallProductInfo);
         String str = json.toString();
-        String url = CommonUrl.PRODUCTINFO_URL +  "WelfareMall-management/productInfo/findGoodByid.cp";
+        String url = CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/findGoodByid.cp";
 
 
         String doPost = HttpClientUtil.doPostHttp(url, str);
@@ -238,7 +238,7 @@ public class GoodServiceImpl implements GoodService{
     public List<MallProductInfo> findKinderitor(MallProductInfo mallProductInfo) {
         JSONObject json = JSONObject.fromObject(mallProductInfo);
         String str = json.toString();
-        String url = CommonUrl.PRODUCTINFO_URL + "WelfareMall-management/productInfo/findGoodByid.cp";
+        String url = CommonUrl.GOODINFO_URL + "WelfareMall-management/productInfo/findGoodByid.cp";
         String doPost = HttpClientUtil.doPostHttp(url, str);
         doPost=doPost.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
         try {
@@ -252,4 +252,4 @@ public class GoodServiceImpl implements GoodService{
     }
 
 
-}
+  }

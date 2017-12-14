@@ -75,7 +75,7 @@
       <tr>
           <td>商品描述:</td>
           <td>
-              <textarea style="width:200px;height:600px;" id="productInfo_Desc" name="product_Desc">${us.product_Desc}</textarea>
+              <textarea style="width:200px;height:600px;" id="product_Desc" name="product_Desc">${us.product_Desc}</textarea>
           </td>
       </tr>
 
@@ -90,7 +90,7 @@
     var itemEditEditor_imgUrl;
     $(function(){
     //实例化编辑器
-        itemEditEditor_prodesc = E3.createEditor("#productInfo_Desc");
+        itemEditEditor_prodesc = E3.createEditor("#product_Desc");
         itemEditEditor_imgUrl = E3.createEditor("#productInfo_img_Url")
     });
 </script>
