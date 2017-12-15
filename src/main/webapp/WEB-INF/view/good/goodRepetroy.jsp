@@ -16,7 +16,7 @@
 
     <tr>
       <td>库存数量:</td>
-      <td><input class="easyui-numberbox" type="text"  id="inventory_count_so" />
+      <td><input class="easyui-numberbox" type="text"  value ="9999" id="inventory_count_so" />
         <input type="hidden"  value="${inventory_count}" name="inventory_count">
           <input type="hidden"  value="${product_ID}" name="product_ID">
       </td>
@@ -27,5 +27,10 @@
 
   </table>
 </form>
+
+<script>
+
+
+</script>
 </body>
 </html>

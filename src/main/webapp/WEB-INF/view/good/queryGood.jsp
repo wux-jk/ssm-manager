@@ -358,6 +358,8 @@ $(function() {
                                 $.messager.alert('我的消息', '上架成功！', 'info');
                                 searchGoodInfo();
 
+
+
                      }
                  });
              }
